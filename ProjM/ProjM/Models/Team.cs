@@ -6,30 +6,46 @@ using System.Web;
 
 namespace ProjM.Models
 {
-    //public class Team
-    //{
+    public class Team
+    {
 
-    //    private ICollection<Project> projects;
+        private ICollection<Project> projects;
+        private ICollection<ApplicationUser> users;
 
-    //    public Team()
-    //    {
-    //        this.projects = new HashSet<Project>();
+        public Team()
+        {
+            this.projects = new HashSet<Project>();
+            this.users = new HashSet<ApplicationUser>();
 
-    //    }
+        }
 
-    //    public int Id { get; set; }
+        public int Id { get; set; }
 
-    //    [Required]
-    //    public string Name { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-    //    public virtual ICollection<Project> Projects {
-    //        get
-    //        {
-    //            return this.projects;
-    //        }
-    //            set
-    //        {
-    //            this.projects = value;
-    //        }
-    //}
+        public virtual ICollection<Project> Projects
+        {
+            get
+            {
+                return this.projects;
+            }
+            set
+            {
+                this.projects = value;
+            }
+        }
+
+        public virtual ICollection<ApplicationUser> Users
+        {
+            get
+            {
+                return this.users;
+            }
+            set
+            {
+                this.users = value;
+            }
+        }
+    }
 }

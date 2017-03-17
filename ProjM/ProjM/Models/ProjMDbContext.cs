@@ -7,10 +7,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProjM.Models;
+using System.Data.Entity;
 
 namespace ProjM.Models
 {
-    // You can add User data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
    
 
     public class ProjMDbContext : IdentityDbContext<ApplicationUser>
@@ -19,6 +19,11 @@ namespace ProjM.Models
             : base("ProjM", throwIfV1Schema: false)
         {
         }
+
+
+        public virtual IDbSet<Team> Teams { get; set; }
+
+        public virtual IDbSet<Project> Projects { get; set; }
 
         public static ProjMDbContext Create()
         {
