@@ -11,7 +11,7 @@ using System.Data.Entity;
 
 namespace ProjM.Models
 {
-   
+
 
     public class ProjMDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -21,9 +21,12 @@ namespace ProjM.Models
         }
 
 
-        public virtual IDbSet<Team> Teams { get; set; }
+
 
         public virtual IDbSet<Project> Projects { get; set; }
+        public virtual IDbSet<ProjectCategory> ProjectCategories { get; set; }
+        public virtual IDbSet<ProjectType> ProjectTypes { get; set; }
+        public virtual IDbSet<Team> Teams { get; set; }
 
         public static ProjMDbContext Create()
         {

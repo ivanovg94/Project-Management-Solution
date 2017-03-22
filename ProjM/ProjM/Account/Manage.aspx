@@ -12,9 +12,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-horizontal">
-                <h4>Change your account settings</h4>
+                <h4>Manage personal information: </h4>
                 <hr />
                 <dl class="dl-horizontal">
 
@@ -55,8 +55,7 @@
                     <dt>Two-Factor Authentication:</dt>
                     <dd>
                         <p>
-                            There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                            for details on setting up this ASP.NET application to support two-factor authentication.
+                            none
                         </p>
                         <% if (TwoFactorEnabled)
                             { %>
@@ -75,22 +74,68 @@
                     </dd>
 
                     <dt>
-                        <asp:Label ID="Label1" runat="server" Text="Name:"></asp:Label>
+                        <asp:Label ID="LabelName" runat="server" Text="Name:"></asp:Label>
                     </dt>
                     <dd>
-                        <asp:TextBox ID="UserNameTb" runat="server" Text="" Enabled="true" ></asp:TextBox>
+                        <asp:TextBox ID="UserNameTb" runat="server" Text="" Enabled="false"></asp:TextBox>
                     </dd>
 
                     <dt>
-                        <asp:Label ID="Label2" runat="server" Text="Phone Number:"></asp:Label>
+                        <asp:Label ID="LabelPhoneNum" runat="server"  Enabled="true" Text="Phone Number:"></asp:Label>
                     </dt>
                     <dd>
-                        <asp:TextBox ID="phoneNumberTb" runat="server" Text="" Enabled="true" ></asp:TextBox>
+                        <asp:TextBox ID="PhoneNumberTb" runat="server" Text="" Enabled="false"></asp:TextBox>
+                    </dd>
+                    <dt>
+                        <asp:Label ID="ExperienceLable" runat="server"  Text="Certificates, Internships or Working experience"></asp:Label>
+                    </dt>
+                    <dd>
+                        <textarea id="ExperienceTextArea" runat="server"  Disabled="true" cols="40" rows="4"></textarea>
                     </dd>
 
+                    <asp:Button ID="SaveDataButton" runat="server" Text="Edit profile" OnClick="SaveDataButton_Click" />
+                </dl>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <h4>Developer information: </h4>
+                <hr />
+                <dl class="dl-horizontal">
+                      <dt>
+                        <asp:Label ID="DevType" runat="server" Text="Type:"></asp:Label>
+                    </dt>
+                    <dd>
+                        <asp:DropDownList ID="DevTypeDdl" Enabled="false" runat="server"></asp:DropDownList>
+                    </dd>
+                    <dt>
+                        <asp:Label ID="LanguagesLabel" runat="server" Text="Languages"></asp:Label>
+                    </dt>
+                    <dd>
+                        <asp:CheckBoxList ID="LanguagesCbl" RepeatDirection="Vertical" RepeatColumns="2" RepeatLayout="Table" runat="server"></asp:CheckBoxList>
+                    </dd>
+
+                    <dt>
+                        <asp:Label ID="LabelRank" runat="server" Text="Rank:" ></asp:Label>
+                    </dt>
+                    <dd>
+                        <asp:TextBox ID="RankTb" runat="server" Enabled="false"></asp:TextBox>
+                    </dd>
+                        <dt>
+                        <asp:Label ID="LabelRankPoints" runat="server" Text="Rank points:" ></asp:Label>
+                    </dt>
+                    <dd>
+                        <asp:TextBox ID="RankPointsTb" runat="server" Enabled="false"></asp:TextBox>
+                    </dd>
+                        <dt>
+                        <asp:Label ID="Label1" runat="server" Text="Status: " ></asp:Label>
+                    </dt>
+                    <dd>
+                        <asp:Label ID="StatusLabel" runat="server" Text="Free" ForeColor="Green"></asp:Label>
+                    </dd>
                 </dl>
             </div>
         </div>
     </div>
-
 </asp:Content>

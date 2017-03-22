@@ -44,7 +44,7 @@ namespace ProjM.Migrations
 
             if (!context.Roles.Any(role => role.Name == "candidate"))
             {
-                roleManager.Create(roleDev);
+                roleManager.Create(roleCandidate);
             }
         }
 
