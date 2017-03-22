@@ -10,11 +10,11 @@ namespace ProjM.Models
     public class ApplicationUser : IdentityUser
     {
         // You can add User data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-        //private ICollection<ProgrammingLanguage> programmingLanguages;
+        private ICollection<ProgrammingLanguage> programmingLanguages;
 
         public ApplicationUser() {
 
-            //this.programmingLanguages = new HashSet<ProgrammingLanguage>();
+            this.programmingLanguages = new HashSet<ProgrammingLanguage>();
 
             PastProjectCount = 0;
             AvrPayroll = 0m;
@@ -39,17 +39,17 @@ namespace ProjM.Models
         public bool IsOccupied { get; set; }
 
 
-        //public virtual ICollection<ProgrammingLanguage> ProgrammingLanguages
-        //{
-        //    get
-        //    {
-        //        return this.programmingLanguages;
-        //    }
-        //    set
-        //    {
-        //        this.programmingLanguages = value;
-        //    }
-        //}
+        public virtual ICollection<ProgrammingLanguage> ProgrammingLanguages
+        {
+            get
+            {
+                return this.programmingLanguages;
+            }
+            set
+            {
+                this.programmingLanguages = value;
+            }
+        }
 
 
         public ClaimsIdentity GenerateUserIdentity(ApplicationUserManager manager)
