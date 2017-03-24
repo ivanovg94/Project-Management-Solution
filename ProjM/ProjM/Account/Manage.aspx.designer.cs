@@ -103,42 +103,6 @@ namespace ProjM.Account {
         protected global::System.Web.UI.WebControls.Button SaveDataButton;
         
         /// <summary>
-        /// DevType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DevType;
-        
-        /// <summary>
-        /// DevTypeDdl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DevTypeDdl;
-        
-        /// <summary>
-        /// LanguagesLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LanguagesLabel;
-        
-        /// <summary>
-        /// LanguagesCbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList LanguagesCbl;
-        
-        /// <summary>
         /// LabelRank control.
         /// </summary>
         /// <remarks>
@@ -191,5 +155,41 @@ namespace ProjM.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label StatusLabel;
+        
+        /// <summary>
+        /// DevType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DevType;
+        
+        /// <summary>
+        /// DevTypeDdl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DevTypeDdl;
+        
+        /// <summary>
+        /// LanguagesLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LanguagesLabel;
+        
+        /// <summary>
+        /// LanguagesCbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList LanguagesCbl;
     }
 }

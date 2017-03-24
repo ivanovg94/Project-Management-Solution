@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Owin;
 using ProjM.Models;
 using System.Data.Entity;
+using System.Web.UI.WebControls;
 
 namespace ProjM.Account
 {
@@ -94,17 +95,18 @@ namespace ProjM.Account
                 DevTypeDdl.DataSource = Enum.GetNames(typeof(DeveloperType));
                 DevTypeDdl.DataBind();
 
-                //LanguagesCbl.DataSource = Enum.GetNames(typeof(ProgrammingLanguage));
-                //LanguagesCbl.DataBind();
+                //fill language list with all possible selections
+                foreach (var lang in db.ProgrammingLanguages.ToList())
+                {
+                    LanguagesCbl.Items.Add(lang.Name);
+                }
+                // mark current user selections
+                foreach (var item in currentUser.ProgrammingLanguages.ToList())
+                {
+                    LanguagesCbl.Items.FindByText(item.Name).Selected = true;
+                }
 
             }
-
-
-
-
-
-
-
         }
 
 
@@ -153,50 +155,63 @@ namespace ProjM.Account
         }
 
 
-
         protected void SaveDataButton_Click(object sender, EventArgs e)
         {
 
             var db = new ProjMDbContext();
             var currentUserId = User.Identity.GetUserId();
-            var currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            var currentUser = db.Users
+                .FirstOrDefault(x => x.Id == currentUserId);
 
             if (SaveDataButton.Text == "Save changes")
             {
-
-
 
                 currentUser.UserName = UserNameTb.Text;
                 currentUser.Phone = PhoneNumberTb.Text;
                 currentUser.Experience = ExperienceTextArea.Value;
                 currentUser.DeveloperType = (DeveloperType)Enum.Parse(typeof(DeveloperType), DevTypeDdl.SelectedValue);
 
+                var selectedLanguagesNames = new List<string>();
+                var deSelectedLanguagesNames = new List<string>();
 
 
-                for (int j = 0; j < LanguagesCbl.Items.Count; j++)
+                foreach (ListItem item in LanguagesCbl.Items)
                 {
-                    if (LanguagesCbl.Items[j].Selected == true)
+                    if (item.Selected)
                     {
-                        //currentUser.ProgrammingLanguages.Add((ProgrammingLanguage)Enum.Parse(typeof(ProgrammingLanguage), LanguagesCbl.SelectedValue));
+
+                        selectedLanguagesNames.Add(item.Text);
+
+                    }
+                    if (!item.Selected)
+                    {
+                        deSelectedLanguagesNames.Add(item.Text);
                     }
 
                 }
 
 
+                foreach (string item in selectedLanguagesNames)
+                {
+                    currentUser.ProgrammingLanguages.Add(db.ProgrammingLanguages.FirstOrDefault(x => x.Name == item));
+                }
 
+                foreach (var item in deSelectedLanguagesNames)
+                {
+                    currentUser.ProgrammingLanguages.Remove(db.ProgrammingLanguages.FirstOrDefault(x => x.Name == item));
+                }
 
+                db.SaveChanges();
 
-
-
-                    db.SaveChanges();
-
-
+                selectedLanguagesNames.Clear();
+                deSelectedLanguagesNames.Clear();
 
 
                 UserNameTb.Enabled = false;
                 PhoneNumberTb.Enabled = false;
                 ExperienceTextArea.Disabled = true;
                 DevTypeDdl.Enabled = false;
+                LanguagesCbl.Enabled = false;
 
                 SaveDataButton.Text = "Edit profile";
 
@@ -207,11 +222,8 @@ namespace ProjM.Account
                 UserNameTb.Enabled = true;
                 PhoneNumberTb.Enabled = true;
                 ExperienceTextArea.Disabled = false;
+                LanguagesCbl.Enabled = true;
                 SaveDataButton.Text = "Save changes";
-
-                UserNameTb.Text = currentUser.UserName;
-                PhoneNumberTb.Text = currentUser.Phone;
-                ExperienceTextArea.Value = currentUser.Experience;
             }
 
 

@@ -104,19 +104,6 @@
                 <hr />
                 <dl class="dl-horizontal">
                       <dt>
-                        <asp:Label ID="DevType" runat="server" Text="Type:"></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:DropDownList ID="DevTypeDdl" Enabled="false" runat="server"></asp:DropDownList>
-                    </dd>
-                    <dt>
-                        <asp:Label ID="LanguagesLabel" runat="server" Text="Languages"></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:CheckBoxList ID="LanguagesCbl" RepeatDirection="Vertical" RepeatColumns="2" RepeatLayout="Table" runat="server"></asp:CheckBoxList>
-                    </dd>
-
-                    <dt>
                         <asp:Label ID="LabelRank" runat="server" Text="Rank:" ></asp:Label>
                     </dt>
                     <dd>
@@ -134,6 +121,21 @@
                     <dd>
                         <asp:Label ID="StatusLabel" runat="server" Text="Free" ForeColor="Green"></asp:Label>
                     </dd>
+
+                      <dt>
+                        <asp:Label ID="DevType" runat="server" Text="Type:"></asp:Label>
+                    </dt>
+                    <dd>
+                        <asp:DropDownList ID="DevTypeDdl" Enabled="false" runat="server"></asp:DropDownList>
+                    </dd>
+                    <dt>
+                        <asp:Label ID="LanguagesLabel" runat="server" Text="Languages"></asp:Label>
+                    </dt>
+                    <dd>
+                        <asp:CheckBoxList ID="LanguagesCbl" RepeatDirection="Vertical" Enabled="false" RepeatColumns="2" RepeatLayout="Table" runat="server"></asp:CheckBoxList>
+                    </dd>
+
+                  
                 </dl>
             </div>
         </div>

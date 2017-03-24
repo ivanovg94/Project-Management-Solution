@@ -11,7 +11,7 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -38,7 +38,7 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -70,6 +70,57 @@
                             </ul>
                         </LoggedInTemplate>
                     </asp:LoginView>
+
+                    <%-- --%>
+
+
+                    <asp:LoginView runat="server">
+                        <RoleGroups>
+                            <asp:RoleGroup Roles="hr">
+                                <ContentTemplate>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">New Project</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something else here</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">One more separated link</a></li>
+                                        </ul>
+                                    </li>
+
+
+
+                                    <li><a runat="server" href="~/Admin/AdminArea.aspx">Админска част</a></li>
+                                    </ul>
+                                </ContentTemplate>
+                            </asp:RoleGroup>
+
+                            <%--   
+                    <asp:RoleGroup Roles="Teacher">
+                        <ContentTemplate>
+                            <ul class="nav navbar-nav">
+                                <li><a runat="server" href="~/Teacher/TeacherArea.aspx">Оценяване</a></li>
+                            </ul>
+                        </ContentTemplate>
+                    </asp:RoleGroup>
+
+                   
+                    <asp:RoleGroup Roles="Student">
+                        <ContentTemplate>
+                            <ul class="nav navbar-nav">
+                                <li><a runat="server" href="~/Student/StudentMarks.aspx">Бележник</a></li>
+                            </ul>
+                        </ContentTemplate>
+                    </asp:RoleGroup>--%>
+                        </RoleGroups>
+
+                    </asp:LoginView>
+
+
+                    <%-- --%>
                 </div>
             </div>
         </div>

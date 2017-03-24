@@ -9,6 +9,7 @@ namespace ProjM.Models
     {
         None,
         Backend,
-        Frontend
+        Frontend,
+        QA
     }
 }

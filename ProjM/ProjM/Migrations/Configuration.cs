@@ -21,6 +21,7 @@ namespace ProjM.Migrations
         {
             this.RolesSeeder(context);
             this.UsersSeeder(context);
+            this.ProgrammingLanguageSeeder(context);
         }
 
         private void RolesSeeder(ProjMDbContext context)
@@ -68,11 +69,88 @@ namespace ProjM.Migrations
                 {
                     UserName = "hr@hr.com",
                     Email = "hr@hr.com",
+                    DeveloperType = DeveloperType.None
                 };
 
                 userManager.Create(adminUser, "123");
                 userManager.AddToRole(adminUser.Id, "hr");
             }
+        }
+
+        private void ProgrammingLanguageSeeder(ProjMDbContext context)
+        {
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 1,
+                Name = "Java"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 2,
+                Name = "Python"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 3,
+                Name = "C"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 4,
+                Name = "C#"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 5,
+                Name = "C++"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 6,
+                Name = "Objective-C"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 7,
+                Name = "GO"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 8,
+                Name = "Swift"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 9,
+                Name = "Ruby"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 10,
+                Name = "Java Script"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 11,
+                Name = "PHP"
+            });
+
+            context.ProgrammingLanguages.AddOrUpdate(new ProgrammingLanguage()
+            {
+                Id = 12,
+                Name = "SQL"
+            });
+
         }
     }
 }
