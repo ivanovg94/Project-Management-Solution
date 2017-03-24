@@ -28,7 +28,7 @@ namespace ProjM.Models
 
         public string Experience { get; set; }
 
-        public DeveloperType? DeveloperType { get; set; }
+        public DeveloperSpec? DeveloperSpec { get; set; }
 
 
         [ForeignKey("Team")]

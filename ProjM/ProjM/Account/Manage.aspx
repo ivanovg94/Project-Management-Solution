@@ -123,10 +123,10 @@
                     </dd>
 
                       <dt>
-                        <asp:Label ID="DevType" runat="server" Text="Type:"></asp:Label>
+                        <asp:Label ID="DevSpec" runat="server" Text="Specialization::"></asp:Label>
                     </dt>
                     <dd>
-                        <asp:DropDownList ID="DevTypeDdl" Enabled="false" runat="server"></asp:DropDownList>
+                        <asp:DropDownList ID="DevSpecDdl" Enabled="false" runat="server"></asp:DropDownList>
                     </dd>
                     <dt>
                         <asp:Label ID="LanguagesLabel" runat="server" Text="Languages"></asp:Label>

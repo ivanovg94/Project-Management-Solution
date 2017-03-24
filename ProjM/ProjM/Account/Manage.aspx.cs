@@ -90,10 +90,11 @@ namespace ProjM.Account
                 UserNameTb.Text = currentUser.UserName;
                 PhoneNumberTb.Text = currentUser.Phone;
                 ExperienceTextArea.Value = currentUser.Experience;
-                DevTypeDdl.SelectedValue = currentUser.DeveloperType.ToString();
 
-                DevTypeDdl.DataSource = Enum.GetNames(typeof(DeveloperType));
-                DevTypeDdl.DataBind();
+                DevSpecDdl.SelectedValue = currentUser.DeveloperSpec.ToString();
+
+                DevSpecDdl.DataSource = Enum.GetNames(typeof(DeveloperSpec));
+                DevSpecDdl.DataBind();
 
                 //fill language list with all possible selections
                 foreach (var lang in db.ProgrammingLanguages.ToList())
@@ -169,7 +170,7 @@ namespace ProjM.Account
                 currentUser.UserName = UserNameTb.Text;
                 currentUser.Phone = PhoneNumberTb.Text;
                 currentUser.Experience = ExperienceTextArea.Value;
-                currentUser.DeveloperType = (DeveloperType)Enum.Parse(typeof(DeveloperType), DevTypeDdl.SelectedValue);
+                currentUser.DeveloperSpec = (DeveloperSpec)Enum.Parse(typeof(DeveloperSpec), DevSpecDdl.SelectedValue);
 
                 var selectedLanguagesNames = new List<string>();
                 var deSelectedLanguagesNames = new List<string>();
@@ -210,7 +211,7 @@ namespace ProjM.Account
                 UserNameTb.Enabled = false;
                 PhoneNumberTb.Enabled = false;
                 ExperienceTextArea.Disabled = true;
-                DevTypeDdl.Enabled = false;
+                DevSpecDdl.Enabled = false;
                 LanguagesCbl.Enabled = false;
 
                 SaveDataButton.Text = "Edit profile";
@@ -218,7 +219,7 @@ namespace ProjM.Account
             }
             else if (SaveDataButton.Text == "Edit profile")
             {
-                DevTypeDdl.Enabled = true;
+                DevSpecDdl.Enabled = true;
                 UserNameTb.Enabled = true;
                 PhoneNumberTb.Enabled = true;
                 ExperienceTextArea.Disabled = false;

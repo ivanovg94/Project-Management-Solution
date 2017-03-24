@@ -22,6 +22,28 @@ namespace ProjM.Migrations
             this.RolesSeeder(context);
             this.UsersSeeder(context);
             this.ProgrammingLanguageSeeder(context);
+            this.ProjectTypeSeeder(context);
+        }
+
+        private void ProjectTypeSeeder(ProjMDbContext context)
+        {
+            context.ProjectTypes.AddOrUpdate(new ProjectType()
+            {
+                Id = 1,
+                Name = "Desktop Application"
+            });
+
+            context.ProjectTypes.AddOrUpdate(new ProjectType()
+            {
+                Id = 2,
+                Name = "Web Application"
+            });
+
+            context.ProjectTypes.AddOrUpdate(new ProjectType()
+            {
+                Id = 3,
+                Name = "Mobile Application"
+            });
         }
 
         private void RolesSeeder(ProjMDbContext context)
@@ -69,7 +91,7 @@ namespace ProjM.Migrations
                 {
                     UserName = "hr@hr.com",
                     Email = "hr@hr.com",
-                    DeveloperType = DeveloperType.None
+                    DeveloperSpec = DeveloperSpec.None
                 };
 
                 userManager.Create(adminUser, "123");

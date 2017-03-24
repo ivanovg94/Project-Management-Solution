@@ -157,22 +157,22 @@ namespace ProjM.Account {
         protected global::System.Web.UI.WebControls.Label StatusLabel;
         
         /// <summary>
-        /// DevType control.
+        /// DevSpec control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DevType;
+        protected global::System.Web.UI.WebControls.Label DevSpec;
         
         /// <summary>
-        /// DevTypeDdl control.
+        /// DevSpecDdl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DevTypeDdl;
+        protected global::System.Web.UI.WebControls.DropDownList DevSpecDdl;
         
         /// <summary>
         /// LanguagesLabel control.
