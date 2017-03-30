@@ -11,30 +11,22 @@
         </asp:PlaceHolder>
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-horizontal">
-                <h4>Manage personal information: </h4>
-                <hr />
-                <dl class="dl-horizontal">
+    <div class="container">
+        <div class="well col-lg-6">
+            <fieldset>
+                <legend>Personal Data</legend>
 
-
-                    <dt>Password:</dt>
-                    <dd>
-                        <asp:HyperLink NavigateUrl="/Account/ManagePassword" Text="[Change]" Visible="false" ID="ChangePassword" runat="server" />
-                        <asp:HyperLink NavigateUrl="/Account/ManagePassword" Text="[Create]" Visible="false" ID="CreatePassword" runat="server" />
-                    </dd>
-                    <dt>External Logins:</dt>
+                <%--  <dt>External Logins:</dt>
                     <dd><%: LoginsCount %>
                         <asp:HyperLink NavigateUrl="/Account/ManageLogins" Text="[Manage]" runat="server" />
-                    </dd>
-                    <%--
+                    </dd>--%>
+                <%--
                         Phone Numbers can used as a second factor of verification in a two-factor authentication system.
                         See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                         for details on setting up this ASP.NET application to support two-factor authentication using SMS.
                         Uncomment the following blocks after you have set up two-factor authentication
-                    --%>
-                    <%--
+                --%>
+                <%--
                     <dt>Phone Number:</dt>
                     <% if (HasPhoneNumber)
                        { %>
@@ -50,94 +42,107 @@
                         <asp:LinkButton Text="[Remove]" OnClick="RemovePhone_Click" runat="server" />
                     </dd>
                     <% } %>
-                    --%>
+                --%>
 
-                    <dt>Two-Factor Authentication:</dt>
+                <%--  <dt>Two-Factor Authentication:</dt>
                     <dd>
                         <p>
                             none
-                        </p>
-                        <% if (TwoFactorEnabled)
-                            { %>
-                        <%--
+                        </p>--%>
+                <% //if (TwoFactorEnabled)
+// { %>
+                <%--
                         Enabled
                         <asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />
-                        --%>
-                        <% }
-                            else
-                            { %>
-                        <%--
+                --%>
+                <% //}
+// else
+// { %>
+                <%--
                         Disabled
                         <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
-                        --%>
-                        <% } %>
-                    </dd>
+                --%>
+                <% //} %>
+                <%--</dd>--%>
 
-                    <dt>
-                        <asp:Label ID="LabelName" runat="server" Text="Name:"></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:TextBox ID="UserNameTb" runat="server" Text="" Enabled="false"></asp:TextBox>
-                    </dd>
 
-                    <dt>
-                        <asp:Label ID="LabelPhoneNum" runat="server"  Enabled="true" Text="Phone Number:"></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:TextBox ID="PhoneNumberTb" runat="server" Text="" Enabled="false"></asp:TextBox>
-                    </dd>
-                    <dt>
-                        <asp:Label ID="ExperienceLable" runat="server"  Text="Certificates, Internships or Working experience"></asp:Label>
-                    </dt>
-                    <dd>
-                        <textarea id="ExperienceTextArea" runat="server"  Disabled="true" cols="40" rows="4"></textarea>
-                    </dd>
+                <div class="form-group">
+                    <asp:Label ID="LabelName" runat="server" CssClass="col-lg-2 control-label" Text="Name"></asp:Label>
+                    <div class="col-lg-10">
+                        <asp:TextBox ID="UserNameTb" runat="server" placeholder="User Name" Text="" CssClass="form-control" Enabled="false"></asp:TextBox>
+                    </div>
+                </div>
 
-                    <asp:Button ID="SaveDataButton" runat="server" Text="Edit profile" OnClick="SaveDataButton_Click" />
-                </dl>
-            </div>
+                <div class="form-group">
+                    <asp:Label ID="LabelPhoneNum" runat="server" CssClass="col-lg-2 control-label" Enabled="true" Text="Phone Number"></asp:Label>
+                    <div class="col-lg-10">
+                        <asp:TextBox ID="PhoneNumberTb" runat="server" CssClass="form-control" placeholder="Phone Number" Text="" Enabled="false"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="ExperienceLable" runat="server" CssClass="col-lg-2 control-label" Text="Certificates, Internships, Working experience"></asp:Label>
+                    <div class="col-lg-10">
+                        <textarea id="ExperienceTextArea" CssClass="form-control" runat="server" placeholder="Description" disabled="true" cols="50" rows="6"></textarea>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <asp:Label ID="Lab" runat="server" CssClass="col-lg-2 control-label" Enabled="true" Text=""></asp:Label>
+
+                    <div class="col-lg-10">
+                        <asp:HyperLink CssClass="btn btn-default" NavigateUrl="/Account/ManagePassword" Text="Change Password" Visible="false" ID="ChangePassword" runat="server" />
+                        <asp:HyperLink CssClass="btn btn-default" NavigateUrl="/Account/ManagePassword" Text="[Create]" Visible="false" ID="CreatePassword" runat="server" />
+                    </div>
+                    <div class="pull-right">
+                        <asp:Button ID="SaveDataButton" CssClass="btn btn-default" runat="server" Text="Edit profile" OnClick="SaveDataButton_Click" />
+
+                    </div>
+                </div>
+
+
+            </fieldset>
         </div>
-        <div class="col-md-6">
-            <div class="form-horizontal">
-                <h4>Developer information: </h4>
-                <hr />
-                <dl class="dl-horizontal">
-                      <dt>
-                        <asp:Label ID="LabelRank" runat="server" Text="Rank:" ></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:TextBox ID="RankTb" runat="server" Enabled="false"></asp:TextBox>
-                    </dd>
-                        <dt>
-                        <asp:Label ID="LabelRankPoints" runat="server" Text="Rank points:" ></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:TextBox ID="RankPointsTb" runat="server" Enabled="false"></asp:TextBox>
-                    </dd>
-                        <dt>
-                        <asp:Label ID="Label1" runat="server" Text="Status: " ></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:Label ID="StatusLabel" runat="server" Text="Free" ForeColor="Green"></asp:Label>
-                    </dd>
 
-                      <dt>
-                        <asp:Label ID="DevSpec" runat="server" Text="Specialization::"></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:DropDownList ID="DevSpecDdl" Enabled="false" runat="server"></asp:DropDownList>
-                    </dd>
-                    <dt>
-                        <asp:Label ID="LanguagesLabel" runat="server" Text="Languages"></asp:Label>
-                    </dt>
-                    <dd>
-                        <asp:CheckBoxList ID="LanguagesCbl" RepeatDirection="Vertical" Enabled="false" RepeatColumns="2" RepeatLayout="Table" runat="server"></asp:CheckBoxList>
-                    </dd>
+        <div class="well col-lg-6">
+            <fieldset>
+                <legend>Professional Information</legend>
 
-                  
-                </dl>
-            </div>
+                <div class="form-group">
+                    <asp:Label ID="LabelRank" CssClass="col-lg-2 control-label" runat="server" Text="Rank"></asp:Label>
+                    <div class="col-lg-10">
+                        <asp:TextBox ID="RankTb" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <asp:Label ID="LabelRankPoints" CssClass="col-lg-2 control-label" runat="server" Text="Rank points"></asp:Label>
+                    <div class="col-lg-10">
+                        <asp:TextBox ID="RankPointsTb" CssClass="form-control" runat="server" Enabled="false"></asp:TextBox>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <asp:Label ID="StatusLabelTag" CssClass="col-lg-2 control-label" runat="server" Text="Status "></asp:Label>
+                    <div class="col-lg-10">
+
+                        <asp:Label ID="StatusLabel" runat="server" CssClass="col-lg-2 control-label" Text="Free" ForeColor="Green"></asp:Label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <asp:Label ID="DevSpec" CssClass="col-lg-2 control-label" runat="server" Text="Speciality"></asp:Label>
+                    <div class="col-lg-10">
+                        <asp:DropDownList ID="DevSpecDdl" CssClass="form-calendar" Enabled="false" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <asp:Label ID="LanguagesLabel" CssClass="col-lg-2 control-label" runat="server" Text="Languages"></asp:Label>
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <asp:CheckBoxList ID="LanguagesCbl" CssClass="control-checkbox" RepeatDirection="Vertical" Enabled="false" RepeatColumns="2" RepeatLayout="Table" runat="server"></asp:CheckBoxList>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
 </asp:Content>

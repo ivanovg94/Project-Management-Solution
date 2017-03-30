@@ -22,24 +22,6 @@ namespace ProjM.Account {
         protected global::System.Web.UI.WebControls.PlaceHolder successMessage;
         
         /// <summary>
-        /// ChangePassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ChangePassword;
-        
-        /// <summary>
-        /// CreatePassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink CreatePassword;
-        
-        /// <summary>
         /// LabelName control.
         /// </summary>
         /// <remarks>
@@ -94,6 +76,33 @@ namespace ProjM.Account {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea ExperienceTextArea;
         
         /// <summary>
+        /// Lab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Lab;
+        
+        /// <summary>
+        /// ChangePassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink ChangePassword;
+        
+        /// <summary>
+        /// CreatePassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink CreatePassword;
+        
+        /// <summary>
         /// SaveDataButton control.
         /// </summary>
         /// <remarks>
@@ -139,13 +148,13 @@ namespace ProjM.Account {
         protected global::System.Web.UI.WebControls.TextBox RankPointsTb;
         
         /// <summary>
-        /// Label1 control.
+        /// StatusLabelTag control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label StatusLabelTag;
         
         /// <summary>
         /// StatusLabel control.

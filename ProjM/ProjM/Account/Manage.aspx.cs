@@ -16,6 +16,13 @@ namespace ProjM.Account
 {
     public partial class Manage : System.Web.UI.Page
     {
+        private ProjMDbContext conttext;
+
+        public Manage()
+        {
+            this.conttext = new ProjMDbContext();
+        }
+
         protected string SuccessMessage
         {
             get;
@@ -97,15 +104,25 @@ namespace ProjM.Account
                 DevSpecDdl.DataBind();
 
                 //fill language list with all possible selections
-                foreach (var lang in db.ProgrammingLanguages.ToList())
+                var languages = db.ProgrammingLanguages.ToList();
+                foreach (var lang in languages)
                 {
-                    LanguagesCbl.Items.Add(lang.Name);
+                    LanguagesCbl.Items.Add(new ListItem()
+                    {
+                        Value = lang.Id.ToString(),
+                        Text = lang.Name
+                    });
                 }
+
+                var currentUserLanguages = currentUser.ProgrammingLanguages.ToList();
                 // mark current user selections
-                foreach (var item in currentUser.ProgrammingLanguages.ToList())
+                foreach (var item in currentUserLanguages)
                 {
-                    LanguagesCbl.Items.FindByText(item.Name).Selected = true;
+                    LanguagesCbl.Items.FindByValue(item.Id.ToString()).Selected = true;
                 }
+
+                languages.Clear();
+                currentUserLanguages.Clear();
 
             }
         }
@@ -161,8 +178,7 @@ namespace ProjM.Account
 
             var db = new ProjMDbContext();
             var currentUserId = User.Identity.GetUserId();
-            var currentUser = db.Users
-                .FirstOrDefault(x => x.Id == currentUserId);
+            var currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
 
             if (SaveDataButton.Text == "Save changes")
             {
@@ -172,41 +188,25 @@ namespace ProjM.Account
                 currentUser.Experience = ExperienceTextArea.Value;
                 currentUser.DeveloperSpec = (DeveloperSpec)Enum.Parse(typeof(DeveloperSpec), DevSpecDdl.SelectedValue);
 
-                var selectedLanguagesNames = new List<string>();
-                var deSelectedLanguagesNames = new List<string>();
-
-
                 foreach (ListItem item in LanguagesCbl.Items)
                 {
                     if (item.Selected)
                     {
-
-                        selectedLanguagesNames.Add(item.Text);
-
+                        currentUser
+                                   .ProgrammingLanguages
+                                   .Add(
+                                    db.ProgrammingLanguages.Find(int.Parse(item.Value)));
                     }
                     if (!item.Selected)
                     {
-                        deSelectedLanguagesNames.Add(item.Text);
+                        currentUser
+                                   .ProgrammingLanguages
+                                   .Remove(
+                                    db.ProgrammingLanguages.Find(int.Parse(item.Value)));
                     }
-
-                }
-
-
-                foreach (string item in selectedLanguagesNames)
-                {
-                    currentUser.ProgrammingLanguages.Add(db.ProgrammingLanguages.FirstOrDefault(x => x.Name == item));
-                }
-
-                foreach (var item in deSelectedLanguagesNames)
-                {
-                    currentUser.ProgrammingLanguages.Remove(db.ProgrammingLanguages.FirstOrDefault(x => x.Name == item));
                 }
 
                 db.SaveChanges();
-
-                selectedLanguagesNames.Clear();
-                deSelectedLanguagesNames.Clear();
-
 
                 UserNameTb.Enabled = false;
                 PhoneNumberTb.Enabled = false;
@@ -226,15 +226,6 @@ namespace ProjM.Account
                 LanguagesCbl.Enabled = true;
                 SaveDataButton.Text = "Save changes";
             }
-
-
-
-
-
-
-
-
-
         }
     }
 }

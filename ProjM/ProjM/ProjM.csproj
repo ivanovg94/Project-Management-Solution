@@ -180,7 +180,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="ProjectForms\NewProject.aspx" />
+    <Content Include="WebForms\ProjectForms\All.aspx" />
+    <Content Include="WebForms\ProjectForms\Details.aspx" />
+    <Content Include="WebForms\ProjectForms\NewProject.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -372,11 +374,26 @@
     <Compile Include="Models\ProjectType.cs" />
     <Compile Include="Models\ProjMDbContext.cs" />
     <Compile Include="Models\Team.cs" />
-    <Compile Include="ProjectForms\NewProject.aspx.cs">
+    <Compile Include="ViewModels\ProjectVM.cs" />
+    <Compile Include="WebForms\ProjectForms\All.aspx.cs">
+      <DependentUpon>All.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\ProjectForms\All.aspx.designer.cs">
+      <DependentUpon>All.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\ProjectForms\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\ProjectForms\Details.aspx.designer.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\ProjectForms\NewProject.aspx.cs">
       <DependentUpon>NewProject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProjectForms\NewProject.aspx.designer.cs">
+    <Compile Include="WebForms\ProjectForms\NewProject.aspx.designer.cs">
       <DependentUpon>NewProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -405,7 +422,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="WebForms\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -23,6 +23,22 @@ namespace ProjM.Migrations
             this.UsersSeeder(context);
             this.ProgrammingLanguageSeeder(context);
             this.ProjectTypeSeeder(context);
+            this.TestCategorySeeder(context);
+        }
+
+        private void TestCategorySeeder(ProjMDbContext context)
+        {
+            context.ProjectCategories.AddOrUpdate(new ProjectCategory()
+            {
+                Id = 1,
+                Name = "First Test Category"
+            });
+
+            context.ProjectCategories.AddOrUpdate(new ProjectCategory()
+            {
+                Id = 2,
+                Name = "Second Test Category"
+            });
         }
 
         private void ProjectTypeSeeder(ProjMDbContext context)
