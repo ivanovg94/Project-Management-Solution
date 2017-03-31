@@ -179,6 +179,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
+    <Content Include="WebForms\Team\Assembly.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="WebForms\ProjectForms\All.aspx" />
     <Content Include="WebForms\ProjectForms\Details.aspx" />
@@ -418,6 +419,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Team\Assembly.aspx.cs">
+      <DependentUpon>Assembly.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Team\Assembly.aspx.designer.cs">
+      <DependentUpon>Assembly.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

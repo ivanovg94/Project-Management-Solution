@@ -16,11 +16,51 @@ namespace ProjM.WebForms.ProjectForms
             if (!IsPostBack)
             {
                 queryStringID = int.Parse(Request.QueryString["id"]);
+                var currentId = queryStringID;
+                var context = new ProjMDbContext();
+               
+                var currentProject = context.Projects.Find(currentId);
+
+                //fill Project Type DDL
+                var projectTypes = context.ProjectTypes.ToList();
+                foreach (var type in projectTypes)
+                {
+                    PrjTypeDdl.Items.Add(new ListItem()
+                    {
+                        Value = type.Id.ToString(),
+                        Text = type.Name
+                    });
+                }
+                projectTypes.Clear();
+                PrjTypeDdl.SelectedValue = currentProject.ProjectTypeId.ToString();
+
+                //fill Project Category DDL
+                var projectCategory = context.ProjectCategories.ToList();
+                foreach (var catg in projectCategory)
+                {
+                    PrjCategoryDdl.Items.Add(new ListItem()
+                    {
+                        Value = catg.Id.ToString(),
+                        Text = catg.Name
+                    });
+                }
+                projectCategory.Clear();
+                PrjCategoryDdl.SelectedValue = currentProject.ProjectCategoryId.ToString();
+
+
+
+
+                //fill ProjectStatus DDL
+                StatusDdl.DataSource = Enum.GetNames(typeof(ProjectStatus));
+                StatusDdl.DataBind();
+
+                StatusDdl.SelectedValue = currentProject.ProjectStatus.ToString();
+                DeadLineCalendar.SelectedDate = currentProject.DeadLine.Date;
+
+
+
+
             }
-
-            var db = new ProjMDbContext();
-
-            var project = new Project();
 
 
             //TextBox1.Text= db
@@ -28,13 +68,14 @@ namespace ProjM.WebForms.ProjectForms
             //                   .Find(queryStringID)
             //                   .Name;
 
-        
+
+
 
 
 
 
         }
 
-        
+
     }
 }
