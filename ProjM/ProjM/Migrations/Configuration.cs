@@ -24,6 +24,77 @@ namespace ProjM.Migrations
             this.ProgrammingLanguageSeeder(context);
             this.ProjectTypeSeeder(context);
             this.TestCategorySeeder(context);
+            this.UserRankSeeder(context);
+        }
+
+        private void UserRankSeeder(ProjMDbContext context)
+        {
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 0,
+                RankName = "None",
+                RankPoints = 0
+            });
+
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 1,
+                RankName = "Candidate",
+                RankPoints = 0
+            });
+
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 2,
+                RankName = "Novice",
+
+            });
+
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 3,
+                RankName = "Begginer",
+              
+            });
+
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 4,
+                RankName = "Intermediate",
+
+            });
+
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 5,
+                RankName = "Adept",
+
+            });
+
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 6,
+                RankName = "Seasoned",
+
+            });
+
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 7,
+                RankName = "Senior",
+
+            });
+
+            context.UserRanks.AddOrUpdate(new UserRank()
+            {
+                Id = 8,
+                RankName = "Expert",
+
+            });
+
+
+
+
         }
 
         private void TestCategorySeeder(ProjMDbContext context)
@@ -107,7 +178,8 @@ namespace ProjM.Migrations
                 {
                     UserName = "hr@hr.com",
                     Email = "hr@hr.com",
-                    DeveloperSpec = DeveloperSpec.None
+                    DeveloperSpec = DeveloperSpec.None,
+                    UserRankId = 0
                 };
 
                 userManager.Create(adminUser, "123");

@@ -24,6 +24,8 @@ namespace ProjM.Models
         [Required]
         public string Name { get; set; }
 
+        public virtual TeamStatus TeamStatus { get; set; }
+
         public virtual ICollection<Project> Projects
         {
             get

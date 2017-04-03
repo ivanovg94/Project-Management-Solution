@@ -375,6 +375,10 @@
     <Compile Include="Models\ProjectType.cs" />
     <Compile Include="Models\ProjMDbContext.cs" />
     <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\TeamStatus.cs" />
+    <Compile Include="Models\UserRank.cs" />
+    <Compile Include="Models\UserStatus.cs" />
+    <Compile Include="ViewModels\DevVM.cs" />
     <Compile Include="ViewModels\ProjectVM.cs" />
     <Compile Include="WebForms\ProjectForms\All.aspx.cs">
       <DependentUpon>All.aspx</DependentUpon>

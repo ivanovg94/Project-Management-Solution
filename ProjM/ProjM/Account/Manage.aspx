@@ -125,7 +125,7 @@
                     <asp:Label ID="StatusLabelTag" CssClass="col-lg-2 control-label" runat="server" Text="Status "></asp:Label>
                     <div class="col-lg-10">
 
-                        <asp:Label ID="StatusLabel" runat="server" CssClass="col-lg-2 control-label" Text="Free" ForeColor="Green"></asp:Label>
+                        <asp:Label ID="StatusLabel" runat="server" CssClass="col-lg-2 control-label" Text="" ForeColor=""></asp:Label>
                     </div>
                 </div>
 

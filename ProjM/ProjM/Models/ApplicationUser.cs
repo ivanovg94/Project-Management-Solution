@@ -18,7 +18,6 @@ namespace ProjM.Models
 
             PastProjectCount = 0;
             AvrPayroll = 0m;
-            IsOccupied = false;
             }
 
         public string Phone { get; set; }
@@ -34,9 +33,13 @@ namespace ProjM.Models
         [ForeignKey("Team")]
         public int? TeamId { get; set; }
 
-        public Team Team { get; set; }
+        public virtual Team Team { get; set; }
 
-        public bool IsOccupied { get; set; }
+        public int? UserRankId { get; set; }
+
+        public virtual UserRank UserRank { get; set; }
+
+        public UserStatus UserStatus { get; set; }
 
 
         public virtual ICollection<ProgrammingLanguage> ProgrammingLanguages

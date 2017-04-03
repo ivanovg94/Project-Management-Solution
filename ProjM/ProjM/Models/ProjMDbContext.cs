@@ -28,6 +28,8 @@ namespace ProjM.Models
         public virtual IDbSet<ProjectType> ProjectTypes { get; set; }
         public virtual IDbSet<Team> Teams { get; set; }
         public virtual IDbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
+        public virtual IDbSet<UserRank> UserRanks { get; set; }
+
 
 
         public static ProjMDbContext Create()

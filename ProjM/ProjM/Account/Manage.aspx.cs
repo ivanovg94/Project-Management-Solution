@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Owin;
 using ProjM.Models;
-using System.Data.Entity;
 using System.Web.UI.WebControls;
+using System.Drawing;
 
 namespace ProjM.Account
 {
@@ -97,7 +92,19 @@ namespace ProjM.Account
                 UserNameTb.Text = currentUser.UserName;
                 PhoneNumberTb.Text = currentUser.Phone;
                 ExperienceTextArea.Value = currentUser.Experience;
-
+                StatusLabel.Text = currentUser.UserStatus.ToString();
+                switch (currentUser.UserStatus)
+                {
+                    case UserStatus.Free:
+                        StatusLabel.ForeColor = Color.Green;
+                        break;
+                    case UserStatus.Considering:
+                        StatusLabel.ForeColor = Color.Black;
+                        break;
+                    case UserStatus.Occupied:
+                        StatusLabel.ForeColor = Color.Red;
+                        break;
+                }
                 DevSpecDdl.SelectedValue = currentUser.DeveloperSpec.ToString();
 
                 DevSpecDdl.DataSource = Enum.GetNames(typeof(DeveloperSpec));
