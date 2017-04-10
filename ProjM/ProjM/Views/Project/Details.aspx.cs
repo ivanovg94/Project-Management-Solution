@@ -1,8 +1,10 @@
 ﻿using ProjM.Models;
+using ProjM.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Providers.Entities;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -10,17 +12,22 @@ namespace ProjM.WebForms.ProjectForms
 {
     public partial class Details : Page
     {
-        int queryStringID = -1;
+        ProjMDbContext context = new ProjMDbContext();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                queryStringID = int.Parse(Request.QueryString["id"]);
-                var currentId = queryStringID;
-                var context = new ProjMDbContext();
-               
-                var currentProject = context.Projects.Find(currentId);
+                int queryStringID = int.Parse(Request.QueryString["id"]);
+                var currentProject = context.Projects.Find(queryStringID);
 
+
+
+                int loginId = MySession.Current.LoginId;
+                string property1 = MySession.Current.Data1;
+                MySession.Current.Data1 = Request.QueryString["id"];
+
+                
                 //fill Project Type DDL
                 var projectTypes = context.ProjectTypes.ToList();
                 foreach (var type in projectTypes)
@@ -47,35 +54,33 @@ namespace ProjM.WebForms.ProjectForms
                 projectCategory.Clear();
                 PrjCategoryDdl.SelectedValue = currentProject.ProjectCategoryId.ToString();
 
-
-
-
                 //fill ProjectStatus DDL
                 StatusDdl.DataSource = Enum.GetNames(typeof(ProjectStatus));
                 StatusDdl.DataBind();
 
                 StatusDdl.SelectedValue = currentProject.ProjectStatus.ToString();
                 DeadLineCalendar.SelectedDate = currentProject.DeadLine.Date;
-
-
+                DescTextArea.Value = currentProject.Description;
+                BudgetTb.Text = currentProject.Budget.ToString();
 
 
             }
-
-
-            //TextBox1.Text= db
-            //                   .Projects
-            //                   .Find(queryStringID)
-            //                   .Name;
-
-
-
-
-
-
-
         }
 
+        protected void TeamBtn_Click(object sender, EventArgs e)
+        {
+            int queryStringID = int.Parse(Request.QueryString["id"]);
+            var currentProject = context.Projects.Find(queryStringID);
 
+            if (currentProject.TeamId == null)
+            {
+                Response.Redirect("~/Views/Teams/NewTeam.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/Views/Teams/Assembly.aspx?id=" +currentProject.TeamId);
+            }
+
+        }
     }
 }

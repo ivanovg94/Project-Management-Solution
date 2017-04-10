@@ -31,7 +31,9 @@ namespace ProjM.WebForms.ProjectForms
                           DeadLine = x.DeadLine,
                           Budget = x.Budget,
                           Status = x.ProjectStatus.ToString(),
-                          Team = x.Team.Name,
+                          Team = x.Team == null ? "-" : x.Team.Name,
+
+                          TeamStatus = x.Team == null ? "-" : x.Team.TeamStatus.ToString(),
                           Category = x.ProjectCategory.Name,
                           Type = x.ProjectType.Name
 
@@ -58,8 +60,6 @@ namespace ProjM.WebForms.ProjectForms
                 row = grid.Rows[index];
                 id = int.Parse(row.Cells[1].Text);
             }
-
-           // int res = id;
 
             Response.Redirect("Details.aspx?id=" + id.ToString());
 

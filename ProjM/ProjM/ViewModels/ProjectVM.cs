@@ -19,6 +19,8 @@ namespace ProjM.ViewModels
 
         public string Team { get; set; }
 
+        public string TeamStatus { get; set; }
+
         public string Category { get; set; }
 
         public string Type { get; set; }

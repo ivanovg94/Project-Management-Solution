@@ -46,7 +46,7 @@ namespace ProjM.ProjectForms
         {
             var context = new ProjMDbContext();
 
-            Project project = new Project(); // this is the entity class EF created for us
+            Project project = new Project(); 
 
             project.Name = ProjectNameTb.Text;
             project.Description = DescTextArea.Value;
@@ -58,8 +58,6 @@ namespace ProjM.ProjectForms
                                      .ProjectTypes
                                      .Find(int.Parse(PrjTypeDdl.SelectedItem.Value))
                                      .Id;
-
-
 
             project.ProjectCategoryId = context
                                          .ProjectCategories

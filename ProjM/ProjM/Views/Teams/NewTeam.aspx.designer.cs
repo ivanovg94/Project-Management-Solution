@@ -7,73 +7,46 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjM.WebForms.ProjectForms {
+namespace ProjM.Views.Teams {
     
     
-    public partial class Details {
+    public partial class NewTeam {
         
         /// <summary>
-        /// ProjectNameTb control.
+        /// TeamNameTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ProjectNameTb;
+        protected global::System.Web.UI.WebControls.TextBox TeamNameTb;
         
         /// <summary>
-        /// PrjTypeDdl control.
+        /// FrontEndTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PrjTypeDdl;
+        protected global::System.Web.UI.WebControls.TextBox FrontEndTb;
         
         /// <summary>
-        /// PrjCategoryDdl control.
+        /// BackEndTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PrjCategoryDdl;
+        protected global::System.Web.UI.WebControls.TextBox BackEndTb;
         
         /// <summary>
-        /// DescTextArea control.
+        /// QATb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea DescTextArea;
-        
-        /// <summary>
-        /// StatusDdl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList StatusDdl;
-        
-        /// <summary>
-        /// DeadLineCalendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar DeadLineCalendar;
-        
-        /// <summary>
-        /// BudgetTb control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BudgetTb;
+        protected global::System.Web.UI.WebControls.TextBox QATb;
         
         /// <summary>
         /// CancelBtn control.
@@ -85,12 +58,21 @@ namespace ProjM.WebForms.ProjectForms {
         protected global::System.Web.UI.WebControls.Button CancelBtn;
         
         /// <summary>
-        /// EditBtn control.
+        /// ContinueBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button EditBtn;
+        protected global::System.Web.UI.WebControls.Button ContinueBtn;
+        
+        /// <summary>
+        /// CurrentProjectIdLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CurrentProjectIdLabel;
     }
 }

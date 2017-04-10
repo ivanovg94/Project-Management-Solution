@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label for="DescTextArea" class="col-lg-2 control-label">Description</label>
                     <div class="col-lg-10">
-                        <textarea id="DescTextArea" runat="server" Disabled="true" cols="20" class="form-control" rows="3"></textarea>
+                        <textarea id="DescTextArea" runat="server" disabled="true" cols="20" class="form-control" rows="3"></textarea>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Status</label>
                     <div class="col-lg-10">
-                        <asp:DropDownList ID="StatusDdl" Enabled="false"  runat="server" CssClass="form-control"></asp:DropDownList>
+                        <asp:DropDownList ID="StatusDdl" Enabled="false" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                 </div>
 
@@ -55,9 +55,13 @@
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <asp:Button ID="CancelBtn" CssClass="btn btn-default pull-right" runat="server" Text="Cancel" />
-                        <asp:Button ID="EditBtn" CssClass="btn btn-primary pull-left" runat="server" Text="Edit" />
+                        <asp:Button ID="EditBtn" CssClass="btn btn-default pull-right" runat="server" Text="Edit" />
+                        <asp:Button ID="TeamBtn" CssClass="btn btn-primary pull-left" runat="server" Text="Team" OnClick="TeamBtn_Click" style="height: 47px" />
+
                     </div>
                 </div>
+
+                <asp:Label ID="CurrentProjectIdLabel" runat="server" Text="Label"></asp:Label>
             </fieldset>
 
         </div>
