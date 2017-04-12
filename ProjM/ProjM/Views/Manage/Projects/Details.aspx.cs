@@ -74,11 +74,11 @@ namespace ProjM.WebForms.ProjectForms
 
             if (currentProject.TeamId == null)
             {
-                Response.Redirect("~/Views/Teams/NewTeam.aspx");
+                Response.Redirect("~/Views/Manage/Teams/NewTeam.aspx");
             }
             else
             {
-                Response.Redirect("~/Views/Teams/Assembly.aspx?id=" +currentProject.TeamId);
+                Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" +currentProject.TeamId);
             }
 
         }

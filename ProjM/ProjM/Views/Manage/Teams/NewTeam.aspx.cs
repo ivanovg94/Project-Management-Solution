@@ -45,7 +45,7 @@ namespace ProjM.Views.Teams
             var currentTeamId = context.Teams.FirstOrDefault(x => x.Name == TeamNameTb.Text).Id;
 
             //send teamId to next form
-            Response.Redirect("~/Views/Teams/Assembly.aspx?id=" + currentTeamId.ToString());
+            Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamId.ToString());
         }
     }
 }

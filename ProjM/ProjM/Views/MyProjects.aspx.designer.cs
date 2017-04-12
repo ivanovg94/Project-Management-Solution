@@ -7,37 +7,82 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjM.WebForms.Team {
+namespace ProjM.Views {
     
     
-    public partial class Assembly {
+    public partial class MyProjects {
         
         /// <summary>
-        /// ProjectNamelL control.
+        /// CurrentProjectPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectNamelL;
+        protected global::System.Web.UI.WebControls.Panel CurrentProjectPanel;
         
         /// <summary>
-        /// ProjectTypeL control.
+        /// CurrentProjNameL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectTypeL;
+        protected global::System.Web.UI.WebControls.Label CurrentProjNameL;
         
         /// <summary>
-        /// ProjectCategoryL control.
+        /// TypeL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectCategoryL;
+        protected global::System.Web.UI.WebControls.Label TypeL;
+        
+        /// <summary>
+        /// CategoryL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CategoryL;
+        
+        /// <summary>
+        /// DescriptionL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DescriptionL;
+        
+        /// <summary>
+        /// StatusL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label StatusL;
+        
+        /// <summary>
+        /// DeadLineL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DeadLineL;
+        
+        /// <summary>
+        /// TeamL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TeamL;
         
         /// <summary>
         /// BudgetL control.
@@ -49,210 +94,111 @@ namespace ProjM.WebForms.Team {
         protected global::System.Web.UI.WebControls.Label BudgetL;
         
         /// <summary>
-        /// ProjectNameLValue control.
+        /// AllProjectsBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectNameLValue;
+        protected global::System.Web.UI.WebControls.Button AllProjectsBtn;
         
         /// <summary>
-        /// ProjectTypeLValue control.
+        /// TeamNameL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectTypeLValue;
+        protected global::System.Web.UI.WebControls.Label TeamNameL;
         
         /// <summary>
-        /// ProjectCategoryLValue control.
+        /// FrontEndCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectCategoryLValue;
+        protected global::System.Web.UI.WebControls.Label FrontEndCount;
         
         /// <summary>
-        /// BudgetLValue control.
+        /// BackEndCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BudgetLValue;
+        protected global::System.Web.UI.WebControls.Label BackEndCount;
         
         /// <summary>
-        /// AllDevsGv control.
+        /// QACount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView AllDevsGv;
+        protected global::System.Web.UI.WebControls.Label QACount;
         
         /// <summary>
-        /// TotalL control.
+        /// membersRept control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TotalL;
+        protected global::System.Web.UI.WebControls.Repeater membersRept;
         
         /// <summary>
-        /// FrontEndL control.
+        /// InvitePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FrontEndL;
+        protected global::System.Web.UI.WebControls.Panel InvitePanel;
         
         /// <summary>
-        /// BackEndL control.
+        /// NameL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BackEndL;
+        protected global::System.Web.UI.WebControls.Label NameL;
         
         /// <summary>
-        /// QAL control.
+        /// ProjectNameL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label QAL;
+        protected global::System.Web.UI.WebControls.Label ProjectNameL;
         
         /// <summary>
-        /// CurrentTotalLValue control.
+        /// AcceptBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentTotalLValue;
+        protected global::System.Web.UI.WebControls.Button AcceptBtn;
         
         /// <summary>
-        /// slash1 control.
+        /// DetailsBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label slash1;
+        protected global::System.Web.UI.WebControls.Button DetailsBtn;
         
         /// <summary>
-        /// TotalLValue control.
+        /// DeclineBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TotalLValue;
-        
-        /// <summary>
-        /// CurrentFrontEndLValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentFrontEndLValue;
-        
-        /// <summary>
-        /// slash2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label slash2;
-        
-        /// <summary>
-        /// FrontEndLValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FrontEndLValue;
-        
-        /// <summary>
-        /// CurrentBackEndLValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentBackEndLValue;
-        
-        /// <summary>
-        /// slash3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label slash3;
-        
-        /// <summary>
-        /// BackEndLValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BackEndLValue;
-        
-        /// <summary>
-        /// CurrentQALValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentQALValue;
-        
-        /// <summary>
-        /// slash4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label slash4;
-        
-        /// <summary>
-        /// QALValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label QALValue;
-        
-        /// <summary>
-        /// TeamDevsGv control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView TeamDevsGv;
-        
-        /// <summary>
-        /// CurrentProjectId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentProjectId;
+        protected global::System.Web.UI.WebControls.Button DeclineBtn;
     }
 }

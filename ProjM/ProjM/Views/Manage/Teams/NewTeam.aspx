@@ -35,10 +35,10 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-6 col-lg">
+                    <div class="col-lg-6">
                         <asp:Button ID="CancelBtn" CssClass="btn btn-default pull-left" runat="server" Text="Cancel" />
-                        <asp:Button ID="ContinueBtn" CssClass="btn btn-primary pull-right" runat="server" Text="Continue" OnClick="ContinueBtn_Click"/>
-                         </div>
+                        <asp:Button ID="ContinueBtn" CssClass="btn btn-primary pull-right" runat="server" Text="Continue" OnClick="ContinueBtn_Click" />
+                    </div>
                 </div>
 
                 <asp:Label ID="CurrentProjectIdLabel" runat="server" Text="Label"></asp:Label>

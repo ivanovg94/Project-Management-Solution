@@ -179,11 +179,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
-    <Content Include="Views\Teams\Assembly.aspx" />
+    <Content Include="Views\Manage\Teams\Assembly.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Views\Project\All.aspx" />
-    <Content Include="Views\Project\Details.aspx" />
-    <Content Include="Views\Project\NewProject.aspx" />
+    <Content Include="Views\Manage\Projects\All.aspx" />
+    <Content Include="Views\Manage\Projects\Details.aspx" />
+    <Content Include="Views\Manage\Projects\NewProject.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -218,7 +218,8 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Views\Teams\NewTeam.aspx" />
+    <Content Include="Views\Manage\Teams\NewTeam.aspx" />
+    <Content Include="Views\MyProjects.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
@@ -383,25 +384,26 @@
     <Compile Include="Sessions\MySession.cs" />
     <Compile Include="ViewModels\DevVM.cs" />
     <Compile Include="ViewModels\ProjectVM.cs" />
-    <Compile Include="Views\Project\All.aspx.cs">
+    <Compile Include="ViewModels\TeamMembersVM.cs" />
+    <Compile Include="Views\Manage\Projects\All.aspx.cs">
       <DependentUpon>All.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Project\All.aspx.designer.cs">
+    <Compile Include="Views\Manage\Projects\All.aspx.designer.cs">
       <DependentUpon>All.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Project\Details.aspx.cs">
+    <Compile Include="Views\Manage\Projects\Details.aspx.cs">
       <DependentUpon>Details.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Project\Details.aspx.designer.cs">
+    <Compile Include="Views\Manage\Projects\Details.aspx.designer.cs">
       <DependentUpon>Details.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Project\NewProject.aspx.cs">
+    <Compile Include="Views\Manage\Projects\NewProject.aspx.cs">
       <DependentUpon>NewProject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Project\NewProject.aspx.designer.cs">
+    <Compile Include="Views\Manage\Projects\NewProject.aspx.designer.cs">
       <DependentUpon>NewProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -427,19 +429,26 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Teams\Assembly.aspx.cs">
+    <Compile Include="Views\Manage\Teams\Assembly.aspx.cs">
       <DependentUpon>Assembly.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Teams\Assembly.aspx.designer.cs">
+    <Compile Include="Views\Manage\Teams\Assembly.aspx.designer.cs">
       <DependentUpon>Assembly.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Teams\NewTeam.aspx.cs">
+    <Compile Include="Views\Manage\Teams\NewTeam.aspx.cs">
       <DependentUpon>NewTeam.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Teams\NewTeam.aspx.designer.cs">
+    <Compile Include="Views\Manage\Teams\NewTeam.aspx.designer.cs">
       <DependentUpon>NewTeam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MyProjects.aspx.cs">
+      <DependentUpon>MyProjects.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\MyProjects.aspx.designer.cs">
+      <DependentUpon>MyProjects.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

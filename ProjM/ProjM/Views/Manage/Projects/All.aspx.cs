@@ -61,7 +61,7 @@ namespace ProjM.WebForms.ProjectForms
                 id = int.Parse(row.Cells[1].Text);
             }
 
-            Response.Redirect("Details.aspx?id=" + id.ToString());
+            Response.Redirect("~/Views/Manage/Projects/Details.aspx?id=" + id.ToString());
 
 
         }

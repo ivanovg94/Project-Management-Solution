@@ -68,7 +68,7 @@ namespace ProjM.ProjectForms
 
             context.SaveChanges();
 
-            Response.Redirect("~/Default.aspx");
+            Response.Redirect("~/Views/Manage/Projects/All.aspx");
 
         }
     }

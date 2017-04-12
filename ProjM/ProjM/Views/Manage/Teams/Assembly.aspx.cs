@@ -17,9 +17,10 @@ namespace ProjM.WebForms.Team
 {
     public partial class Assembly : System.Web.UI.Page
     {
+        ProjMDbContext context = new ProjMDbContext();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProjMDbContext context = new ProjMDbContext();
             int queryStringID = int.Parse(Request.QueryString["id"]);
 
             var currentTeam = context.Teams.Find(queryStringID);
@@ -28,7 +29,7 @@ namespace ProjM.WebForms.Team
             {
                 //fill Project Details
                 int currentProjectId = int.Parse(MySession.Current.Data1);
-                var currentProject = context.Projects.Where(x => x.Id == currentProjectId).First();
+                var currentProject = context.Projects.Find(currentProjectId);
                 ProjectNameLValue.Text = currentProject.Name;
                 ProjectTypeLValue.Text = currentProject.ProjectType.Name;
                 ProjectCategoryLValue.Text = currentProject.ProjectCategory.Name;
@@ -54,12 +55,44 @@ namespace ProjM.WebForms.Team
                                 Name = x.UserName,
                                 Speciality = x.DeveloperSpec.ToString(),
                                 Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
-                                Rank = x.UserRank.RankName
+                                Rank = x.UserRank.RankName,
+                                Status = x.UserStatus.ToString()
                             })
                             .ToList();
                 gridData.Remove(gridData.FirstOrDefault(x => x.Name == "hr@hr.com"));
                 AllDevsGv.DataSource = gridData;
                 AllDevsGv.DataBind();
+
+                //!!!Assemblybutton 
+
+                var statuses = currentTeam.Users.Select(x => x.UserStatus).ToList();
+
+                if (currentTeam.ReqNumBackEnd == currentTeam.CurrentNumBackEnd
+                 && currentTeam.ReqNumFrontEnd == currentTeam.CurrentNumFrontEnd
+                 && currentTeam.ReqNumQA == currentTeam.CurrentNumQA
+                 && statuses.Contains(UserStatus.Free))
+                {
+                    AssemblyBtn.Enabled = true;
+                }
+                else
+                {
+                    AssemblyBtn.Enabled = false;
+                }
+
+                //start btn
+                if (statuses.Contains(UserStatus.Considering) || statuses.Contains(UserStatus.Free) || statuses.Any())
+                {
+                    StartProjectBtn.Visible = false;
+                }
+                else
+                {
+                    StartProjectBtn.Visible = true;
+                }
+                statuses.Clear();
+
+
+
+
             }
 
             CurrentFrontEndLValue.Text = currentTeam.CurrentNumFrontEnd.ToString();
@@ -67,25 +100,24 @@ namespace ProjM.WebForms.Team
             CurrentQALValue.Text = currentTeam.CurrentNumQA.ToString();
             CurrentTotalLValue.Text = (currentTeam.CurrentNumQA + currentTeam.CurrentNumFrontEnd + currentTeam.CurrentNumBackEnd).ToString();
 
-
-
             var secondGridData = context
                            .Users
                            .Where(x => x.TeamId == queryStringID)
                            .Include(x => x.Roles)
                            .Include(x => x.UserRank)
-
                            .Select(x => new DevVM()
                            {
                                Id = x.Id,
                                Name = x.UserName,
                                Speciality = x.DeveloperSpec.ToString(),
                                Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
-                               Rank = x.UserRank.RankName
+                               Rank = x.UserRank.RankName,
+                               Status = x.UserStatus.ToString()
                            })
                            .ToList();
             TeamDevsGv.DataSource = secondGridData;
             TeamDevsGv.DataBind();
+
 
         }
 
@@ -152,7 +184,7 @@ namespace ProjM.WebForms.Team
 
 
 
-                Response.Redirect("~/Views/Teams/Assembly.aspx?id=" + currentTeamID);
+                Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
             }
         }
 
@@ -160,6 +192,9 @@ namespace ProjM.WebForms.Team
         protected void AllDevsGv_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Cells[1].Visible = false;
+            e.Row.Cells[6].Visible = false;
+
+
         }
 
 
@@ -181,7 +216,7 @@ namespace ProjM.WebForms.Team
                 int currentTeamID = int.Parse(Request.QueryString["id"]);
                 var currentTeam = context.Teams.Find(currentTeamID);
                 user.TeamId = null;
-
+                user.UserStatus = UserStatus.Free;
                 switch (user.DeveloperSpec)
                 {
                     case DeveloperSpec.Backend: currentTeam.CurrentNumBackEnd--; break;
@@ -200,8 +235,8 @@ namespace ProjM.WebForms.Team
                 //    .First();
                 //firstRow.Enabled = true;
 
-
-                Response.Redirect("~/Views/Teams/Assembly.aspx?id=" + currentTeamID);
+                AssemblyBtn.Enabled = true;
+                Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
             }
         }
 
@@ -210,5 +245,32 @@ namespace ProjM.WebForms.Team
             e.Row.Cells[1].Visible = false;
         }
 
+        protected void AssemblyBtn_Click(object sender, EventArgs e)
+        {
+            int currentTeamID = int.Parse(Request.QueryString["id"]);
+            var currentTeam = context.Teams.Find(currentTeamID);
+            foreach (var user in currentTeam.Users)
+            {
+                if (user.UserStatus == UserStatus.Free)
+                {
+                    user.UserStatus = UserStatus.Considering;
+                    //TODO: 
+                    //send Email login here
+                }
+            }
+            context.SaveChanges();
+            AssemblyBtn.Enabled = false;
+            Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
+
+        }
+
+        protected void StartProjectBtn_Click(object sender, EventArgs e)
+        {
+            int currentProjectId = int.Parse(MySession.Current.Data1);
+            var currentProject = context.Projects.Find(currentProjectId);
+            currentProject.ProjectStatus = ProjectStatus.InDevelopment;
+            currentProject.StartDate = DateTime.Now;
+
+        }
     }
 }

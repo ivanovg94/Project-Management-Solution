@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using ProjM.Models;
 
 namespace ProjM
 {
@@ -67,9 +65,17 @@ namespace ProjM
             }
         }
 
+
+        ProjMDbContext context = new ProjMDbContext();
+        string currentUserId = HttpContext.Current.User.Identity.GetUserId();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (HttpContext.Current.User.Identity.IsAuthenticated && !HttpContext.Current.User.IsInRole("hr"))
+            {
+                var currentUser = context.Users.Find(currentUserId);
+                Control span = ((Control)(this.LoginView.FindControl("span")));
+                 span.Visible = currentUser.UserStatus == UserStatus.Considering ? true : false;
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
