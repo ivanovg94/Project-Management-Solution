@@ -13,42 +13,6 @@ namespace ProjM.WebForms.Team {
     public partial class Assembly {
         
         /// <summary>
-        /// ProjectNamelL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectNamelL;
-        
-        /// <summary>
-        /// ProjectTypeL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectTypeL;
-        
-        /// <summary>
-        /// ProjectCategoryL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ProjectCategoryL;
-        
-        /// <summary>
-        /// BudgetL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BudgetL;
-        
-        /// <summary>
         /// ProjectNameLValue control.
         /// </summary>
         /// <remarks>
@@ -85,6 +49,15 @@ namespace ProjM.WebForms.Team {
         protected global::System.Web.UI.WebControls.Label BudgetLValue;
         
         /// <summary>
+        /// ProjectStatusValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ProjectStatusValue;
+        
+        /// <summary>
         /// AllDevsGv control.
         /// </summary>
         /// <remarks>
@@ -92,42 +65,6 @@ namespace ProjM.WebForms.Team {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView AllDevsGv;
-        
-        /// <summary>
-        /// TotalL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TotalL;
-        
-        /// <summary>
-        /// FrontEndL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label FrontEndL;
-        
-        /// <summary>
-        /// BackEndL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BackEndL;
-        
-        /// <summary>
-        /// QAL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label QAL;
         
         /// <summary>
         /// CurrentTotalLValue control.
@@ -202,6 +139,15 @@ namespace ProjM.WebForms.Team {
         protected global::System.Web.UI.WebControls.Label QALValue;
         
         /// <summary>
+        /// TeamStatusValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TeamStatusValue;
+        
+        /// <summary>
         /// TeamDevsGv control.
         /// </summary>
         /// <remarks>
@@ -209,6 +155,42 @@ namespace ProjM.WebForms.Team {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView TeamDevsGv;
+        
+        /// <summary>
+        /// resultBtns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl resultBtns;
+        
+        /// <summary>
+        /// SuccessfulBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SuccessfulBtn;
+        
+        /// <summary>
+        /// FailedBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button FailedBtn;
+        
+        /// <summary>
+        /// EndBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button EndBtn;
         
         /// <summary>
         /// StartProjectBtn control.

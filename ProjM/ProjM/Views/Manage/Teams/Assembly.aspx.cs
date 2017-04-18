@@ -22,7 +22,6 @@ namespace ProjM.WebForms.Team
         protected void Page_Load(object sender, EventArgs e)
         {
             int queryStringID = int.Parse(Request.QueryString["id"]);
-
             var currentTeam = context.Teams.Find(queryStringID);
 
             if (!IsPostBack)
@@ -34,16 +33,14 @@ namespace ProjM.WebForms.Team
                 ProjectTypeLValue.Text = currentProject.ProjectType.Name;
                 ProjectCategoryLValue.Text = currentProject.ProjectCategory.Name;
                 BudgetLValue.Text = currentProject.Budget.ToString();
+                ProjectStatusValue.Text = currentProject.ProjectStatus.ToString();
 
                 //fill Team Details
-
-
                 FrontEndLValue.Text = currentTeam.ReqNumFrontEnd.ToString();
                 BackEndLValue.Text = currentTeam.ReqNumBackEnd.ToString();
                 QALValue.Text = currentTeam.ReqNumQA.ToString();
                 TotalLValue.Text = (currentTeam.ReqNumBackEnd + currentTeam.ReqNumFrontEnd + currentTeam.ReqNumQA).ToString();
-
-
+                TeamStatusValue.Text = currentTeam.TeamStatus.ToString();
                 //fill AllUsers Grid 
                 var gridData = context
                             .Users
@@ -63,24 +60,21 @@ namespace ProjM.WebForms.Team
                 AllDevsGv.DataSource = gridData;
                 AllDevsGv.DataBind();
 
-                //!!!Assemblybutton 
-
                 var statuses = currentTeam.Users.Select(x => x.UserStatus).ToList();
-
                 if (currentTeam.ReqNumBackEnd == currentTeam.CurrentNumBackEnd
                  && currentTeam.ReqNumFrontEnd == currentTeam.CurrentNumFrontEnd
                  && currentTeam.ReqNumQA == currentTeam.CurrentNumQA
                  && statuses.Contains(UserStatus.Free))
                 {
-                    AssemblyBtn.Enabled = true;
+                    AssemblyBtn.Visible = true;
                 }
                 else
                 {
-                    AssemblyBtn.Enabled = false;
+                    AssemblyBtn.Visible = false;
                 }
 
                 //start btn
-                if (statuses.Contains(UserStatus.Considering) || statuses.Contains(UserStatus.Free) || statuses.Any())
+                if (statuses.Contains(UserStatus.Considering) || statuses.Contains(UserStatus.Free) || !statuses.Any())
                 {
                     StartProjectBtn.Visible = false;
                 }
@@ -90,9 +84,20 @@ namespace ProjM.WebForms.Team
                 }
                 statuses.Clear();
 
-
-
-
+                if (currentProject.StartDate != null)
+                {
+                    StartProjectBtn.Visible = false;
+                }
+                if (currentProject.ProjectStatus==ProjectStatus.InDevelopment)
+                {
+                    StartProjectBtn.Visible = false;
+                    EndBtn.Visible = true;
+                }
+                if (currentProject.ProjectStatus==ProjectStatus.Finished)
+                {
+                    resultBtns.Visible = true;
+                }
+            
             }
 
             CurrentFrontEndLValue.Text = currentTeam.CurrentNumFrontEnd.ToString();
@@ -117,15 +122,12 @@ namespace ProjM.WebForms.Team
                            .ToList();
             TeamDevsGv.DataSource = secondGridData;
             TeamDevsGv.DataBind();
-
-
         }
 
 
         //row button event
         protected void AllDevsGv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            var context = new ProjMDbContext();
             int index = 0;
             string userId = "";
             GridViewRow row;
@@ -193,14 +195,11 @@ namespace ProjM.WebForms.Team
         {
             e.Row.Cells[1].Visible = false;
             e.Row.Cells[6].Visible = false;
-
-
         }
 
 
         protected void TeamDevGv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            var context = new ProjMDbContext();
             int index = 0;
             string userId = "";
             GridViewRow row;
@@ -235,7 +234,7 @@ namespace ProjM.WebForms.Team
                 //    .First();
                 //firstRow.Enabled = true;
 
-                AssemblyBtn.Enabled = true;
+                AssemblyBtn.Visible = true;
                 Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
             }
         }
@@ -259,7 +258,7 @@ namespace ProjM.WebForms.Team
                 }
             }
             context.SaveChanges();
-            AssemblyBtn.Enabled = false;
+            AssemblyBtn.Visible = false;
             Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
 
         }
@@ -270,6 +269,82 @@ namespace ProjM.WebForms.Team
             var currentProject = context.Projects.Find(currentProjectId);
             currentProject.ProjectStatus = ProjectStatus.InDevelopment;
             currentProject.StartDate = DateTime.Now;
+
+            int currentTeamID = int.Parse(Request.QueryString["id"]);
+            var currentTeam = context.Teams.Find(currentTeamID);
+            currentTeam.TeamStatus = TeamStatus.Active;
+            foreach (var user in currentTeam.Users)
+            {
+                user.UserStatus = UserStatus.Occupied;
+            }
+
+            context.SaveChanges();
+            EndBtn.Visible = true;
+            StartProjectBtn.Visible = false;
+            Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
+        }
+
+        protected void EndBtn_Click(object sender, EventArgs e)
+        {
+            int currentProjectId = int.Parse(MySession.Current.Data1);
+            var currentProject = context.Projects.Find(currentProjectId);
+            currentProject.ProjectStatus = ProjectStatus.Finished;
+            int currentTeamID = int.Parse(Request.QueryString["id"]);
+            var currentTeam = context.Teams.Find(currentTeamID);
+            //foreach (var user in currentTeam.Users)
+            //{
+            //    user.PastProjectCount++;
+            //    //TODO:USER PAYROLL
+
+
+            //}
+            currentTeam.TeamStatus = TeamStatus.Former;
+            EndBtn.Visible = false;
+
+            context.SaveChanges();
+            Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
+
+        }
+
+        protected void SuccessfulBtn_Click(object sender, EventArgs e)
+        {
+            int currentProjectId = int.Parse(MySession.Current.Data1);
+            var currentProject = context.Projects.Find(currentProjectId);
+            currentProject.ProjectStatus = ProjectStatus.Finished;
+            int currentTeamID = int.Parse(Request.QueryString["id"]);
+            var currentTeam = context.Teams.Find(currentTeamID);
+            //TODO:SET project result
+            foreach (var user in currentTeam.Users)
+            {
+                //TODO: rank formula
+                //TODO:Remove teamId
+                user.PastProjectCount++;
+                user.UserRank.RankPoints =+ 10;
+
+            }
+            context.SaveChanges();
+            Response.Redirect("/Views/Manage/Projects/Details.aspx?id=" + currentProjectId);
+        }
+
+        protected void FailedBtn_Click(object sender, EventArgs e)
+        {
+
+            int currentProjectId = int.Parse(MySession.Current.Data1);
+            var currentProject = context.Projects.Find(currentProjectId);
+            currentProject.ProjectStatus = ProjectStatus.Finished;
+            int currentTeamID = int.Parse(Request.QueryString["id"]);
+            var currentTeam = context.Teams.Find(currentTeamID);
+            //TODO:SET project result
+            foreach (var user in currentTeam.Users)
+            {
+                //TODO: rank formula
+                //TODO:Remove teamId
+                user.PastProjectCount++;
+                user.UserRank.RankPoints = -10;
+            }
+
+            context.SaveChanges();
+            Response.Redirect("/Views/Manage/Projects/Details.aspx?id=" + currentProjectId);
 
         }
     }
