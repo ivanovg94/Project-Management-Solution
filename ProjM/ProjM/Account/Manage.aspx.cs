@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using ProjM.Models;
-using System.Web.UI.WebControls;
-using System.Drawing;
-
-namespace ProjM.Account
+﻿namespace ProjM.Account
 {
+    using System;
+    using System.Linq;
+    using System.Web;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using ProjM.Models;
+    using System.Web.UI.WebControls;
+    using System.Drawing;
     public partial class Manage : System.Web.UI.Page
     {
         private ProjMDbContext conttext;
@@ -84,6 +83,8 @@ namespace ProjM.Account
                 }
             }
 
+
+
             if (!IsPostBack)
             {
                 var db = new ProjMDbContext();
@@ -105,10 +106,19 @@ namespace ProjM.Account
                         StatusLabel.ForeColor = Color.Red;
                         break;
                 }
-                DevSpecDdl.SelectedValue = currentUser.DeveloperSpec.ToString();
 
-                DevSpecDdl.DataSource = Enum.GetNames(typeof(DeveloperSpec));
-                DevSpecDdl.DataBind();
+                //fill DevSpec DDL
+                var devSpec = db.DeveloperSpecialities.ToList();
+                foreach (var spec in devSpec)
+                {
+                    DevSpecDdl.Items.Add(new ListItem()
+                    {
+                        Value = spec.Id.ToString(),
+                        Text = spec.Name
+                    });
+                }
+                devSpec.Clear();
+                DevSpecDdl.SelectedIndex = 3;
 
                 //fill language list with all possible selections
                 var languages = db.ProgrammingLanguages.ToList();
@@ -127,13 +137,21 @@ namespace ProjM.Account
                 {
                     LanguagesCbl.Items.FindByValue(item.Id.ToString()).Selected = true;
                 }
-
                 languages.Clear();
                 currentUserLanguages.Clear();
+                if (currentUser.DeveloperSpecialityId != 4)
+                {
+                    DevSpecDdl.Enabled = false;
+                    DevSpecDdl.Visible = false;
+                    DevSpecLabel.Visible = true;
+                    DevSpecLabel.Text = currentUser.DeveloperSpeciality.Name;
 
+                }
             }
-        }
 
+
+
+        }
 
         private void AddErrors(IdentityResult result)
         {
@@ -175,7 +193,6 @@ namespace ProjM.Account
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             manager.SetTwoFactorEnabled(User.Identity.GetUserId(), true);
-
             Response.Redirect("/Account/Manage");
         }
 
@@ -189,11 +206,10 @@ namespace ProjM.Account
 
             if (SaveDataButton.Text == "Save changes")
             {
-
                 currentUser.UserName = UserNameTb.Text;
                 currentUser.Phone = PhoneNumberTb.Text;
                 currentUser.Experience = ExperienceTextArea.Value;
-                currentUser.DeveloperSpec = (DeveloperSpec)Enum.Parse(typeof(DeveloperSpec), DevSpecDdl.SelectedValue);
+                currentUser.DeveloperSpecialityId = int.Parse(DevSpecDdl.SelectedValue);
 
                 foreach (ListItem item in LanguagesCbl.Items)
                 {
@@ -222,10 +238,23 @@ namespace ProjM.Account
                 LanguagesCbl.Enabled = false;
 
                 SaveDataButton.Text = "Edit profile";
+                Response.Redirect("~/Account/Manage");
 
             }
             else if (SaveDataButton.Text == "Edit profile")
             {
+                if (currentUser.DeveloperSpecialityId == 4)
+                {
+                    DevSpecDdl.Enabled = true;
+                }
+                else
+                {
+                    DevSpecDdl.Enabled = false;
+                    DevSpecDdl.Visible = false;
+                    DevSpecLabel.Visible = true;
+                }
+
+
                 DevSpecDdl.Enabled = true;
                 UserNameTb.Enabled = true;
                 PhoneNumberTb.Enabled = true;

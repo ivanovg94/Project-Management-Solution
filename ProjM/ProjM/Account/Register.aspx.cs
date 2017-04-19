@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Owin;
-using ProjM.Models;
-using System.Web.Security;
-
-
-namespace ProjM.Account
+﻿namespace ProjM.Account
 {
+    using System;
+    using System.Linq;
+    using System.Web;
+    using System.Web.UI;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using ProjM.Models;
     public partial class Register : Page
     {
         protected void CreateUser_Click(object sender, EventArgs e)
@@ -21,9 +17,9 @@ namespace ProjM.Account
             {
                 UserName = Email.Text,
                 Email = Email.Text,
-                DeveloperSpec =DeveloperSpec.None,
-                UserStatus =UserStatus.Free,
-                UserRankId=1     
+                DeveloperSpecialityId = 4,
+                UserStatus = UserStatus.Free,
+                UserRankId = 1
             };
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
@@ -34,14 +30,12 @@ namespace ProjM.Account
                 //manager.SendEmail(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.");
 
                 var currentUser = manager.FindByName(user.UserName);
-
                 var roleresult = manager.AddToRole(currentUser.Id, "candidate");
 
-
-                signInManager.SignIn( user, isPersistent: false, rememberBrowser: false);
+                signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                 IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
             }
-            else 
+            else
             {
                 ErrorMessage.Text = result.Errors.FirstOrDefault();
             }

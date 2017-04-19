@@ -1,20 +1,16 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using ProjM.Models;
-using ProjM.Msg;
-using ProjM.Sessions;
-using ProjM.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿
 
 namespace ProjM.WebForms.Team
 {
+    using Models;
+    using Msg;
+    using Sessions;
+    using ViewModels;
+    using System;
+    using System.Data;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.UI.WebControls;
     public partial class Assembly : System.Web.UI.Page
     {
         ProjMDbContext context = new ProjMDbContext();
@@ -50,7 +46,7 @@ namespace ProjM.WebForms.Team
                             {
                                 Id = x.Id,
                                 Name = x.UserName,
-                                Speciality = x.DeveloperSpec.ToString(),
+                                Speciality = x.DeveloperSpeciality.Name,
                                 Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
                                 Rank = x.UserRank.RankName,
                                 Status = x.UserStatus.ToString()
@@ -88,16 +84,15 @@ namespace ProjM.WebForms.Team
                 {
                     StartProjectBtn.Visible = false;
                 }
-                if (currentProject.ProjectStatus==ProjectStatus.InDevelopment)
+                if (currentProject.ProjectStatus == ProjectStatus.InDevelopment)
                 {
                     StartProjectBtn.Visible = false;
                     EndBtn.Visible = true;
                 }
-                if (currentProject.ProjectStatus==ProjectStatus.Finished)
+                if (currentProject.ProjectStatus == ProjectStatus.Finished)
                 {
                     resultBtns.Visible = true;
                 }
-            
             }
 
             CurrentFrontEndLValue.Text = currentTeam.CurrentNumFrontEnd.ToString();
@@ -114,7 +109,7 @@ namespace ProjM.WebForms.Team
                            {
                                Id = x.Id,
                                Name = x.UserName,
-                               Speciality = x.DeveloperSpec.ToString(),
+                               Speciality = x.DeveloperSpeciality.Name,
                                Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
                                Rank = x.UserRank.RankName,
                                Status = x.UserStatus.ToString()
@@ -148,43 +143,39 @@ namespace ProjM.WebForms.Team
                 int currentTeamID = int.Parse(Request.QueryString["id"]);
                 var currentTeam = context.Teams.Find(currentTeamID);
 
-                if (user.DeveloperSpec == DeveloperSpec.Backend && currentTeam.CurrentNumBackEnd < currentTeam.ReqNumBackEnd)
+                if (user.DeveloperSpecialityId == 1 && currentTeam.CurrentNumBackEnd < currentTeam.ReqNumBackEnd)
                 {
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumBackEnd++;
                 }
-                else if (user.DeveloperSpec == DeveloperSpec.Backend && currentTeam.CurrentNumBackEnd >= currentTeam.ReqNumBackEnd)
+                else if (user.DeveloperSpecialityId == 1 && currentTeam.CurrentNumBackEnd >= currentTeam.ReqNumBackEnd)
                 {
                     MessageBox.Show(this, "Back-end possitions are full!");
                 }
 
-                if (user.DeveloperSpec == DeveloperSpec.Frontend && currentTeam.CurrentNumFrontEnd < currentTeam.ReqNumFrontEnd)
+                if (user.DeveloperSpecialityId == 2 && currentTeam.CurrentNumFrontEnd < currentTeam.ReqNumFrontEnd)
                 {
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumFrontEnd++;
                 }
-                else if (user.DeveloperSpec == DeveloperSpec.Frontend && currentTeam.CurrentNumFrontEnd >= currentTeam.ReqNumFrontEnd)
+                else if (user.DeveloperSpecialityId == 2 && currentTeam.CurrentNumFrontEnd >= currentTeam.ReqNumFrontEnd)
                 {
                     MessageBox.Show(this, "Front-end possitions are full!");
                 }
 
-                if (user.DeveloperSpec == DeveloperSpec.QA && currentTeam.CurrentNumQA < currentTeam.ReqNumQA)
+                if (user.DeveloperSpecialityId == 3 && currentTeam.CurrentNumQA < currentTeam.ReqNumQA)
                 {
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumQA++;
                 }
-                else if (user.DeveloperSpec == DeveloperSpec.QA && currentTeam.CurrentNumQA >= currentTeam.ReqNumQA)
+                else if (user.DeveloperSpecialityId == 3 && currentTeam.CurrentNumQA >= currentTeam.ReqNumQA)
                 {
                     MessageBox.Show(this, "QA possitions are full!");
                 }
 
-
-
                 context.SaveChanges();
 
                 // row.Enabled = false;
-
-
 
                 Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
             }
@@ -196,7 +187,6 @@ namespace ProjM.WebForms.Team
             e.Row.Cells[1].Visible = false;
             e.Row.Cells[6].Visible = false;
         }
-
 
         protected void TeamDevGv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -210,17 +200,16 @@ namespace ProjM.WebForms.Team
                 index = Convert.ToInt32(e.CommandArgument);
                 row = grid.Rows[index];
                 userId = row.Cells[1].Text;
-
                 var user = context.Users.Find(userId);
                 int currentTeamID = int.Parse(Request.QueryString["id"]);
                 var currentTeam = context.Teams.Find(currentTeamID);
                 user.TeamId = null;
                 user.UserStatus = UserStatus.Free;
-                switch (user.DeveloperSpec)
+                switch (user.DeveloperSpecialityId)
                 {
-                    case DeveloperSpec.Backend: currentTeam.CurrentNumBackEnd--; break;
-                    case DeveloperSpec.Frontend: currentTeam.CurrentNumFrontEnd--; break;
-                    case DeveloperSpec.QA: currentTeam.CurrentNumQA--; break;
+                    case 1: currentTeam.CurrentNumBackEnd--; break;
+                    case 2: currentTeam.CurrentNumFrontEnd--; break;
+                    case 3: currentTeam.CurrentNumQA--; break;
                 }
                 context.SaveChanges();
 
@@ -260,7 +249,6 @@ namespace ProjM.WebForms.Team
             context.SaveChanges();
             AssemblyBtn.Visible = false;
             Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
-
         }
 
         protected void StartProjectBtn_Click(object sender, EventArgs e)
@@ -269,7 +257,6 @@ namespace ProjM.WebForms.Team
             var currentProject = context.Projects.Find(currentProjectId);
             currentProject.ProjectStatus = ProjectStatus.InDevelopment;
             currentProject.StartDate = DateTime.Now;
-
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
             currentTeam.TeamStatus = TeamStatus.Active;
@@ -295,8 +282,6 @@ namespace ProjM.WebForms.Team
             //{
             //    user.PastProjectCount++;
             //    //TODO:USER PAYROLL
-
-
             //}
             currentTeam.TeamStatus = TeamStatus.Former;
             EndBtn.Visible = false;
@@ -319,8 +304,7 @@ namespace ProjM.WebForms.Team
                 //TODO: rank formula
                 //TODO:Remove teamId
                 user.PastProjectCount++;
-                user.UserRank.RankPoints =+ 10;
-
+                user.UserRank.RankPoints = +10;
             }
             context.SaveChanges();
             Response.Redirect("/Views/Manage/Projects/Details.aspx?id=" + currentProjectId);
@@ -328,7 +312,6 @@ namespace ProjM.WebForms.Team
 
         protected void FailedBtn_Click(object sender, EventArgs e)
         {
-
             int currentProjectId = int.Parse(MySession.Current.Data1);
             var currentProject = context.Projects.Find(currentProjectId);
             currentProject.ProjectStatus = ProjectStatus.Finished;

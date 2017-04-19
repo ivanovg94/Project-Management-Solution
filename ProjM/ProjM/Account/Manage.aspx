@@ -82,7 +82,7 @@
                 <div class="form-group">
                     <asp:Label ID="ExperienceLable" runat="server" CssClass="col-lg-2 control-label" Text="Certificates, Internships, Working experience"></asp:Label>
                     <div class="col-lg-10">
-                        <textarea id="ExperienceTextArea" CssClass="form-control" runat="server" placeholder="Description" disabled="true" cols="50" rows="6"></textarea>
+                        <textarea id="ExperienceTextArea" cssclass="form-control" runat="server" placeholder="Description" disabled="true" cols="50" rows="6"></textarea>
                     </div>
                 </div>
 
@@ -132,7 +132,8 @@
                 <div class="form-group">
                     <asp:Label ID="DevSpec" CssClass="col-lg-2 control-label" runat="server" Text="Speciality"></asp:Label>
                     <div class="col-lg-10">
-                        <asp:DropDownList ID="DevSpecDdl" CssClass="form-calendar" Enabled="false" runat="server"></asp:DropDownList>
+                        <asp:Label ID="DevSpecLabel" Visible="false" CssClass="col-lg-6 control-label" runat="server" Text="None"></asp:Label>
+                        <asp:DropDownList ID="DevSpecDdl" Visible="true" CssClass="form-calendar" Enabled="false" runat="server"></asp:DropDownList>
                     </div>
                 </div>
 

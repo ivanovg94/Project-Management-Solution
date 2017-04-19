@@ -1,14 +1,11 @@
-﻿using ProjM.Models;
-using ProjM.Sessions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿
 
 namespace ProjM.Views.Teams
 {
+    using Models;
+    using Sessions;
+    using System;
+    using System.Linq;
     public partial class NewTeam : System.Web.UI.Page
     {
         ProjMDbContext context = new ProjMDbContext();
@@ -16,7 +13,6 @@ namespace ProjM.Views.Teams
         {
             if (!IsPostBack)
             {
-
                 CurrentProjectIdLabel.Text = MySession.Current.Data1;
             }
         }

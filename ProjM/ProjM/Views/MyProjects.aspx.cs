@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNet.Identity;
-using ProjM.Models;
-using ProjM.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-namespace ProjM.Views
+﻿namespace ProjM.Views
 {
+    using Microsoft.AspNet.Identity;
+    using Models;
+    using ViewModels;
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web;
+    using System.Web.UI.WebControls;
+
     public partial class MyProjects : System.Web.UI.Page
     {
         ProjMDbContext context = new ProjMDbContext();
@@ -49,7 +47,7 @@ namespace ProjM.Views
                     var data = context
                             .Users
                             .Where(x => x.TeamId == currentUser.TeamId)
-                            .Include(x => x.DeveloperSpec)
+                            .Include(x => x.DeveloperSpeciality)
                             .Include(x => x.UserRank)
                             .Include(x => x.ProgrammingLanguages)
                             .Select(x => new TeamMembersVM()
@@ -58,21 +56,16 @@ namespace ProjM.Views
                                 Name = x.UserName,
                                 Email = x.Email,
                                 Phone = x.Phone,
-                                Specialization = x.DeveloperSpec.ToString(),
+                                Specialization = x.DeveloperSpeciality.Name,
                                 //ProgrammingLanguages = string.Join(", ", context.ProgrammingLanguages.Where(r => r.Id == x.ProgrammingLanguages.FirstOrDefault().Id).Select(l => l.Name).ToList()),
                                 Rank = x.UserRank.RankName,
                             })
                             .ToList();
 
-
                     membersRept.DataSource = data;
                     membersRept.DataBind();
-
-
                 }
             }
-
-
 
             if (currentUser.UserStatus == UserStatus.Considering)
             {
@@ -87,10 +80,7 @@ namespace ProjM.Views
             {
                 CurrentProjectPanel.Visible = false;
                 InvitePanel.Visible = false;
-
             }
-
-
         }
 
         protected void AcceptBtn_Click(object sender, EventArgs e)
@@ -100,7 +90,6 @@ namespace ProjM.Views
             context.SaveChanges();
             InvitePanel.Visible = false;
             Response.Redirect("~/Views/MyProjects");
-
         }
 
         protected void DetailsBtn_Click(object sender, EventArgs e)
@@ -108,12 +97,8 @@ namespace ProjM.Views
             var currentUser = context.Users.Find(currentUserId);
             var currentUserTeam = context.Teams.Find(currentUser.TeamId);
             var currentUserProject = context.Projects.FirstOrDefault(p => p.TeamId == currentUserTeam.Id);
-
             //TODO: REPLACE
             Response.Redirect("~/Views/Manage/Projects/Details.aspx?id=" + currentUserProject);
-
-
-
         }
 
         protected void DeclineBtn_Click(object sender, EventArgs e)
@@ -122,18 +107,16 @@ namespace ProjM.Views
             currentUser.UserStatus = UserStatus.Free;
 
             var currentUserTeam = context.Teams.Find(currentUser.TeamId);
-            switch (currentUser.DeveloperSpec)
+            switch (currentUser.DeveloperSpecialityId)
             {
-                case DeveloperSpec.Backend: currentUserTeam.CurrentNumBackEnd--; break;
-                case DeveloperSpec.Frontend: currentUserTeam.CurrentNumFrontEnd--; break;
-                case DeveloperSpec.QA: currentUserTeam.CurrentNumQA--; break;
+                case 1: currentUserTeam.CurrentNumBackEnd--; break;
+                case 2: currentUserTeam.CurrentNumFrontEnd--; break;
+                case 3: currentUserTeam.CurrentNumQA--; break;
             }
             currentUser.TeamId = null;
-
             context.SaveChanges();
             InvitePanel.Visible = false;
             Response.Redirect("~/Views/MyProjects");
-
         }
     }
 }

@@ -1,19 +1,15 @@
-﻿using ProjM.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-namespace ProjM.ProjectForms
+﻿namespace ProjM.ProjectForms
 {
+    using ProjM.Models;
+    using System;
+    using System.Linq;
+    using System.Web.UI.WebControls;
+
     public partial class NewProject : System.Web.UI.Page
     {
+        ProjMDbContext context = new ProjMDbContext();
         protected void Page_Load(object sender, EventArgs e)
         {
-            var context = new ProjMDbContext();
-
             if (!IsPostBack)
             {
                 //fill Project Type DDL
@@ -44,8 +40,6 @@ namespace ProjM.ProjectForms
 
         protected void CreateBtn_Click(object sender, EventArgs e)
         {
-            var context = new ProjMDbContext();
-
             Project project = new Project(); 
 
             project.Name = ProjectNameTb.Text;
@@ -55,9 +49,9 @@ namespace ProjM.ProjectForms
             project.ProjectStatus = ProjectStatus.NotStarted;
 
             project.ProjectTypeId = context
-                                     .ProjectTypes
-                                     .Find(int.Parse(PrjTypeDdl.SelectedItem.Value))
-                                     .Id;
+                                          .ProjectTypes
+                                          .Find(int.Parse(PrjTypeDdl.SelectedItem.Value))
+                                          .Id;
 
             project.ProjectCategoryId = context
                                          .ProjectCategories

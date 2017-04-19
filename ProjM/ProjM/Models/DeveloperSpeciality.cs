@@ -2,32 +2,32 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public class ProjectType
+
+    public class DeveloperSpeciality
     {
+        private ICollection<ApplicationUser> users;
 
-        private ICollection<Project> projects;
-
-        public ProjectType()
+        public DeveloperSpeciality()
         {
-            this.projects = new HashSet<Project>();
+            this.users = new HashSet<ApplicationUser>();
         }
 
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<Project> Projects
+        public virtual ICollection<ApplicationUser> Users
         {
             get
             {
-                return this.projects;
+                return this.users;
             }
             set
             {
-                this.projects = value;
+                this.users = value;
             }
         }
+
     }
 }

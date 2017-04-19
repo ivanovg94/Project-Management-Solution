@@ -88,16 +88,16 @@
             <div id="resultBtns" class="btn-group btn-group-justified" runat="server" visible="false">
                 <div class="col-lg-11">
                     <div class="col-lg-5">
-                <asp:Button ID="SuccessfulBtn" CssClass="btn btn-success" runat="server" Text="Mark Project as Successful" OnClick="SuccessfulBtn_Click" />
-                       </div>
-                      <div class="col-lg-4">
-                <asp:Button ID="FailedBtn" runat="server" CssClass="btn btn-danger" Text="Mark Project as Failed" OnClick="FailedBtn_Click" />
-          </div>
-                            </div>
+                        <asp:Button ID="SuccessfulBtn" CssClass="btn btn-success" runat="server" Text="Mark Project as Successful" OnClick="SuccessfulBtn_Click" />
+                    </div>
+                    <div class="col-lg-4">
+                        <asp:Button ID="FailedBtn" runat="server" CssClass="btn btn-danger" Text="Mark Project as Failed" OnClick="FailedBtn_Click" />
+                    </div>
                 </div>
+            </div>
             <asp:Button ID="EndBtn" CssClass="btn btn-success" Visible="false" runat="server" Text="End Project" OnClick="EndBtn_Click" />
             <asp:Button ID="StartProjectBtn" runat="server" CssClass="btn btn-success" Text="Start Project" Visible="false" OnClick="StartProjectBtn_Click" />
-            <asp:Button ID="AssemblyBtn" CssClass="btn btn-primary" Enabled="false" runat="server" Text="Assembly Team" OnClick="AssemblyBtn_Click" />
+            <asp:Button ID="AssemblyBtn" CssClass="btn btn-primary" runat="server" Text="Assembly Team" OnClick="AssemblyBtn_Click" />
         </div>
     </div>
 </asp:Content>

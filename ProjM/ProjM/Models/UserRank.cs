@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ProjM.Models
+﻿namespace ProjM.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     public class UserRank
     {
         private ICollection<ApplicationUser> users;
@@ -15,6 +12,7 @@ namespace ProjM.Models
 
         }
 
+        [Key]
         public int Id { get; set; }
 
         public string RankName { get; set; }
@@ -32,7 +30,5 @@ namespace ProjM.Models
                 this.users = value;
             }
         }
-
-
     }
 }

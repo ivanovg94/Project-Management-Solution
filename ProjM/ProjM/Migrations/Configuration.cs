@@ -19,12 +19,40 @@ namespace ProjM.Migrations
 
         protected override void Seed(ProjM.Models.ProjMDbContext context)
         {
+            this.UserRankSeeder(context);
+            this.DeveloperSpecialitiesSeeder(context);
             this.RolesSeeder(context);
             this.UsersSeeder(context);
             this.ProgrammingLanguageSeeder(context);
             this.ProjectTypeSeeder(context);
             this.TestCategorySeeder(context);
-            this.UserRankSeeder(context);
+        }
+
+        private void DeveloperSpecialitiesSeeder(ProjMDbContext context)
+        {
+            context.DeveloperSpecialities.AddOrUpdate(new DeveloperSpeciality()
+            {
+                Id = 4,
+                Name = "None"
+            });
+
+            context.DeveloperSpecialities.AddOrUpdate(new DeveloperSpeciality()
+            {
+                Id = 1,
+                Name = "Back-end"
+            });
+
+            context.DeveloperSpecialities.AddOrUpdate(new DeveloperSpeciality()
+            {
+                Id = 2,
+                Name = "Front-end"
+            });
+
+            context.DeveloperSpecialities.AddOrUpdate(new DeveloperSpeciality()
+            {
+                Id = 3,
+                Name = "QA"
+            });
         }
 
         private void UserRankSeeder(ProjMDbContext context)
@@ -47,54 +75,43 @@ namespace ProjM.Migrations
             {
                 Id = 2,
                 RankName = "Novice",
-
             });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 3,
                 RankName = "Begginer",
-              
             });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 4,
                 RankName = "Intermediate",
-
             });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 5,
                 RankName = "Adept",
-
             });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 6,
                 RankName = "Seasoned",
-
             });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 7,
                 RankName = "Senior",
-
             });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 8,
                 RankName = "Expert",
-
             });
-
-
-
-
         }
 
         private void TestCategorySeeder(ProjMDbContext context)
@@ -174,16 +191,17 @@ namespace ProjM.Migrations
 
             if (!context.Users.Any(u => u.UserName == "hr@hr.com"))
             {
-                var adminUser = new ApplicationUser
+                var userHr = new ApplicationUser
                 {
                     UserName = "hr@hr.com",
                     Email = "hr@hr.com",
-                    DeveloperSpec = DeveloperSpec.None,
-                    UserRankId = 0
+                    DeveloperSpecialityId = 4,
+                    UserRankId = 0,
+                    UserStatus=UserStatus.Free
                 };
 
-                userManager.Create(adminUser, "123");
-                userManager.AddToRole(adminUser.Id, "hr");
+                userManager.Create(userHr, "123");
+                userManager.AddToRole(userHr.Id, "hr");
             }
         }
 

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
-
-namespace ProjM.Models
+﻿namespace ProjM.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     public class Team
     {
 
@@ -23,15 +18,18 @@ namespace ProjM.Models
         [Key]
         public int Id { get; set; }
 
-        //[Index(IsUnique =true)]
         public string Name { get; set; }
 
         public int ReqNumFrontEnd { get; set; }
+
         public int ReqNumBackEnd { get; set; }
+
         public int ReqNumQA { get; set; }
 
         public int? CurrentNumFrontEnd { get; set; }
+
         public int? CurrentNumBackEnd { get; set; }
+
         public int? CurrentNumQA { get; set; }
 
         public virtual TeamStatus TeamStatus { get; set; }

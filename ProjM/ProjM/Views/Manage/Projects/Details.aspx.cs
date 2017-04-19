@@ -1,19 +1,15 @@
-﻿using ProjM.Models;
-using ProjM.Sessions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Providers.Entities;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-namespace ProjM.WebForms.ProjectForms
+﻿namespace ProjM.WebForms.ProjectForms
 {
+    using Models;
+    using Sessions;
+    using System;
+    using System.Linq;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
     public partial class Details : Page
     {
         ProjMDbContext context = new ProjMDbContext();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -21,13 +17,11 @@ namespace ProjM.WebForms.ProjectForms
                 int queryStringID = int.Parse(Request.QueryString["id"]);
                 var currentProject = context.Projects.Find(queryStringID);
 
-
-
                 int loginId = MySession.Current.LoginId;
-                string property1 = MySession.Current.Data1;
+
+                string property1 = MySession.Current.Data1; //?
                 MySession.Current.Data1 = Request.QueryString["id"];
 
-                
                 //fill Project Type DDL
                 var projectTypes = context.ProjectTypes.ToList();
                 foreach (var type in projectTypes)
@@ -62,8 +56,6 @@ namespace ProjM.WebForms.ProjectForms
                 DeadLineCalendar.SelectedDate = currentProject.DeadLine.Date;
                 DescTextArea.Value = currentProject.Description;
                 BudgetTb.Text = currentProject.Budget.ToString();
-
-
             }
         }
 
@@ -78,9 +70,8 @@ namespace ProjM.WebForms.ProjectForms
             }
             else
             {
-                Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" +currentProject.TeamId);
+                Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentProject.TeamId);
             }
-
         }
     }
 }

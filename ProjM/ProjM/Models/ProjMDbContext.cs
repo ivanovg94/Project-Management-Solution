@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Web;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using ProjM.Models;
 using System.Data.Entity;
 
 namespace ProjM.Models
 {
-
-
     public class ProjMDbContext : IdentityDbContext<ApplicationUser>
     {
         public ProjMDbContext()
@@ -20,17 +12,13 @@ namespace ProjM.Models
         {
         }
 
-
-
-
         public virtual IDbSet<Project> Projects { get; set; }
         public virtual IDbSet<ProjectCategory> ProjectCategories { get; set; }
         public virtual IDbSet<ProjectType> ProjectTypes { get; set; }
         public virtual IDbSet<Team> Teams { get; set; }
         public virtual IDbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
         public virtual IDbSet<UserRank> UserRanks { get; set; }
-
-
+        public virtual IDbSet<DeveloperSpeciality> DeveloperSpecialities { get; set; }
 
         public static ProjMDbContext Create()
         {

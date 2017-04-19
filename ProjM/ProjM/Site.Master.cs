@@ -74,7 +74,7 @@ namespace ProjM
             {
                 var currentUser = context.Users.Find(currentUserId);
                 Control span = ((Control)(this.LoginView.FindControl("span")));
-                 span.Visible = currentUser.UserStatus == UserStatus.Considering ? true : false;
+                span.Visible = currentUser.UserStatus == UserStatus.Considering ? true : false;
             }
         }
 
@@ -83,5 +83,4 @@ namespace ProjM
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
     }
-
 }
