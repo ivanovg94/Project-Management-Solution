@@ -6,7 +6,7 @@
     using System.Web.UI;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
-    using ProjM.Models;
+    using Models;
     public partial class Register : Page
     {
         protected void CreateUser_Click(object sender, EventArgs e)
@@ -18,7 +18,7 @@
                 UserName = Email.Text,
                 Email = Email.Text,
                 DeveloperSpecialityId = 4,
-                UserStatus = UserStatus.Free,
+                UserStatusId=1,
                 UserRankId = 1
             };
             IdentityResult result = manager.Create(user, Password.Text);

@@ -5,7 +5,7 @@
     using System.Web;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
-    using ProjM.Models;
+    using Models;
     using System.Web.UI.WebControls;
     using System.Drawing;
     public partial class Manage : System.Web.UI.Page
@@ -19,8 +19,7 @@
 
         protected string SuccessMessage
         {
-            get;
-            private set;
+            get; private set;
         }
 
         private bool HasPassword(ApplicationUserManager manager)
@@ -90,21 +89,15 @@
                 var db = new ProjMDbContext();
                 var currentUserId = User.Identity.GetUserId();
                 var currentUser = db.Users.Where(a => a.Id == currentUserId).First();
-                UserNameTb.Text = currentUser.UserName;
+                UserNameTb.Text = currentUser.Name;
                 PhoneNumberTb.Text = currentUser.Phone;
                 ExperienceTextArea.Value = currentUser.Experience;
-                StatusLabel.Text = currentUser.UserStatus.ToString();
-                switch (currentUser.UserStatus)
+                StatusLabel.Text = currentUser.UserStatus.Name;
+                switch (currentUser.UserStatusId)
                 {
-                    case UserStatus.Free:
-                        StatusLabel.ForeColor = Color.Green;
-                        break;
-                    case UserStatus.Considering:
-                        StatusLabel.ForeColor = Color.Black;
-                        break;
-                    case UserStatus.Occupied:
-                        StatusLabel.ForeColor = Color.Red;
-                        break;
+                    case 1: StatusLabel.ForeColor = Color.Green; break;
+                    case 2: StatusLabel.ForeColor = Color.Black; break;
+                    case 3: StatusLabel.ForeColor = Color.Red; break;
                 }
 
                 //fill DevSpec DDL
@@ -145,12 +138,8 @@
                     DevSpecDdl.Visible = false;
                     DevSpecLabel.Visible = true;
                     DevSpecLabel.Text = currentUser.DeveloperSpeciality.Name;
-
                 }
             }
-
-
-
         }
 
         private void AddErrors(IdentityResult result)
@@ -167,10 +156,7 @@
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
             var result = manager.SetPhoneNumber(User.Identity.GetUserId(), null);
-            if (!result.Succeeded)
-            {
-                return;
-            }
+            if (!result.Succeeded) { return; }
             var user = manager.FindById(User.Identity.GetUserId());
             if (user != null)
             {
@@ -184,7 +170,6 @@
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             manager.SetTwoFactorEnabled(User.Identity.GetUserId(), false);
-
             Response.Redirect("/Account/Manage");
         }
 
@@ -196,17 +181,15 @@
             Response.Redirect("/Account/Manage");
         }
 
-
         protected void SaveDataButton_Click(object sender, EventArgs e)
         {
-
             var db = new ProjMDbContext();
             var currentUserId = User.Identity.GetUserId();
             var currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
 
             if (SaveDataButton.Text == "Save changes")
             {
-                currentUser.UserName = UserNameTb.Text;
+                currentUser.Name = UserNameTb.Text;
                 currentUser.Phone = PhoneNumberTb.Text;
                 currentUser.Experience = ExperienceTextArea.Value;
                 currentUser.DeveloperSpecialityId = int.Parse(DevSpecDdl.SelectedValue);
@@ -215,20 +198,17 @@
                 {
                     if (item.Selected)
                     {
-                        currentUser
-                                   .ProgrammingLanguages
-                                   .Add(
-                                    db.ProgrammingLanguages.Find(int.Parse(item.Value)));
+                        currentUser.ProgrammingLanguages
+                                   .Add(db.ProgrammingLanguages
+                                   .Find(int.Parse(item.Value)));
                     }
                     if (!item.Selected)
                     {
-                        currentUser
-                                   .ProgrammingLanguages
-                                   .Remove(
-                                    db.ProgrammingLanguages.Find(int.Parse(item.Value)));
+                        currentUser.ProgrammingLanguages
+                                   .Remove(db.ProgrammingLanguages
+                                   .Find(int.Parse(item.Value)));
                     }
                 }
-
                 db.SaveChanges();
 
                 UserNameTb.Enabled = false;
@@ -253,7 +233,6 @@
                     DevSpecDdl.Visible = false;
                     DevSpecLabel.Visible = true;
                 }
-
 
                 DevSpecDdl.Enabled = true;
                 UserNameTb.Enabled = true;

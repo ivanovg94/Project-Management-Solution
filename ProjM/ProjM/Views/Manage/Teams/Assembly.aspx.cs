@@ -1,6 +1,4 @@
-﻿
-
-namespace ProjM.WebForms.Team
+﻿namespace ProjM.WebForms.Team
 {
     using Models;
     using Msg;
@@ -29,38 +27,42 @@ namespace ProjM.WebForms.Team
                 ProjectTypeLValue.Text = currentProject.ProjectType.Name;
                 ProjectCategoryLValue.Text = currentProject.ProjectCategory.Name;
                 BudgetLValue.Text = currentProject.Budget.ToString();
-                ProjectStatusValue.Text = currentProject.ProjectStatus.ToString();
+                ProjectStatusValue.Text = currentProject.ProjectStatus.Name;
 
                 //fill Team Details
                 FrontEndLValue.Text = currentTeam.ReqNumFrontEnd.ToString();
                 BackEndLValue.Text = currentTeam.ReqNumBackEnd.ToString();
                 QALValue.Text = currentTeam.ReqNumQA.ToString();
-                TotalLValue.Text = (currentTeam.ReqNumBackEnd + currentTeam.ReqNumFrontEnd + currentTeam.ReqNumQA).ToString();
-                TeamStatusValue.Text = currentTeam.TeamStatus.ToString();
+                TotalLValue.Text = (currentTeam.ReqNumBackEnd
+                                    + currentTeam.ReqNumFrontEnd
+                                    + currentTeam.ReqNumQA)
+                                    .ToString();
+                TeamStatusValue.Text = currentTeam.TeamStatus.Name;
                 //fill AllUsers Grid 
                 var gridData = context
                             .Users
+                            .Include(x => x.UserStatus)
                             .Include(x => x.Roles)
                             .Include(x => x.UserRank)
                             .Select(x => new DevVM()
                             {
                                 Id = x.Id,
-                                Name = x.UserName,
+                                Name = x.Name,
                                 Speciality = x.DeveloperSpeciality.Name,
                                 Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
                                 Rank = x.UserRank.RankName,
-                                Status = x.UserStatus.ToString()
+                                Status = x.UserStatus.Name
                             })
                             .ToList();
-                gridData.Remove(gridData.FirstOrDefault(x => x.Name == "hr@hr.com"));
+                gridData.Remove(gridData.FirstOrDefault(x => x.Type == "hr"));
                 AllDevsGv.DataSource = gridData;
                 AllDevsGv.DataBind();
 
-                var statuses = currentTeam.Users.Select(x => x.UserStatus).ToList();
+                var statuses = currentTeam.Users.Select(x => x.UserStatusId).ToList();
                 if (currentTeam.ReqNumBackEnd == currentTeam.CurrentNumBackEnd
                  && currentTeam.ReqNumFrontEnd == currentTeam.CurrentNumFrontEnd
                  && currentTeam.ReqNumQA == currentTeam.CurrentNumQA
-                 && statuses.Contains(UserStatus.Free))
+                 && statuses.Contains(1))
                 {
                     AssemblyBtn.Visible = true;
                 }
@@ -70,7 +72,7 @@ namespace ProjM.WebForms.Team
                 }
 
                 //start btn
-                if (statuses.Contains(UserStatus.Considering) || statuses.Contains(UserStatus.Free) || !statuses.Any())
+                if (statuses.Contains(2) || statuses.Contains(1) || !statuses.Any())
                 {
                     StartProjectBtn.Visible = false;
                 }
@@ -84,12 +86,12 @@ namespace ProjM.WebForms.Team
                 {
                     StartProjectBtn.Visible = false;
                 }
-                if (currentProject.ProjectStatus == ProjectStatus.InDevelopment)
+                if (currentProject.ProjectStatusId == 2)
                 {
                     StartProjectBtn.Visible = false;
                     EndBtn.Visible = true;
                 }
-                if (currentProject.ProjectStatus == ProjectStatus.Finished)
+                if (currentProject.ProjectStatusId == 3)
                 {
                     resultBtns.Visible = true;
                 }
@@ -98,21 +100,28 @@ namespace ProjM.WebForms.Team
             CurrentFrontEndLValue.Text = currentTeam.CurrentNumFrontEnd.ToString();
             CurrentBackEndLValue.Text = currentTeam.CurrentNumBackEnd.ToString();
             CurrentQALValue.Text = currentTeam.CurrentNumQA.ToString();
-            CurrentTotalLValue.Text = (currentTeam.CurrentNumQA + currentTeam.CurrentNumFrontEnd + currentTeam.CurrentNumBackEnd).ToString();
+            CurrentTotalLValue.Text = (currentTeam.CurrentNumQA
+                                        + currentTeam.CurrentNumFrontEnd
+                                        + currentTeam.CurrentNumBackEnd)
+                                      .ToString();
 
             var secondGridData = context
                            .Users
                            .Where(x => x.TeamId == queryStringID)
+                           .Include(x => x.UserStatus)
                            .Include(x => x.Roles)
                            .Include(x => x.UserRank)
                            .Select(x => new DevVM()
                            {
                                Id = x.Id,
-                               Name = x.UserName,
+                               Name = x.Name,
                                Speciality = x.DeveloperSpeciality.Name,
-                               Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
+                               Type = context
+                                      .Roles
+                                      .FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId)
+                                      .Name,
                                Rank = x.UserRank.RankName,
-                               Status = x.UserStatus.ToString()
+                               Status = x.UserStatus.Name
                            })
                            .ToList();
             TeamDevsGv.DataSource = secondGridData;
@@ -143,32 +152,38 @@ namespace ProjM.WebForms.Team
                 int currentTeamID = int.Parse(Request.QueryString["id"]);
                 var currentTeam = context.Teams.Find(currentTeamID);
 
-                if (user.DeveloperSpecialityId == 1 && currentTeam.CurrentNumBackEnd < currentTeam.ReqNumBackEnd)
+                if (user.DeveloperSpecialityId == 1
+                    && currentTeam.CurrentNumBackEnd < currentTeam.ReqNumBackEnd)
                 {
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumBackEnd++;
                 }
-                else if (user.DeveloperSpecialityId == 1 && currentTeam.CurrentNumBackEnd >= currentTeam.ReqNumBackEnd)
+                else if (user.DeveloperSpecialityId == 1
+                         && currentTeam.CurrentNumBackEnd >= currentTeam.ReqNumBackEnd)
                 {
                     MessageBox.Show(this, "Back-end possitions are full!");
                 }
 
-                if (user.DeveloperSpecialityId == 2 && currentTeam.CurrentNumFrontEnd < currentTeam.ReqNumFrontEnd)
+                if (user.DeveloperSpecialityId == 2
+                    && currentTeam.CurrentNumFrontEnd < currentTeam.ReqNumFrontEnd)
                 {
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumFrontEnd++;
                 }
-                else if (user.DeveloperSpecialityId == 2 && currentTeam.CurrentNumFrontEnd >= currentTeam.ReqNumFrontEnd)
+                else if (user.DeveloperSpecialityId == 2
+                         && currentTeam.CurrentNumFrontEnd >= currentTeam.ReqNumFrontEnd)
                 {
                     MessageBox.Show(this, "Front-end possitions are full!");
                 }
 
-                if (user.DeveloperSpecialityId == 3 && currentTeam.CurrentNumQA < currentTeam.ReqNumQA)
+                if (user.DeveloperSpecialityId == 3
+                    && currentTeam.CurrentNumQA < currentTeam.ReqNumQA)
                 {
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumQA++;
                 }
-                else if (user.DeveloperSpecialityId == 3 && currentTeam.CurrentNumQA >= currentTeam.ReqNumQA)
+                else if (user.DeveloperSpecialityId == 3
+                         && currentTeam.CurrentNumQA >= currentTeam.ReqNumQA)
                 {
                     MessageBox.Show(this, "QA possitions are full!");
                 }
@@ -204,7 +219,7 @@ namespace ProjM.WebForms.Team
                 int currentTeamID = int.Parse(Request.QueryString["id"]);
                 var currentTeam = context.Teams.Find(currentTeamID);
                 user.TeamId = null;
-                user.UserStatus = UserStatus.Free;
+                user.UserStatusId = 1;
                 switch (user.DeveloperSpecialityId)
                 {
                     case 1: currentTeam.CurrentNumBackEnd--; break;
@@ -239,9 +254,9 @@ namespace ProjM.WebForms.Team
             var currentTeam = context.Teams.Find(currentTeamID);
             foreach (var user in currentTeam.Users)
             {
-                if (user.UserStatus == UserStatus.Free)
+                if (user.UserStatusId == 1)
                 {
-                    user.UserStatus = UserStatus.Considering;
+                    user.UserStatusId = 2;
                     //TODO: 
                     //send Email login here
                 }
@@ -255,14 +270,14 @@ namespace ProjM.WebForms.Team
         {
             int currentProjectId = int.Parse(MySession.Current.Data1);
             var currentProject = context.Projects.Find(currentProjectId);
-            currentProject.ProjectStatus = ProjectStatus.InDevelopment;
+            currentProject.ProjectStatusId = 2;
             currentProject.StartDate = DateTime.Now;
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
-            currentTeam.TeamStatus = TeamStatus.Active;
+            currentTeam.TeamStatusId = 3;
             foreach (var user in currentTeam.Users)
             {
-                user.UserStatus = UserStatus.Occupied;
+                user.UserStatusId = 3;
             }
 
             context.SaveChanges();
@@ -275,7 +290,7 @@ namespace ProjM.WebForms.Team
         {
             int currentProjectId = int.Parse(MySession.Current.Data1);
             var currentProject = context.Projects.Find(currentProjectId);
-            currentProject.ProjectStatus = ProjectStatus.Finished;
+            currentProject.ProjectStatusId = 3;
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
             //foreach (var user in currentTeam.Users)
@@ -283,7 +298,7 @@ namespace ProjM.WebForms.Team
             //    user.PastProjectCount++;
             //    //TODO:USER PAYROLL
             //}
-            currentTeam.TeamStatus = TeamStatus.Former;
+            currentTeam.TeamStatusId = 4;
             EndBtn.Visible = false;
 
             context.SaveChanges();
@@ -295,7 +310,7 @@ namespace ProjM.WebForms.Team
         {
             int currentProjectId = int.Parse(MySession.Current.Data1);
             var currentProject = context.Projects.Find(currentProjectId);
-            currentProject.ProjectStatus = ProjectStatus.Finished;
+            currentProject.ProjectStatusId = 3;
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
             //TODO:SET project result
@@ -314,7 +329,7 @@ namespace ProjM.WebForms.Team
         {
             int currentProjectId = int.Parse(MySession.Current.Data1);
             var currentProject = context.Projects.Find(currentProjectId);
-            currentProject.ProjectStatus = ProjectStatus.Finished;
+            currentProject.ProjectStatusId = 3;
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
             //TODO:SET project result

@@ -1,13 +1,15 @@
-﻿using System;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity;
-using ProjM.Models;
-
-namespace ProjM
+﻿namespace ProjM
 {
+    using System;
+    using System.Web;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using Microsoft.AspNet.Identity;
+    using Models;
+    using System.Threading;
+    using System.Globalization;
+
     public partial class SiteMaster : MasterPage
     {
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
@@ -65,17 +67,34 @@ namespace ProjM
             }
         }
 
-
         ProjMDbContext context = new ProjMDbContext();
-        string currentUserId = HttpContext.Current.User.Identity.GetUserId();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (HttpContext.Current.User.Identity.IsAuthenticated && !HttpContext.Current.User.IsInRole("hr"))
+            //Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+            string currentUserId = HttpContext.Current.User.Identity.GetUserId();
+
+            if (HttpContext.Current.User.Identity.IsAuthenticated
+                && !HttpContext.Current.User.IsInRole("hr"))
             {
                 var currentUser = context.Users.Find(currentUserId);
-                Control span = ((Control)(this.LoginView.FindControl("span")));
-                span.Visible = currentUser.UserStatus == UserStatus.Considering ? true : false;
+                Control span = (Control)(this.LoginView.FindControl("span"));
+                span.Visible = currentUser.UserStatusId == 2 ? true : false;
             }
+            //if (!IsPostBack)
+            //{
+                Label Greetings = (Label)(this.AccLoginView.FindControl("GreetingsName"));
+
+                if (HttpContext.Current.User.Identity.IsAuthenticated
+                    && !HttpContext.Current.User.IsInRole("hr"))
+                {
+                    var currentUser = context.Users.Find(currentUserId);
+                    Greetings.Text = string.Concat
+                    (
+                    "Hello, ", currentUser.Name == null ? currentUser.Email : currentUser.Name
+                    );
+                }
+            //}
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

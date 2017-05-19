@@ -19,6 +19,11 @@ namespace ProjM.Models
         public virtual IDbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
         public virtual IDbSet<UserRank> UserRanks { get; set; }
         public virtual IDbSet<DeveloperSpeciality> DeveloperSpecialities { get; set; }
+        public virtual IDbSet<ProjectStatus> ProjectStatus { get; set; }
+        public virtual IDbSet<UserStatus> UserStatus { get; set; }
+        public virtual IDbSet<TeamStatus> TeamStatus { get; set; }
+
+
 
         public static ProjMDbContext Create()
         {

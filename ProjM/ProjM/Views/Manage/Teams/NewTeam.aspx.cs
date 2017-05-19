@@ -1,6 +1,4 @@
-﻿
-
-namespace ProjM.Views.Teams
+﻿namespace ProjM.Views.Teams
 {
     using Models;
     using Sessions;
@@ -30,7 +28,7 @@ namespace ProjM.Views.Teams
             team.CurrentNumBackEnd = 0;
             team.CurrentNumFrontEnd = 0;
             team.CurrentNumQA = 0;
-            team.TeamStatus = TeamStatus.Incomplete;
+            team.TeamStatusId = 1;
             team.Projects.Add(context.Projects.Where(x => x.Id == currentProjectId).First());
 
             //save Team

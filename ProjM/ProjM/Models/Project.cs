@@ -21,7 +21,9 @@
 
         public decimal Budget { get; set; }
 
-        public ProjectStatus ProjectStatus { get; set; }
+        [ForeignKey("ProjectStatus")]
+        public int ProjectStatusId { get; set; }
+        public virtual ProjectStatus ProjectStatus { get; set; }
 
         [ForeignKey("Team")]
         public int? TeamId { get; set; }

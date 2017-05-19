@@ -5,9 +5,24 @@
 
     <div class="container">
         <div class="col-lg-10 col-lg-offset-1">
-            <asp:GridView ID="ProjectsGridView" OnRowCommand="Grid_RowCommand" runat="server" Width="529px" CssClass="table table-striped table-bordered table-condensedr table-hover">
+            <asp:GridView ID="ProjectsGridView"
+                OnRowCommand="Grid_RowCommand"
+                ItemType="ProjM.ViewModels.ProjectVM"
+                runat="server"
+                Width="529px"
+                CssClass="table table-striped table-bordered table-condensedr table-hover"
+                AutoGenerateColumns="false">
                 <Columns>
-                    <asp:TemplateField ShowHeader="False">
+                    <asp:BoundField DataField="Id" HeaderText="ID" />
+                    <asp:BoundField DataField="Name" HeaderText="Name" />
+                    <asp:BoundField DataField="DeadLine" HeaderText="DeadLine" />
+                    <asp:BoundField DataField="Budget" HeaderText="Budget" />
+                    <asp:BoundField DataField="Status" HeaderText="Status" />
+                    <asp:BoundField DataField="Team" HeaderText="Team" />
+                    <asp:BoundField DataField="TeamStatus" HeaderText="TeamStatus" />
+                    <asp:BoundField DataField="Category" HeaderText="Category" />
+                    <asp:BoundField DataField="Type" HeaderText="Type" />
+                     <asp:TemplateField ShowHeader="False">
                         <ItemTemplate>
                             <asp:Button ID="btnDetails" runat="server" Text="Details" CommandName="Details"
                                 CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />

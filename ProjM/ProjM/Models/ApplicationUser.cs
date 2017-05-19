@@ -12,6 +12,8 @@
         // You can add User data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
         private ICollection<ProgrammingLanguage> programmingLanguages;
 
+        public string Name { get; set; }
+
         public ApplicationUser()
         {
             this.programmingLanguages = new HashSet<ProgrammingLanguage>();
@@ -34,10 +36,13 @@
 
         public virtual Team Team { get; set; }
 
+        [ForeignKey("UserRank")]
         public int? UserRankId { get; set; }
         public virtual UserRank UserRank { get; set; }
 
-        public UserStatus UserStatus { get; set; }
+        [ForeignKey("UserStatus")]
+        public int UserStatusId { get; set; }
+        public virtual UserStatus UserStatus { get; set; }
 
 
         public virtual ICollection<ProgrammingLanguage> ProgrammingLanguages

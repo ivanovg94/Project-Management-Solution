@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Team
     {
 
@@ -32,6 +34,8 @@
 
         public int? CurrentNumQA { get; set; }
 
+        [ForeignKey("TeamStatus")]
+        public virtual int TeamStatusId { get; set; }
         public virtual TeamStatus TeamStatus { get; set; }
 
         public virtual ICollection<Project> Projects

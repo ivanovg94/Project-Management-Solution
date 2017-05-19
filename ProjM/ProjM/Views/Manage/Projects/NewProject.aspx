@@ -36,9 +36,8 @@
                 <div class="form-group">
                     <label for="Deadline" class="col-lg-2 control-label">Deadline</label>
                     <div class="col-lg-10">
-
-                        <asp:Calendar ID="DeadLineCalendar" runat="server"></asp:Calendar>
-                    </div>
+                        <asp:TextBox ID="date" CssClass="datePicker" runat="server"></asp:TextBox>
+                      </div>
                 </div>
                 <label for="BudgetTb" class="col-lg-2 control-label">Budget</label>
                 <div class="col-lg-10">
@@ -55,5 +54,11 @@
 
         </div>
     </div>
-
+    <script>
+        $(document).ready(function () {
+            $(".datePicker").eq(0).datepicker({
+                dateFormat: 'dd-mm-yy'
+            });
+        });
+    </script>
 </asp:Content>

@@ -2,7 +2,9 @@
 {
     using ProjM.Models;
     using System;
+    using System.Globalization;
     using System.Linq;
+    using System.Threading;
     using System.Web.UI.WebControls;
 
     public partial class NewProject : System.Web.UI.Page
@@ -10,6 +12,7 @@
         ProjMDbContext context = new ProjMDbContext();
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 //fill Project Type DDL
@@ -40,13 +43,13 @@
 
         protected void CreateBtn_Click(object sender, EventArgs e)
         {
-            Project project = new Project(); 
+            Project project = new Project();
 
             project.Name = ProjectNameTb.Text;
             project.Description = DescTextArea.Value;
-            project.DeadLine = DeadLineCalendar.SelectedDate;
+            project.DeadLine = DateTime.Parse(this.date.Text);
             project.Budget = decimal.Parse(BudgetTb.Text);
-            project.ProjectStatus = ProjectStatus.NotStarted;
+            project.ProjectStatusId = 1;
 
             project.ProjectTypeId = context
                                           .ProjectTypes

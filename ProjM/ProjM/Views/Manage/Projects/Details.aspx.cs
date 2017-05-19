@@ -49,10 +49,18 @@
                 PrjCategoryDdl.SelectedValue = currentProject.ProjectCategoryId.ToString();
 
                 //fill ProjectStatus DDL
-                StatusDdl.DataSource = Enum.GetNames(typeof(ProjectStatus));
-                StatusDdl.DataBind();
+                var projectStatus = context.ProjectStatus.ToList();
+                foreach (var status in projectStatus)
+                {
+                    StatusDdl.Items.Add(new ListItem()
+                    {
+                        Value = status.Id.ToString(),
+                        Text = status.Name
+                    });
+                }
+                projectStatus.Clear();
+                StatusDdl.SelectedValue = currentProject.ProjectStatusId.ToString();
 
-                StatusDdl.SelectedValue = currentProject.ProjectStatus.ToString();
                 DeadLineCalendar.SelectedDate = currentProject.DeadLine.Date;
                 DescTextArea.Value = currentProject.Description;
                 BudgetTb.Text = currentProject.Budget.ToString();

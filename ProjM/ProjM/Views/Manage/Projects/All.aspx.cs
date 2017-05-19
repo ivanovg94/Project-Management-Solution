@@ -16,6 +16,7 @@
 
                 var gridData = db.Projects
                       .Include(x => x.ProjectCategory)
+                      .Include(x => x.ProjectStatus)
                       .Include(x => x.ProjectType)
                       .Include(x => x.Team)
                       .Select(x => new ProjectVM()
@@ -24,9 +25,9 @@
                           Name = x.Name,
                           DeadLine = x.DeadLine,
                           Budget = x.Budget,
-                          Status = x.ProjectStatus.ToString(),
+                          Status = x.ProjectStatus.Name,
                           Team = x.Team == null ? "-" : x.Team.Name,
-                          TeamStatus = x.Team == null ? "-" : x.Team.TeamStatus.ToString(),
+                          TeamStatus = x.Team == null ? "-" : x.Team.TeamStatus.Name,
                           Category = x.ProjectCategory.Name,
                           Type = x.ProjectType.Name
                       })
@@ -48,7 +49,7 @@
             {
                 index = Convert.ToInt32(e.CommandArgument);
                 row = grid.Rows[index];
-                id = int.Parse(row.Cells[1].Text);
+                id = int.Parse(row.Cells[0].Text);
             }
             Response.Redirect("~/Views/Manage/Projects/Details.aspx?id=" + id.ToString());
         }

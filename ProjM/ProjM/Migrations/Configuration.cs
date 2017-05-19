@@ -3,10 +3,9 @@ namespace ProjM.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System;
 
     public sealed class Configuration : DbMigrationsConfiguration<ProjM.Models.ProjMDbContext>
     {
@@ -17,8 +16,11 @@ namespace ProjM.Migrations
             ContextKey = "ProjM.Models.ProjMDbContext";
         }
 
-        protected override void Seed(ProjM.Models.ProjMDbContext context)
+        protected override void Seed(ProjMDbContext context)
         {
+            this.TeamStatusSeeder(context);
+            this.UserStatusSeeder(context);
+            this.ProjectStatusSeeder(context);
             this.UserRankSeeder(context);
             this.DeveloperSpecialitiesSeeder(context);
             this.RolesSeeder(context);
@@ -26,6 +28,76 @@ namespace ProjM.Migrations
             this.ProgrammingLanguageSeeder(context);
             this.ProjectTypeSeeder(context);
             this.TestCategorySeeder(context);
+        }
+
+        private void TeamStatusSeeder(ProjMDbContext context)
+        {
+            context.TeamStatus.AddOrUpdate(new TeamStatus()
+            {
+                Id = 1,
+                Name = "Incomplete"
+            });
+
+            context.TeamStatus.AddOrUpdate(new TeamStatus()
+            {
+                Id = 2,
+                Name = "Pending"
+            });
+
+            context.TeamStatus.AddOrUpdate(new TeamStatus()
+            {
+                Id = 3,
+                Name = "Active"
+            });
+
+            context.TeamStatus.AddOrUpdate(new TeamStatus()
+            {
+                Id = 4,
+                Name = "Former"
+            });
+        }
+
+        private void UserStatusSeeder(ProjMDbContext context)
+        {
+            context.UserStatus.AddOrUpdate(new UserStatus()
+            {
+                Id = 1,
+                Name = "Free"
+            });
+
+            context.UserStatus.AddOrUpdate(new UserStatus()
+            {
+                Id = 2,
+                Name = "Considering"
+            });
+
+            context.UserStatus.AddOrUpdate(new UserStatus()
+            {
+                Id = 3,
+                Name = "Occupied"
+            });
+        }
+
+        private void ProjectStatusSeeder(ProjMDbContext context)
+        {
+            context.ProjectStatus.AddOrUpdate(new ProjectStatus()
+            {
+                Id = 1,
+                Name = "Not started"
+            });
+
+            context.ProjectStatus.AddOrUpdate(new ProjectStatus()
+            {
+                Id = 2,
+                Name = "In development"
+            });
+
+            context.ProjectStatus.AddOrUpdate(new ProjectStatus()
+            {
+                Id = 3,
+                Name = "Finished"
+            });
+
         }
 
         private void DeveloperSpecialitiesSeeder(ProjMDbContext context)
@@ -59,7 +131,7 @@ namespace ProjM.Migrations
         {
             context.UserRanks.AddOrUpdate(new UserRank()
             {
-                Id = 0,
+                Id = 9,
                 RankName = "None",
                 RankPoints = 0
             });
@@ -196,8 +268,8 @@ namespace ProjM.Migrations
                     UserName = "hr@hr.com",
                     Email = "hr@hr.com",
                     DeveloperSpecialityId = 4,
-                    UserRankId = 0,
-                    UserStatus=UserStatus.Free
+                    UserRankId = 9,
+                    UserStatusId = 1
                 };
 
                 userManager.Create(userHr, "123");
