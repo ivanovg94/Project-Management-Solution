@@ -6,7 +6,7 @@
         <asp:Panel ID="CurrentProjectPanel" Visible="false" runat="server">
             <div class="col-lg-6">
                 <h4>Current Project</h4>
-
+                <h3 Id="noProject" runat="server" visible="false">No projects.</h3>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <asp:Label ID="CurrentProjNameL" runat="server" Text=""></asp:Label>
@@ -74,12 +74,8 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-
-                <asp:Button ID="AllProjectsBtn" CssClass="btn btn-default btn-lg btn-block" runat="server" Text="View past projects" />
             </div>
 
             <div class="col-lg-6">

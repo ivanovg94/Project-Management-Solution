@@ -20,67 +20,75 @@
 
             if (!IsPostBack)
             {
-                var currentUserTeam = context.Teams.Find(currentUser.TeamId);
-                var currentProject = context.Projects.Find(currentUserTeam.Id);
-
-                //invitePanel
-                if (currentUser.TeamId != null && currentUser.UserStatusId == 2)
+                if (currentUser.TeamId == null)
                 {
-                    ProjectNameL.Text = currentProject.Name;
+                    noProject.Visible = true;
+                }
+                else
+                {
+                    noProject.Visible = false;
+                    var currentUserTeam = context.Teams.Find(currentUser.TeamId);
+                    var currentProject = context.Projects.Find(currentUserTeam.Id);
+
+                    //invitePanel
+                    if (currentUser.TeamId != null && currentUser.UserStatusId == 2)
+                    {
+                        ProjectNameL.Text = currentProject.Name;
+                    }
+
+                    if (currentUser.TeamId != null && currentUser.UserStatusId == 3)
+                    {
+                        CurrentProjNameL.Text = currentProject.Name;
+                        TypeL.Text = currentProject.ProjectType.Name;
+                        CategoryL.Text = currentProject.ProjectCategory.Name;
+                        DescriptionL.Text = currentProject.Description;
+                        StatusL.Text = currentProject.ProjectStatus.Name;
+                        DeadLineL.Text = currentProject.DeadLine.ToShortDateString();
+                        TeamL.Text = currentProject.Team.Name;
+                        BudgetL.Text = currentProject.Budget.ToString();
+
+                        TeamNameL.Text = currentUser.Team.Name;
+                        FrontEndCount.Text = currentUserTeam.CurrentNumFrontEnd.ToString();
+                        BackEndCount.Text = currentUserTeam.CurrentNumBackEnd.ToString();
+                        QACount.Text = currentUserTeam.CurrentNumQA.ToString();
+
+                        var data = context
+                                .Users
+                                .Where(x => x.TeamId == currentUser.TeamId)
+                                .Include(x => x.DeveloperSpeciality)
+                                .Include(x => x.UserRank)
+                                .Include(x => x.ProgrammingLanguages)
+                                .Select(x => new TeamMembersVM()
+                                {
+                                    Id = x.Id,
+                                    Name = x.Name,
+                                    Email = x.Email,
+                                    Phone = x.Phone,
+                                    Specialization = x.DeveloperSpeciality.Name,
+                                    //ProgrammingLanguages = string.Join(", ", context.ProgrammingLanguages.Where(r => r.Id == x.ProgrammingLanguages.FirstOrDefault().Id).Select(l => l.Name).ToList()),
+                                    Rank = x.UserRank.RankName,
+                                })
+                                .ToList();
+
+                        membersRept.DataSource = data;
+                        membersRept.DataBind();
+                    }
                 }
 
-                if (currentUser.TeamId != null && currentUser.UserStatusId == 3)
+                if (currentUser.UserStatusId == 2)
                 {
-                    CurrentProjNameL.Text = currentProject.Name;
-                    TypeL.Text = currentProject.ProjectType.Name;
-                    CategoryL.Text = currentProject.ProjectCategory.Name;
-                    DescriptionL.Text = currentProject.Description;
-                    StatusL.Text = currentProject.ProjectStatus.Name;
-                    DeadLineL.Text = currentProject.DeadLine.ToShortDateString();
-                    TeamL.Text = currentProject.Team.Name;
-                    BudgetL.Text = currentProject.Budget.ToString();
-
-                    TeamNameL.Text = currentUser.Team.Name;
-                    FrontEndCount.Text = currentUserTeam.CurrentNumFrontEnd.ToString();
-                    BackEndCount.Text = currentUserTeam.CurrentNumBackEnd.ToString();
-                    QACount.Text = currentUserTeam.CurrentNumQA.ToString();
-
-                    var data = context
-                            .Users
-                            .Where(x => x.TeamId == currentUser.TeamId)
-                            .Include(x => x.DeveloperSpeciality)
-                            .Include(x => x.UserRank)
-                            .Include(x => x.ProgrammingLanguages)
-                            .Select(x => new TeamMembersVM()
-                            {
-                                Id = x.Id,
-                                Name = x.Name,
-                                Email = x.Email,
-                                Phone = x.Phone,
-                                Specialization = x.DeveloperSpeciality.Name,
-                                //ProgrammingLanguages = string.Join(", ", context.ProgrammingLanguages.Where(r => r.Id == x.ProgrammingLanguages.FirstOrDefault().Id).Select(l => l.Name).ToList()),
-                                Rank = x.UserRank.RankName,
-                            })
-                            .ToList();
-
-                    membersRept.DataSource = data;
-                    membersRept.DataBind();
+                    InvitePanel.Visible = true;
+                    CurrentProjectPanel.Visible = false;
                 }
-            }
-
-            if (currentUser.UserStatusId == 2)
-            {
-                InvitePanel.Visible = true;
-                CurrentProjectPanel.Visible = false;
-            }
-            else if (currentUser.UserStatusId == 3)
-            {
-                CurrentProjectPanel.Visible = true;
-            }
-            else if (currentUser.UserStatusId == 1)
-            {
-                CurrentProjectPanel.Visible = false;
-                InvitePanel.Visible = false;
+                else if (currentUser.UserStatusId == 3)
+                {
+                    CurrentProjectPanel.Visible = true;
+                }
+                else if (currentUser.UserStatusId == 1)
+                {
+                    CurrentProjectPanel.Visible = false;
+                    InvitePanel.Visible = false;
+                }
             }
         }
 
@@ -98,8 +106,7 @@
             var currentUser = context.Users.Find(currentUserId);
             var currentUserTeam = context.Teams.Find(currentUser.TeamId);
             var currentUserProject = context.Projects.Find(currentUserTeam.Id);
-            //TODO: REPLACE
-            Response.Redirect("~/Views/Manage/Projects/Details.aspx?id=" + currentUserProject);
+            Response.Redirect("~/Views/Manage/Projects/Details.aspx?id=" + currentUserProject.Id);
         }
 
         protected void DeclineBtn_Click(object sender, EventArgs e)

@@ -93,6 +93,8 @@
                 PhoneNumberTb.Text = currentUser.Phone;
                 ExperienceTextArea.Value = currentUser.Experience;
                 StatusLabel.Text = currentUser.UserStatus.Name;
+                RankPointsTb.Text = currentUser.RankPoints.ToString();
+                RankTb.Text = currentUser.UserRank.RankName;
                 switch (currentUser.UserStatusId)
                 {
                     case 1: StatusLabel.ForeColor = Color.Green; break;

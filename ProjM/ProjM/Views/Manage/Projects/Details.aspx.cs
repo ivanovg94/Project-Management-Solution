@@ -17,10 +17,17 @@
                 int queryStringID = int.Parse(Request.QueryString["id"]);
                 var currentProject = context.Projects.Find(queryStringID);
 
-                int loginId = MySession.Current.LoginId;
-
+                int loginId = MySession.Current.LoginId;    //?
                 string property1 = MySession.Current.Data1; //?
+
                 MySession.Current.Data1 = Request.QueryString["id"];
+
+                if (currentProject.ProjectStatusId == 4)
+                {
+                    ParticipantsDiv.Visible = true;
+                    TeamBtn.Visible = false;
+                    ParticipantsTb.Text = currentProject.ParticipantsList;
+                }
 
                 //fill Project Type DDL
                 var projectTypes = context.ProjectTypes.ToList();

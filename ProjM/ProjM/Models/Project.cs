@@ -21,6 +21,8 @@
 
         public decimal Budget { get; set; }
 
+        public string ParticipantsList { get; set; }
+
         [ForeignKey("ProjectStatus")]
         public int ProjectStatusId { get; set; }
         public virtual ProjectStatus ProjectStatus { get; set; }
@@ -37,6 +39,8 @@
         public int ProjectTypeId { get; set; }
         public virtual ProjectType ProjectType { get; set; }
 
+
+        
 
 
     }

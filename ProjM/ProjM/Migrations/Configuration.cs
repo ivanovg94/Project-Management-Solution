@@ -98,6 +98,12 @@ namespace ProjM.Migrations
                 Name = "Finished"
             });
 
+            context.ProjectStatus.AddOrUpdate(new ProjectStatus()
+            {
+                Id = 4,
+                Name = "Past"
+            });
+
         }
 
         private void DeveloperSpecialitiesSeeder(ProjMDbContext context)
@@ -132,16 +138,12 @@ namespace ProjM.Migrations
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 9,
-                RankName = "None",
-                RankPoints = 0
-            });
+                RankName = "None"            });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 1,
-                RankName = "Candidate",
-                RankPoints = 0
-            });
+                RankName = "Candidate"            });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {

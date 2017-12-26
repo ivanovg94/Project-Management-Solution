@@ -11,31 +11,32 @@
         {
             if (!IsPostBack)
             {
-                CurrentProjectIdLabel.Text = MySession.Current.Data1;
             }
         }
 
         protected void ContinueBtn_Click(object sender, EventArgs e)
         {
-            var currentProjectId = int.Parse(CurrentProjectIdLabel.Text);
+            var currentProjectId = int.Parse(MySession.Current.Data1);
 
             //create Team
-            var team = new Team();
-            team.Name = TeamNameTb.Text;
-            team.ReqNumFrontEnd = int.Parse(FrontEndTb.Text);
-            team.ReqNumBackEnd = int.Parse(BackEndTb.Text);
-            team.ReqNumQA = int.Parse(QATb.Text);
-            team.CurrentNumBackEnd = 0;
-            team.CurrentNumFrontEnd = 0;
-            team.CurrentNumQA = 0;
-            team.TeamStatusId = 1;
+            var team = new Team
+            {
+                Name = TeamNameTb.Text,
+                ReqNumFrontEnd = int.Parse(FrontEndTb.Text),
+                ReqNumBackEnd = int.Parse(BackEndTb.Text),
+                ReqNumQA = int.Parse(QATb.Text),
+                CurrentNumBackEnd = 0,
+                CurrentNumFrontEnd = 0,
+                CurrentNumQA = 0,
+                TeamStatusId = 1
+            };
+
             team.Projects.Add(context.Projects.Where(x => x.Id == currentProjectId).First());
 
             //save Team
             context.Teams.Add(team);
             context.SaveChanges();
 
-            //set Team to current project  
             var currentTeamId = context.Teams.FirstOrDefault(x => x.Name == TeamNameTb.Text).Id;
 
             //send teamId to next form

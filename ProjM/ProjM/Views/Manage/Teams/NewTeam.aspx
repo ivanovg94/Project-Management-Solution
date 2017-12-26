@@ -41,7 +41,6 @@
                     </div>
                 </div>
 
-                <asp:Label ID="CurrentProjectIdLabel" runat="server" Text="Label"></asp:Label>
             </fieldset>
 
         </div>

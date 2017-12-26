@@ -9,6 +9,8 @@
     using System.Data.Entity;
     using System.Linq;
     using System.Web.UI.WebControls;
+    using System.Collections.Generic;
+
     public partial class Assembly : System.Web.UI.Page
     {
         ProjMDbContext context = new ProjMDbContext();
@@ -293,11 +295,7 @@
             currentProject.ProjectStatusId = 3;
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
-            //foreach (var user in currentTeam.Users)
-            //{
-            //    user.PastProjectCount++;
-            //    //TODO:USER PAYROLL
-            //}
+
             currentTeam.TeamStatusId = 4;
             EndBtn.Visible = false;
 
@@ -305,7 +303,7 @@
             Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
 
         }
-
+        //todo: delete team
         protected void SuccessfulBtn_Click(object sender, EventArgs e)
         {
             int currentProjectId = int.Parse(MySession.Current.Data1);
@@ -313,17 +311,39 @@
             currentProject.ProjectStatusId = 3;
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
-            //TODO:SET project result
+
+            var userNames = new List<string>();
             foreach (var user in currentTeam.Users)
             {
-                //TODO: rank formula
-                //TODO:Remove teamId
                 user.PastProjectCount++;
-                user.UserRank.RankPoints = +10;
+                user.RankPoints += 10;
+                if (user.RankPoints == 100 && user.UserRankId != 8)
+                {
+                    user.UserRankId++;
+                    user.RankPoints = 0;
+                }
+                else if (user.RankPoints == 100 && user.UserRankId == 8)
+                {
+                    user.RankPoints = 100;
+                }
+
+                userNames.Add(user.Name);
+                user.UserStatusId = 1;
+                // user.TeamId = null;
             }
+            currentProject.ProjectStatusId = 4;
+            currentProject.TeamId = null;
+
+
+            context.Teams.Remove(currentTeam);
+
+            currentProject.ParticipantsList = String.Join(",", userNames);
+            userNames.Clear();
+
             context.SaveChanges();
             Response.Redirect("/Views/Manage/Projects/Details.aspx?id=" + currentProjectId);
         }
+
 
         protected void FailedBtn_Click(object sender, EventArgs e)
         {
@@ -332,15 +352,29 @@
             currentProject.ProjectStatusId = 3;
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
-            //TODO:SET project result
+
+            var userNames = new List<string>();
+
             foreach (var user in currentTeam.Users)
             {
-                //TODO: rank formula
                 //TODO:Remove teamId
                 user.PastProjectCount++;
-                user.UserRank.RankPoints = -10;
+                user.RankPoints -= 10;
+                if (user.RankPoints < 0)
+                {
+                    user.RankPoints = 0;
+                }
+
+                userNames.Add(user.Name);
+                user.UserStatusId = 1;
+                user.TeamId = null;
             }
 
+            currentProject.ParticipantsList = String.Join(",", userNames);
+            userNames.Clear();
+            currentProject.ProjectStatusId = 4;
+            currentProject.TeamId = null;
+            context.Teams.Remove(currentTeam);
             context.SaveChanges();
             Response.Redirect("/Views/Manage/Projects/Details.aspx?id=" + currentProjectId);
 

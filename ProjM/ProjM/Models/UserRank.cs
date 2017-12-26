@@ -17,8 +17,6 @@
 
         public string RankName { get; set; }
 
-        public int? RankPoints { get; set; }
-
         public virtual ICollection<ApplicationUser> Users
         {
             get

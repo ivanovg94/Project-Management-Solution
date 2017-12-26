@@ -76,6 +76,24 @@ namespace ProjM.WebForms.ProjectForms {
         protected global::System.Web.UI.WebControls.TextBox BudgetTb;
         
         /// <summary>
+        /// ParticipantsDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ParticipantsDiv;
+        
+        /// <summary>
+        /// ParticipantsTb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ParticipantsTb;
+        
+        /// <summary>
         /// CancelBtn control.
         /// </summary>
         /// <remarks>
@@ -101,14 +119,5 @@ namespace ProjM.WebForms.ProjectForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button TeamBtn;
-        
-        /// <summary>
-        /// CurrentProjectIdLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentProjectIdLabel;
     }
 }

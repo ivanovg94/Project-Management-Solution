@@ -23,8 +23,6 @@
 
         public int? PastProjectCount { get; set; }
 
-        public decimal? AvrPayroll { get; set; }
-
         public string Experience { get; set; }
 
         [ForeignKey("DeveloperSpeciality")]
@@ -39,6 +37,8 @@
         [ForeignKey("UserRank")]
         public int? UserRankId { get; set; }
         public virtual UserRank UserRank { get; set; }
+
+        public int? RankPoints { get; set; }
 
         [ForeignKey("UserStatus")]
         public int UserStatusId { get; set; }

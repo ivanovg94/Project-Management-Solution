@@ -13,7 +13,7 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="Content/themes/base/jquery-ui.min.css" />
-    <link href="~/Images/pmi-300x103.png" rel="image_src" type="image/png" />
+    <link href="~/Images/logo.png" rel="image_src" type="image/png" />
 </head>
 <body>
     <form runat="server">
@@ -48,7 +48,7 @@
                     </button>
                      
                     <a class="navbar-brand" runat="server"></a>
-                    <img class="logo" src="/Images/pmi-300x103.png" style="width:170px; height:60px;" />
+                    <img class="logo" src="/Images/logo.png" style="width:170px; height:60px;" />
                    
                 </div>
                 <div class="navbar-collapse collapse">

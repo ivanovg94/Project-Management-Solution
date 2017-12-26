@@ -7,19 +7,25 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Models;
+    using System.Net.Mail;
+
     public partial class Register : Page
     {
         protected void CreateUser_Click(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
+
+            
             var user = new ApplicationUser()
             {
                 UserName = Email.Text,
                 Email = Email.Text,
                 DeveloperSpecialityId = 4,
-                UserStatusId=1,
-                UserRankId = 1
+                UserStatusId = 1,
+                UserRankId = 1,
+                PastProjectCount = 0,
+                RankPoints = 0
             };
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
@@ -33,7 +39,9 @@
                 var roleresult = manager.AddToRole(currentUser.Id, "candidate");
 
                 signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-                IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                Response.Redirect("/Account/Manage.aspx");
+
+                // IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
             }
             else
             {

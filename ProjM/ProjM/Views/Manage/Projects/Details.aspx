@@ -52,6 +52,13 @@
                     <asp:TextBox ID="BudgetTb" Enabled="false" placeholder="0.00$" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
 
+                  <div class="form-group" id="ParticipantsDiv" visible="false" runat="server">
+                    <label for="ParticipantsTb" class="col-lg-2 control-label">Participants</label>
+                    <div class="col-lg-10">
+                        <asp:TextBox ID="ParticipantsTb" Enabled="false" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <asp:Button ID="CancelBtn" CssClass="btn btn-default pull-right" runat="server" Text="Cancel" />
@@ -61,7 +68,6 @@
                     </div>
                 </div>
 
-                <asp:Label ID="CurrentProjectIdLabel" runat="server" Text="Label"></asp:Label>
             </fieldset>
 
         </div>
