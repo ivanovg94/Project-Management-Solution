@@ -7,6 +7,7 @@ namespace ProjM.ViewModels
 {
     public class TeamMembersVM
     {
+
         public string Id { get; set; }
 
         public string Name { get; set; }

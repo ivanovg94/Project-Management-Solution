@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <label for="Deadline" class="col-lg-2 control-label">Deadline</label>
                     <div class="col-lg-10">
-                        <asp:TextBox ID="date" CssClass="datePicker" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="date" CssClass="datePicker form-control" runat="server"></asp:TextBox>
                       </div>
                 </div>
                 <label for="BudgetTb" class="col-lg-2 control-label">Budget</label>
@@ -57,7 +57,7 @@
     <script>
         $(document).ready(function () {
             $(".datePicker").eq(0).datepicker({
-                dateFormat: 'dd-mm-yy'
+                dateFormat: 'dd.mm.yy'
             });
         });
     </script>

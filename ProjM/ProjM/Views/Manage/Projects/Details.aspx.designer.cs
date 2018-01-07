@@ -58,15 +58,6 @@ namespace ProjM.WebForms.ProjectForms {
         protected global::System.Web.UI.WebControls.DropDownList StatusDdl;
         
         /// <summary>
-        /// DeadLineCalendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar DeadLineCalendar;
-        
-        /// <summary>
         /// BudgetTb control.
         /// </summary>
         /// <remarks>
@@ -94,6 +85,24 @@ namespace ProjM.WebForms.ProjectForms {
         protected global::System.Web.UI.WebControls.TextBox ParticipantsTb;
         
         /// <summary>
+        /// StartDateTb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox StartDateTb;
+        
+        /// <summary>
+        /// date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox date;
+        
+        /// <summary>
         /// CancelBtn control.
         /// </summary>
         /// <remarks>
@@ -119,5 +128,14 @@ namespace ProjM.WebForms.ProjectForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button TeamBtn;
+        
+        /// <summary>
+        /// BackBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BackBtn;
     }
 }

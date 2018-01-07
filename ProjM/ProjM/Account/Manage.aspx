@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="Manage Account" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Manage.aspx.cs" Inherits="ProjM.Account.Manage" %>
-
 <%@ Register Src="~/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
@@ -82,7 +81,7 @@
                 <div class="form-group">
                     <asp:Label ID="ExperienceLable" runat="server" CssClass="col-lg-2 control-label" Text="Certificates, Internships, Working experience"></asp:Label>
                     <div class="col-lg-10">
-                        <textarea id="ExperienceTextArea" cssclass="form-control" runat="server" placeholder="Description" disabled="true" cols="50" rows="6"></textarea>
+                        <textarea id="ExperienceTextArea" class="form-control" runat="server" placeholder="Description" disabled="true" cols="50" rows="6"></textarea>
                     </div>
                 </div>
 
@@ -120,7 +119,13 @@
                         <asp:TextBox ID="RankPointsTb" CssClass="form-control" runat="server" Enabled="false"></asp:TextBox>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <asp:Label ID="DevSpec" CssClass="col-lg-2 control-label" runat="server" Text="Speciality"></asp:Label>
+                    <div class="col-lg-10">
+                        <asp:Label ID="DevSpecLabel" Visible="false" CssClass="col-lg-6 control-label" runat="server" Text="None"></asp:Label>
+                        <asp:DropDownList ID="DevSpecDdl" Visible="true" CssClass="form-control" Enabled="false" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
                 <div class="form-group">
                     <asp:Label ID="StatusLabelTag" CssClass="col-lg-2 control-label" runat="server" Text="Status "></asp:Label>
                     <div class="col-lg-10">
@@ -128,15 +133,6 @@
                         <asp:Label ID="StatusLabel" runat="server" CssClass="col-lg-2 control-label" Text="" ForeColor=""></asp:Label>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <asp:Label ID="DevSpec" CssClass="col-lg-2 control-label" runat="server" Text="Speciality"></asp:Label>
-                    <div class="col-lg-10">
-                        <asp:Label ID="DevSpecLabel" Visible="false" CssClass="col-lg-6 control-label" runat="server" Text="None"></asp:Label>
-                        <asp:DropDownList ID="DevSpecDdl" Visible="true" CssClass="form-calendar" Enabled="false" runat="server"></asp:DropDownList>
-                    </div>
-                </div>
-
                 <div class="form-group">
                     <asp:Label ID="LanguagesLabel" CssClass="col-lg-2 control-label" runat="server" Text="Languages"></asp:Label>
                     <div class="col-lg-10 col-lg-offset-2">

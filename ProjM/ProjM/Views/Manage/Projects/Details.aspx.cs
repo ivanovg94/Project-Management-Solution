@@ -1,5 +1,6 @@
 ﻿namespace ProjM.WebForms.ProjectForms
 {
+    using Microsoft.AspNet.Identity;
     using Models;
     using Sessions;
     using System;
@@ -14,6 +15,7 @@
         {
             if (!IsPostBack)
             {
+
                 int queryStringID = int.Parse(Request.QueryString["id"]);
                 var currentProject = context.Projects.Find(queryStringID);
 
@@ -21,6 +23,17 @@
                 string property1 = MySession.Current.Data1; //?
 
                 MySession.Current.Data1 = Request.QueryString["id"];
+
+           //     ApplicationUser currentUser = context.Users.FirstOrDefault(x => x.Id == User.Identity.GetUserId());
+                
+             //   var currentUserRoleName = context.Roles.FirstOrDefault(r => r.Id == currentUser.Roles.FirstOrDefault().RoleId).Name;
+                if (!this.User.IsInRole("hr"))
+                {
+                    EditBtn.Visible = false;
+                    CancelBtn.Visible = false;
+                    TeamBtn.Visible = false;
+                    BackBtn.Visible = true;
+                }
 
                 if (currentProject.ProjectStatusId == 4)
                 {
@@ -68,7 +81,9 @@
                 projectStatus.Clear();
                 StatusDdl.SelectedValue = currentProject.ProjectStatusId.ToString();
 
-                DeadLineCalendar.SelectedDate = currentProject.DeadLine.Date;
+                ProjectNameTb.Text = currentProject.Name;
+                StartDateTb.Text = currentProject.StartDate == null ? "-" : currentProject.StartDate.Value.ToShortDateString();
+                date.Text = currentProject.DeadLine.ToShortDateString();
                 DescTextArea.Value = currentProject.Description;
                 BudgetTb.Text = currentProject.Budget.ToString();
             }
@@ -87,6 +102,13 @@
             {
                 Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentProject.TeamId);
             }
+        }
+
+        protected void BackBtn_Click(object sender, EventArgs e)
+        {
+            int queryStringID = int.Parse(Request.QueryString["id"]);
+            var currentProject = context.Projects.Find(queryStringID);
+            Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentProject.TeamId);
         }
     }
 }

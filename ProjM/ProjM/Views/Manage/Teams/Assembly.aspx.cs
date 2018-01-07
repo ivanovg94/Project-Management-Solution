@@ -14,10 +14,10 @@
     public partial class Assembly : System.Web.UI.Page
     {
         ProjMDbContext context = new ProjMDbContext();
-
+        int queryStringID = -1;
         protected void Page_Load(object sender, EventArgs e)
         {
-            int queryStringID = int.Parse(Request.QueryString["id"]);
+            queryStringID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(queryStringID);
 
             if (!IsPostBack)
@@ -40,25 +40,7 @@
                                     + currentTeam.ReqNumQA)
                                     .ToString();
                 TeamStatusValue.Text = currentTeam.TeamStatus.Name;
-                //fill AllUsers Grid 
-                var gridData = context
-                            .Users
-                            .Include(x => x.UserStatus)
-                            .Include(x => x.Roles)
-                            .Include(x => x.UserRank)
-                            .Select(x => new DevVM()
-                            {
-                                Id = x.Id,
-                                Name = x.Name,
-                                Speciality = x.DeveloperSpeciality.Name,
-                                Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
-                                Rank = x.UserRank.RankName,
-                                Status = x.UserStatus.Name
-                            })
-                            .ToList();
-                gridData.Remove(gridData.FirstOrDefault(x => x.Type == "hr"));
-                AllDevsGv.DataSource = gridData;
-                AllDevsGv.DataBind();
+
 
                 var statuses = currentTeam.Users.Select(x => x.UserStatusId).ToList();
                 if (currentTeam.ReqNumBackEnd == currentTeam.CurrentNumBackEnd
@@ -107,27 +89,8 @@
                                         + currentTeam.CurrentNumBackEnd)
                                       .ToString();
 
-            var secondGridData = context
-                           .Users
-                           .Where(x => x.TeamId == queryStringID)
-                           .Include(x => x.UserStatus)
-                           .Include(x => x.Roles)
-                           .Include(x => x.UserRank)
-                           .Select(x => new DevVM()
-                           {
-                               Id = x.Id,
-                               Name = x.Name,
-                               Speciality = x.DeveloperSpeciality.Name,
-                               Type = context
-                                      .Roles
-                                      .FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId)
-                                      .Name,
-                               Rank = x.UserRank.RankName,
-                               Status = x.UserStatus.Name
-                           })
-                           .ToList();
-            TeamDevsGv.DataSource = secondGridData;
-            TeamDevsGv.DataBind();
+            //fill Team Members GV
+
         }
 
 
@@ -139,16 +102,12 @@
             GridViewRow row;
             GridView grid = sender as GridView;
 
-            //GridView second = TeamDevsGv as GridView;
-            //GridViewRow secondRow;
-
-
             if (e.CommandName == "Add")
             {
                 index = Convert.ToInt32(e.CommandArgument);
                 row = grid.Rows[index];
 
-                userId = row.Cells[1].Text;
+                userId = row.Cells[0].Text;
                 var user = context.Users.Find(userId);
 
                 int currentTeamID = int.Parse(Request.QueryString["id"]);
@@ -192,18 +151,10 @@
 
                 context.SaveChanges();
 
-                // row.Enabled = false;
-
                 Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
             }
         }
 
-        //hide userId
-        protected void AllDevsGv_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            e.Row.Cells[1].Visible = false;
-            e.Row.Cells[6].Visible = false;
-        }
 
         protected void TeamDevGv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -216,7 +167,7 @@
             {
                 index = Convert.ToInt32(e.CommandArgument);
                 row = grid.Rows[index];
-                userId = row.Cells[1].Text;
+                userId = row.Cells[0].Text;
                 var user = context.Users.Find(userId);
                 int currentTeamID = int.Parse(Request.QueryString["id"]);
                 var currentTeam = context.Teams.Find(currentTeamID);
@@ -230,16 +181,6 @@
                 }
                 context.SaveChanges();
 
-                //enable
-
-                //GridView first = AllDevsGv as GridView;
-                //GridViewRow firstRow;
-                // firstRow = first.Rows
-                //    .Cast<GridViewRow>()
-                //    .Where(r => r.Cells[1].Text.Equals(userId))
-                //    .First();
-                //firstRow.Enabled = true;
-
                 AssemblyBtn.Visible = true;
                 Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
             }
@@ -247,7 +188,7 @@
 
         protected void TeamDevsGv_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            e.Row.Cells[1].Visible = false;
+            e.Row.Cells[0].Visible = false;
         }
 
         protected void AssemblyBtn_Click(object sender, EventArgs e)
@@ -259,8 +200,6 @@
                 if (user.UserStatusId == 1)
                 {
                     user.UserStatusId = 2;
-                    //TODO: 
-                    //send Email login here
                 }
             }
             context.SaveChanges();
@@ -303,7 +242,7 @@
             Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
 
         }
-        //todo: delete team
+
         protected void SuccessfulBtn_Click(object sender, EventArgs e)
         {
             int currentProjectId = int.Parse(MySession.Current.Data1);
@@ -329,11 +268,10 @@
 
                 userNames.Add(user.Name);
                 user.UserStatusId = 1;
-                // user.TeamId = null;
             }
+
             currentProject.ProjectStatusId = 4;
             currentProject.TeamId = null;
-
 
             context.Teams.Remove(currentTeam);
 
@@ -357,7 +295,6 @@
 
             foreach (var user in currentTeam.Users)
             {
-                //TODO:Remove teamId
                 user.PastProjectCount++;
                 user.RankPoints -= 10;
                 if (user.RankPoints < 0)
@@ -377,7 +314,53 @@
             context.Teams.Remove(currentTeam);
             context.SaveChanges();
             Response.Redirect("/Views/Manage/Projects/Details.aspx?id=" + currentProjectId);
+        }
 
+        public IQueryable<DevVM> AllDevsGv_GetData()
+        {
+
+            var gridData = context
+                          .Users
+                          .Include(x => x.UserStatus)
+                          .Include(x => x.Roles)
+                          .Include(x => x.UserRank)
+                          .Where(x => x.UserStatusId == 1
+                                        && x.Roles.FirstOrDefault().RoleId != context.Roles.FirstOrDefault(r => r.Name == "hr").Id)
+                          .Select(x => new DevVM()
+                          {
+                              Id = x.Id,
+                              Name = x.Name,
+                              Speciality = x.DeveloperSpeciality.Name,
+                              Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
+                              Rank = x.UserRank.RankName,
+                              Status = x.UserStatus.Name
+                          }).OrderBy(x => x.Id);
+
+            return gridData;
+        }
+
+        public IQueryable<DevVM> TeamDevsGv_GetData()
+        {
+            var teamMembersGV = context
+                                .Users
+                                .Include(x => x.UserStatus)
+                                .Include(x => x.Roles)
+                                .Include(x => x.UserRank)
+                                .Where(x => x.TeamId == queryStringID)
+                                .Select(x => new DevVM()
+                                {
+                                    Id = x.Id,
+                                    Name = x.Name,
+                                    Speciality = x.DeveloperSpeciality.Name,
+                                    Type = context
+                                           .Roles
+                                           .FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId)
+                                           .Name,
+                                    Rank = x.UserRank.RankName,
+                                    Status = x.UserStatus.Name
+                                });
+
+            return teamMembersGV;
         }
     }
 }

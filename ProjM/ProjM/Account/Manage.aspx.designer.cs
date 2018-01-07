@@ -148,24 +148,6 @@ namespace ProjM.Account {
         protected global::System.Web.UI.WebControls.TextBox RankPointsTb;
         
         /// <summary>
-        /// StatusLabelTag control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StatusLabelTag;
-        
-        /// <summary>
-        /// StatusLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StatusLabel;
-        
-        /// <summary>
         /// DevSpec control.
         /// </summary>
         /// <remarks>
@@ -191,6 +173,24 @@ namespace ProjM.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DevSpecDdl;
+        
+        /// <summary>
+        /// StatusLabelTag control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label StatusLabelTag;
+        
+        /// <summary>
+        /// StatusLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label StatusLabel;
         
         /// <summary>
         /// LanguagesLabel control.

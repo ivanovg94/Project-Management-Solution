@@ -33,9 +33,24 @@
             </div>
         </div>
 
-        <asp:GridView ID="AllDevsGv" OnRowCommand="AllDevsGv_RowCommand" OnRowDataBound="AllDevsGv_RowDataBound" runat="server" CssClass="table table-striped table-bordered table-condensedr table-hover">
+        <asp:GridView ID="AllDevsGv"
+            DataKeysNames="Id"
+            OnRowCommand="AllDevsGv_RowCommand"
+            ItemType="ProjM.ViewModels.DevVM"
+            AllowPaging="true"
+            PageSize="6"
+            AutoGenerateColumns="false"
+            SelectMethod="AllDevsGv_GetData"
+            runat="server"
+            CssClass="table table-striped table-bordered table-condensedr table-hover">
             <Columns>
-                <asp:ButtonField ButtonType="Button" HeaderText="Add" Text="Add" CommandName="Add" />
+                <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-CssClass="hideId" HeaderStyle-CssClass="hideId" />
+                <asp:BoundField DataField="Name" HeaderText="Name" />
+                <asp:BoundField DataField="Speciality" HeaderText="Speciality" />
+                <asp:BoundField DataField="Type" HeaderText="Type" />
+                <asp:BoundField DataField="Rank" HeaderText="Rank" />
+                <asp:BoundField DataField="Status" HeaderText="Status" ItemStyle-CssClass="hideId" HeaderStyle-CssClass="hideId" />
+                <asp:ButtonField ButtonType="Button" Text="Add" CommandName="Add" />
             </Columns>
         </asp:GridView>
     </div>
@@ -79,11 +94,28 @@
                 </div>
             </div>
         </div>
-        <asp:GridView ID="TeamDevsGv" runat="server" OnRowCommand="TeamDevGv_RowCommand" OnRowDataBound="TeamDevsGv_RowDataBound" CssClass="table table-striped table-bordered table-condensedr table-hover">
+
+        <asp:GridView ID="TeamDevsGv"
+            runat="server"
+            DataKeyNames="Id"
+            AllowPaging="true"
+            PageSize="6"
+            OnRowCommand="TeamDevGv_RowCommand"
+            SelectMethod="TeamDevsGv_GetData"
+            ItemType="ProjM.ViewModels.DevVM"
+            AutoGenerateColumns="false"
+            CssClass="table table-striped table-bordered table-condensedr table-hover">
             <Columns>
-                <asp:ButtonField ButtonType="Button" HeaderText="Remove" Text="Remove" CommandName="Remove" />
+                <asp:BoundField DataField="Id" HeaderText="ID"  ItemStyle-CssClass="hideId" HeaderStyle-CssClass="hideId" />
+                <asp:BoundField DataField="Name" HeaderText="Name" />
+                <asp:BoundField DataField="Speciality" HeaderText="Speciality" />
+                <asp:BoundField DataField="Type" HeaderText="Type" />
+                <asp:BoundField DataField="Rank" HeaderText="Rank" />
+                <asp:BoundField DataField="Status" HeaderText="Status" />
+                <asp:ButtonField ButtonType="Button" Text="Remove" CommandName="Remove" />
             </Columns>
         </asp:GridView>
+
         <div class="pull-right">
             <div id="resultBtns" class="btn-group btn-group-justified" runat="server" visible="false">
                 <div class="col-lg-11">

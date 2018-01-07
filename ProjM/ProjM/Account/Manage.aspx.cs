@@ -113,7 +113,7 @@
                     });
                 }
                 devSpec.Clear();
-                DevSpecDdl.SelectedIndex = 3;
+                DevSpecDdl.SelectedIndex = currentUser.DeveloperSpecialityId-1;
 
                 //fill language list with all possible selections
                 var languages = db.ProgrammingLanguages.ToList();
@@ -218,6 +218,7 @@
                 ExperienceTextArea.Disabled = true;
                 DevSpecDdl.Enabled = false;
                 LanguagesCbl.Enabled = false;
+                DevSpecDdl.Visible = false;
 
                 SaveDataButton.Text = "Edit profile";
                 Response.Redirect("~/Account/Manage");
