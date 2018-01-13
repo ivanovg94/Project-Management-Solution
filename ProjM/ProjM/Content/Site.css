@@ -46,4 +46,8 @@ textarea {
     .hideId {
         display: none;
     }
+
+    .headerClass > th {
+        text-align: center !important;
+    }
 }

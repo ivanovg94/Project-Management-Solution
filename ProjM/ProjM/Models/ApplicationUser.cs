@@ -21,7 +21,7 @@
 
         public string Phone { get; set; }
 
-        public int? PastProjectCount { get; set; }
+        public int PastProjectCount { get; set; }
 
         public string Experience { get; set; }
 
@@ -35,7 +35,7 @@
         public virtual Team Team { get; set; }
 
         [ForeignKey("UserRank")]
-        public int? UserRankId { get; set; }
+        public int UserRankId { get; set; }
         public virtual UserRank UserRank { get; set; }
 
         public int? RankPoints { get; set; }

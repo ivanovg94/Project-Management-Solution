@@ -19,10 +19,5 @@ namespace ProjM.ViewModels
         public string Rank { get; set; }
 
         public string Specialization { get; set; }
-
-        public string ProgrammingLanguages { get; set; }
-
-
-
     }
 }

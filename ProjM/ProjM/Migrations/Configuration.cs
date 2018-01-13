@@ -271,11 +271,14 @@ namespace ProjM.Migrations
                     Email = "hr@hr.com",
                     DeveloperSpecialityId = 4,
                     UserRankId = 9,
-                    UserStatusId = 1
+                    UserStatusId = 1,
+                    PastProjectCount=0
+
                 };
 
                 userManager.Create(userHr, "123");
                 userManager.AddToRole(userHr.Id, "hr");
+                
             }
         }
 

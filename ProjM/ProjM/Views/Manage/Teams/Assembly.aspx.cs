@@ -10,6 +10,8 @@
     using System.Linq;
     using System.Web.UI.WebControls;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using Microsoft.AspNet.Identity;
 
     public partial class Assembly : System.Web.UI.Page
     {
@@ -266,6 +268,11 @@
                     user.RankPoints = 100;
                 }
 
+                //if (user.Roles.FirstOrDefault().RoleId == context.Roles.FirstOrDefault(r => r.Name == "candidate").Id)                )
+                //{
+
+                //}
+
                 userNames.Add(user.Name);
                 user.UserStatusId = 1;
             }
@@ -318,6 +325,8 @@
 
         public IQueryable<DevVM> AllDevsGv_GetData()
         {
+            var filter1 = this.OrderByDdl.SelectedValue.ToString();
+            var filter2 = this.DirectionDdl.SelectedValue.ToString();
 
             var gridData = context
                           .Users
@@ -333,10 +342,29 @@
                               Speciality = x.DeveloperSpeciality.Name,
                               Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
                               Rank = x.UserRank.RankName,
+                              ProjectCount=x.PastProjectCount,
+                              RankId=x.UserRankId,
                               Status = x.UserStatus.Name
-                          }).OrderBy(x => x.Id);
+                          });
 
-            return gridData;
+            Expression<Func<DevVM, object>> sort = null;
+            switch (filter1)
+            {
+                case "1": sort = x => x.Name; break;
+                case "2": sort = x => x.Speciality; break;
+                case "3": sort = x => x.Type; break;
+                case "4": sort = x => x.RankId; break;
+                case "5": sort = x => x.ProjectCount; break;
+
+
+            }
+
+            if (filter2 == "2")
+            {
+                return gridData.OrderByDescending(sort);
+            }
+
+            return gridData.OrderBy(sort);
         }
 
         public IQueryable<DevVM> TeamDevsGv_GetData()
@@ -361,6 +389,11 @@
                                 });
 
             return teamMembersGV;
+        }
+
+        protected void SortBtn_Click(object sender, EventArgs e)
+        {
+            AllDevsGv.DataBind();
         }
     }
 }

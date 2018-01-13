@@ -49,22 +49,6 @@ namespace ProjM.ViewModels
             }
         }
 
-        public string StartDate
-        {
-            get
-            {
-                if (startDate.HasValue)
-                {
-                    return startDate.Value.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
-                }
-                else
-                {
-                    return "-";
-                }
-            }
-            set { }
-
-        }
         public DateTime? StartDateNtime
         {
             get
@@ -77,5 +61,20 @@ namespace ProjM.ViewModels
             }
         }
 
+        public string StartDateFormated
+        {
+            get
+            {
+                if (!startDate.HasValue)
+                {
+                    return "-";
+                }
+
+                return startDate.Value.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+            }
+        }
+
+        public int TeamStatusId { get; set; }
+        public int StatusId { get; set; }
     }
 }

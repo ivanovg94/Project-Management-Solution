@@ -18,6 +18,7 @@ namespace ProjM.ViewModels
         public string Type { get; set; }
 
         public string Status { get; set; }
-
+        public int RankId { get; internal set; }
+        public int ProjectCount { get; internal set; }
     }
 }
