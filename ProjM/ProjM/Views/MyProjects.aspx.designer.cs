@@ -139,6 +139,15 @@ namespace ProjM.Views {
         protected global::System.Web.UI.WebControls.Label QACount;
         
         /// <summary>
+        /// TeamStatusL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TeamStatusL;
+        
+        /// <summary>
         /// membersRept control.
         /// </summary>
         /// <remarks>

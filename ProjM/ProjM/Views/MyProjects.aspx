@@ -117,6 +117,15 @@
                                 </div>
                             </div>
                         </div>
+                         <div class="row">
+                            <label class="col-lg-6 control-label">Team Status</label>
+                            <div class="col-lg-6">
+                                <div class="pull-right">
+                                    <asp:Label ID="TeamStatusL" runat="server" Text=""></asp:Label>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>

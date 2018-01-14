@@ -11,7 +11,6 @@
     using System.Web.UI.WebControls;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using Microsoft.AspNet.Identity;
 
     public partial class Assembly : System.Web.UI.Page
     {
@@ -90,11 +89,7 @@
                                         + currentTeam.CurrentNumFrontEnd
                                         + currentTeam.CurrentNumBackEnd)
                                       .ToString();
-
-            //fill Team Members GV
-
         }
-
 
         //row button event
         protected void AllDevsGv_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -155,6 +150,13 @@
 
                 Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
             }
+            if (e.CommandName == "Details")
+            {
+                index = Convert.ToInt32(e.CommandArgument);
+                row = grid.Rows[index];
+                userId = row.Cells[0].Text;
+                Response.Redirect("~/Views/Manage/Users/UserDetails.aspx?id=" + userId);
+            }
         }
 
 
@@ -186,11 +188,13 @@
                 AssemblyBtn.Visible = true;
                 Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
             }
-        }
-
-        protected void TeamDevsGv_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            e.Row.Cells[0].Visible = false;
+            if (e.CommandName == "Details")
+            {
+                index = Convert.ToInt32(e.CommandArgument);
+                row = grid.Rows[index];
+                userId = row.Cells[0].Text;
+                Response.Redirect("~/Views/Manage/Users/UserDetails.aspx?id=" + userId);
+            }
         }
 
         protected void AssemblyBtn_Click(object sender, EventArgs e)
@@ -267,12 +271,6 @@
                 {
                     user.RankPoints = 100;
                 }
-
-                //if (user.Roles.FirstOrDefault().RoleId == context.Roles.FirstOrDefault(r => r.Name == "candidate").Id)                )
-                //{
-
-                //}
-
                 userNames.Add(user.Name);
                 user.UserStatusId = 1;
             }
@@ -336,14 +334,13 @@
                           .Include(x => x.Roles)
                           .Include(x => x.UserRank)
                           .Where(x => x.UserStatusId == 1
-                                        && x.Roles.FirstOrDefault().RoleId 
+                                        && x.Roles.FirstOrDefault().RoleId
                                         != context.Roles.FirstOrDefault(r => r.Name == "hr").Id)
                           .Select(x => new DevVM()
                           {
                               Id = x.Id,
                               Name = x.Name,
                               Speciality = x.DeveloperSpeciality.Name,
-                              Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
                               Rank = x.UserRank.RankName,
                               ProjectCount = x.PastProjectCount,
                               RankId = x.UserRankId,
@@ -355,11 +352,8 @@
             {
                 case "1": sort = x => x.Name; break;
                 case "2": sort = x => x.Speciality; break;
-                case "3": sort = x => x.Type; break;
-                case "4": sort = x => x.RankId; break;
-                case "5": sort = x => x.ProjectCount; break;
-
-
+                case "3": sort = x => x.RankId; break;
+                case "4": sort = x => x.ProjectCount; break;
             }
 
             if (filter2 == "2")
@@ -383,10 +377,6 @@
                                     Id = x.Id,
                                     Name = x.Name,
                                     Speciality = x.DeveloperSpeciality.Name,
-                                    Type = context
-                                           .Roles
-                                           .FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId)
-                                           .Name,
                                     Rank = x.UserRank.RankName,
                                     Status = x.UserStatus.Name
                                 });
@@ -422,20 +412,15 @@
                 case "2":
                     searchCriteria = x => x.DeveloperSpeciality.Name.Contains(enteredCriteria);
                     break;
-
                 case "3":
-                    searchCriteria = x => context.Roles.Find(x.Roles.FirstOrDefault().RoleId).Name.Contains(enteredCriteria);
-                    break;
-                case "4":
                     searchCriteria = x => x.UserRank.RankName.Contains(enteredCriteria);
                     break;
-                case "5":
+                case "4":
                     searchCriteria = x => x.PastProjectCount.ToString().Contains(enteredCriteria);
                     break;
                 default:
                     break;
             }
-
             return searchCriteria;
         }
     }

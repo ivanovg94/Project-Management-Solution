@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -266,6 +267,7 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\Manage\Teams\NewTeam.aspx" />
+    <Content Include="Views\Manage\Users\UserDetails.aspx" />
     <Content Include="Views\MyProjects.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -490,6 +492,13 @@
     </Compile>
     <Compile Include="Views\Manage\Teams\NewTeam.aspx.designer.cs">
       <DependentUpon>NewTeam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manage\Users\UserDetails.aspx.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Manage\Users\UserDetails.aspx.designer.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\MyProjects.aspx.cs">
       <DependentUpon>MyProjects.aspx</DependentUpon>

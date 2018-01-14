@@ -51,6 +51,7 @@
                         FrontEndCount.Text = currentUserTeam.CurrentNumFrontEnd.ToString();
                         BackEndCount.Text = currentUserTeam.CurrentNumBackEnd.ToString();
                         QACount.Text = currentUserTeam.CurrentNumQA.ToString();
+                        TeamStatusL.Text = currentUserTeam.TeamStatus.Name;
 
                         var data = context
                                 .Users

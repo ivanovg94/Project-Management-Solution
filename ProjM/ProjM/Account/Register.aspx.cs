@@ -36,7 +36,7 @@
                 //manager.SendEmail(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.");
 
                 var currentUser = manager.FindByName(user.UserName);
-                var roleresult = manager.AddToRole(currentUser.Id, "candidate");
+                var roleresult = manager.AddToRole(currentUser.Id, "dev");
 
                 signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                 Response.Redirect("/Account/Manage.aspx");

@@ -138,12 +138,14 @@ namespace ProjM.Migrations
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 9,
-                RankName = "None"            });
+                RankName = "None"
+            });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
                 Id = 1,
-                RankName = "Candidate"            });
+                RankName = "Candidate",
+            });
 
             context.UserRanks.AddOrUpdate(new UserRank()
             {
@@ -231,7 +233,6 @@ namespace ProjM.Migrations
 
             var roleHr = new IdentityRole() { Name = "hr" };
             var roleDev = new IdentityRole() { Name = "dev" };
-            var roleCandidate = new IdentityRole() { Name = "candidate" };
 
             if (!context.Roles.Any(role => role.Name == "hr"))
             {
@@ -241,11 +242,6 @@ namespace ProjM.Migrations
             if (!context.Roles.Any(role => role.Name == "dev"))
             {
                 roleManager.Create(roleDev);
-            }
-
-            if (!context.Roles.Any(role => role.Name == "candidate"))
-            {
-                roleManager.Create(roleCandidate);
             }
         }
 
@@ -272,13 +268,13 @@ namespace ProjM.Migrations
                     DeveloperSpecialityId = 4,
                     UserRankId = 9,
                     UserStatusId = 1,
-                    PastProjectCount=0
+                    PastProjectCount = 0
 
                 };
 
                 userManager.Create(userHr, "123");
                 userManager.AddToRole(userHr.Id, "hr");
-                
+
             }
         }
 

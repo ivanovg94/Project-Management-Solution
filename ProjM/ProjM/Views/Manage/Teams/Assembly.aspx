@@ -88,9 +88,8 @@
                                 <asp:DropDownList ID="SearchByDdl" runat="server" CssClass="form-control">
                                     <asp:ListItem Value="1">Name</asp:ListItem>
                                     <asp:ListItem Value="2">Speciality</asp:ListItem>
-                                    <asp:ListItem Value="3">Type</asp:ListItem>
-                                    <asp:ListItem Value="4">Rank</asp:ListItem>
-                                    <asp:ListItem Value="5">Project Count</asp:ListItem>
+                                    <asp:ListItem Value="3">Rank</asp:ListItem>
+                                    <asp:ListItem Value="4">Project Count</asp:ListItem>
 
                                 </asp:DropDownList>
                             </div>
@@ -114,9 +113,8 @@
                                 <asp:DropDownList ID="OrderByDdl" runat="server" CssClass="form-control">
                                     <asp:ListItem Value="1">Name</asp:ListItem>
                                     <asp:ListItem Value="2">Speciality</asp:ListItem>
-                                    <asp:ListItem Value="3">Type</asp:ListItem>
-                                    <asp:ListItem Value="4">Rank</asp:ListItem>
-                                    <asp:ListItem Value="5">Project Count</asp:ListItem>
+                                    <asp:ListItem Value="3">Rank</asp:ListItem>
+                                    <asp:ListItem Value="4">Project Count</asp:ListItem>
 
                                 </asp:DropDownList>
                             </div>
@@ -160,13 +158,14 @@
                 <Columns>
                     <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-CssClass="hideId" HeaderStyle-CssClass="hideId" />
                     <asp:BoundField DataField="Name" HeaderText="Name" ItemStyle-HorizontalAlign="center" />
-                    <asp:BoundField DataField="Speciality" HeaderText="Speciality" ItemStyle-HorizontalAlign="center"  />
-                    <asp:BoundField DataField="Type" HeaderText="Type" ItemStyle-HorizontalAlign="center"  />
-                    <asp:BoundField DataField="Rank" HeaderText="Rank" ItemStyle-HorizontalAlign="center"  />
+                    <asp:BoundField DataField="Speciality" HeaderText="Speciality" ItemStyle-HorizontalAlign="center" />
+                    <asp:BoundField DataField="Rank" HeaderText="Rank" ItemStyle-HorizontalAlign="center" />
                     <asp:BoundField DataField="ProjectCount" HeaderText="Project Count" ItemStyle-HorizontalAlign="center" />
                     <asp:BoundField DataField="RankId" HeaderText="RankId" ItemStyle-CssClass="hideId" HeaderStyle-CssClass="hideId" />
                     <asp:BoundField DataField="Status" HeaderText="Status" ItemStyle-CssClass="hideId" HeaderStyle-CssClass="hideId" />
-                    <asp:ButtonField ButtonType="Button" Text="Add" CommandName="Add" ItemStyle-HorizontalAlign="center"  />
+
+                    <asp:ButtonField ButtonType="Button" Text="Details" CommandName="Details" ItemStyle-HorizontalAlign="center" />
+                    <asp:ButtonField ButtonType="Button" Text="Add" CommandName="Add" ItemStyle-HorizontalAlign="center" />
                 </Columns>
             </asp:GridView>
         </div>
@@ -183,21 +182,16 @@
                 CssClass="table table-striped table-bordered table-condensedr table-hover">
                 <Columns>
                     <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-CssClass="hideId" HeaderStyle-CssClass="hideId" />
-                    <asp:BoundField DataField="Name" HeaderText="Name" ItemStyle-HorizontalAlign="center"  />
+                    <asp:BoundField DataField="Name" HeaderText="Name" ItemStyle-HorizontalAlign="center" />
                     <asp:BoundField DataField="Speciality" HeaderText="Speciality" ItemStyle-HorizontalAlign="center" />
-                    <asp:BoundField DataField="Type" HeaderText="Type" ItemStyle-HorizontalAlign="center" />
-                    <asp:BoundField DataField="Rank" HeaderText="Rank" ItemStyle-HorizontalAlign="center"  />
+                    <asp:BoundField DataField="Rank" HeaderText="Rank" ItemStyle-HorizontalAlign="center" />
                     <asp:BoundField DataField="Status" HeaderText="Status" ItemStyle-HorizontalAlign="center" />
-                    <asp:ButtonField ButtonType="Button" Text="Remove" CommandName="Remove" ItemStyle-HorizontalAlign="center"  />
+                    <asp:ButtonField ButtonType="Button" Text="Details" CommandName="Details" ItemStyle-HorizontalAlign="center" />
+                    <asp:ButtonField ButtonType="Button" Text="Remove" CommandName="Remove" ItemStyle-HorizontalAlign="center" />
                 </Columns>
             </asp:GridView>
         </div>
     </div>
-
-
-
-
-
 
     <div class="pull-right">
         <div id="resultBtns" class="btn-group btn-group-justified" runat="server" visible="false">

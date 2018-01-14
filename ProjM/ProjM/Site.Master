@@ -95,7 +95,7 @@
                             </asp:RoleGroup>
 
 
-                            <asp:RoleGroup Roles="dev,candidate">
+                            <asp:RoleGroup Roles="dev">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav nav-pills">
                                         <li >

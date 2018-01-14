@@ -19,14 +19,11 @@
                 int queryStringID = int.Parse(Request.QueryString["id"]);
                 var currentProject = context.Projects.Find(queryStringID);
 
-                int loginId = MySession.Current.LoginId;    //?
-                string property1 = MySession.Current.Data1; //?
-
                 MySession.Current.Data1 = Request.QueryString["id"];
 
-           //     ApplicationUser currentUser = context.Users.FirstOrDefault(x => x.Id == User.Identity.GetUserId());
-                
-             //   var currentUserRoleName = context.Roles.FirstOrDefault(r => r.Id == currentUser.Roles.FirstOrDefault().RoleId).Name;
+                //     ApplicationUser currentUser = context.Users.FirstOrDefault(x => x.Id == User.Identity.GetUserId());
+
+                //   var currentUserRoleName = context.Roles.FirstOrDefault(r => r.Id == currentUser.Roles.FirstOrDefault().RoleId).Name;
                 if (!this.User.IsInRole("hr"))
                 {
                     EditBtn.Visible = false;
@@ -106,9 +103,18 @@
 
         protected void BackBtn_Click(object sender, EventArgs e)
         {
-            int queryStringID = int.Parse(Request.QueryString["id"]);
-            var currentProject = context.Projects.Find(queryStringID);
-            Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentProject.TeamId);
+
+
+            if (User.IsInRole("hr"))
+            {
+                int queryStringID = int.Parse(Request.QueryString["id"]);
+                var currentProject = context.Projects.Find(queryStringID);
+                Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentProject.TeamId);
+            }
+            else
+            {
+                Response.Redirect("~/Views/MyProjects");
+            }
         }
     }
 }

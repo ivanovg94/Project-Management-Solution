@@ -113,7 +113,7 @@
             var selectedValue = this.SearchByDdl.SelectedValue;
             switch (selectedValue)
             {
-                case "1": 
+                case "1":
                     searchCriteria = x => x.Name.Contains(enteredCriteria);
                     break;
 
@@ -127,19 +127,19 @@
                 case "4": //works with x.xx, not with x,00
                     searchCriteria = x => x.Budget.ToString().Contains(enteredCriteria);
                     break;
-                case "5": 
+                case "5":
                     searchCriteria = x => x.ProjectStatus.Name.Contains(enteredCriteria);
                     break;
-                case "6": 
+                case "6":
                     searchCriteria = x => x.Team.Name.Contains(enteredCriteria);
                     break;
                 case "7":
                     searchCriteria = x => x.Team.TeamStatus.Name.Contains(enteredCriteria);
                     break;
-                case "8": 
+                case "8":
                     searchCriteria = x => x.ProjectCategory.Name.Contains(enteredCriteria);
                     break;
-                case "9": 
+                case "9":
                     searchCriteria = x => x.ProjectType.Name.Contains(enteredCriteria);
                     break;
 
