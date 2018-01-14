@@ -214,7 +214,7 @@
             int currentProjectId = int.Parse(MySession.Current.Data1);
             var currentProject = context.Projects.Find(currentProjectId);
             currentProject.ProjectStatusId = 2;
-            currentProject.StartDate = DateTime.Now;
+            currentProject.StartDate = DateTime.Now.Date;
             int currentTeamID = int.Parse(Request.QueryString["id"]);
             var currentTeam = context.Teams.Find(currentTeamID);
             currentTeam.TeamStatusId = 3;
@@ -328,13 +328,16 @@
             var filter1 = this.OrderByDdl.SelectedValue.ToString();
             var filter2 = this.DirectionDdl.SelectedValue.ToString();
 
+            Expression<Func<ApplicationUser, bool>> searchCriteria = this.GetSearchCriteria();
+
             var gridData = context
-                          .Users
+                          .Users.Where(searchCriteria)
                           .Include(x => x.UserStatus)
                           .Include(x => x.Roles)
                           .Include(x => x.UserRank)
                           .Where(x => x.UserStatusId == 1
-                                        && x.Roles.FirstOrDefault().RoleId != context.Roles.FirstOrDefault(r => r.Name == "hr").Id)
+                                        && x.Roles.FirstOrDefault().RoleId 
+                                        != context.Roles.FirstOrDefault(r => r.Name == "hr").Id)
                           .Select(x => new DevVM()
                           {
                               Id = x.Id,
@@ -342,8 +345,8 @@
                               Speciality = x.DeveloperSpeciality.Name,
                               Type = context.Roles.FirstOrDefault(r => r.Id == x.Roles.FirstOrDefault().RoleId).Name,
                               Rank = x.UserRank.RankName,
-                              ProjectCount=x.PastProjectCount,
-                              RankId=x.UserRankId,
+                              ProjectCount = x.PastProjectCount,
+                              RankId = x.UserRankId,
                               Status = x.UserStatus.Name
                           });
 
@@ -394,6 +397,46 @@
         protected void SortBtn_Click(object sender, EventArgs e)
         {
             AllDevsGv.DataBind();
+        }
+
+        protected void SearchBtn_Click(object sender, EventArgs e)
+        {
+            Expression<Func<ApplicationUser, bool>> searchCriteria = this.GetSearchCriteria();
+            this.AllDevsGv.DataBind();
+        }
+
+        private Expression<Func<ApplicationUser, bool>> GetSearchCriteria()
+        {
+
+            Expression<Func<ApplicationUser, bool>> searchCriteria = (ApplicationUser user) => true;
+
+            var enteredCriteria = this.SearchKeyWord.Text;
+
+            var selectedValue = this.SearchByDdl.SelectedValue;
+            switch (selectedValue)
+            {
+                case "1":
+                    searchCriteria = x => x.Name.Contains(enteredCriteria);
+                    break;
+
+                case "2":
+                    searchCriteria = x => x.DeveloperSpeciality.Name.Contains(enteredCriteria);
+                    break;
+
+                case "3":
+                    searchCriteria = x => context.Roles.Find(x.Roles.FirstOrDefault().RoleId).Name.Contains(enteredCriteria);
+                    break;
+                case "4":
+                    searchCriteria = x => x.UserRank.RankName.Contains(enteredCriteria);
+                    break;
+                case "5":
+                    searchCriteria = x => x.PastProjectCount.ToString().Contains(enteredCriteria);
+                    break;
+                default:
+                    break;
+            }
+
+            return searchCriteria;
         }
     }
 }

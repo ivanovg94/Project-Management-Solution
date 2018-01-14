@@ -98,7 +98,7 @@
                                 <asp:TextBox ID="SearchKeyWord" runat="server" PlaceHolder="Key word" CssClass="form-control"></asp:TextBox>
                             </div>
                             <div class="col-lg-2">
-                                <asp:Button ID="SearchBtn" runat="server" CssClass="btn btn-default" Text="Search" />
+                                <asp:Button ID="SearchBtn" runat="server" OnClick="SearchBtn_Click" CssClass="btn btn-default" Text="Search" />
                             </div>
 
                         </div>

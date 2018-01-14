@@ -7,7 +7,6 @@
     using System.Linq;
     using System.Web.UI.WebControls;
     using System.Linq.Expressions;
-    using System.Web.Compilation;
     using System.Collections.Generic;
 
     public partial class All : System.Web.UI.Page
@@ -35,8 +34,7 @@
                 case "7": sort = x => x.TeamStatusId; break;
                 case "8": sort = x => x.Category; break;
                 case "9": sort = x => x.Type; break;
-                default:
-                    break;
+                default: sort = x => x.Name; break;
             }
 
             if (filter2 == "2")
@@ -64,14 +62,11 @@
             }
         }
 
-        protected void ProjectsGridView_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            e.Row.Cells[0].Visible = false;
-        }
-
         public IQueryable<ProjectVM> ProjectsGridView_GetData()
         {
-            var gridData = db.Projects
+            Expression<Func<Project, bool>> searchCriteria = this.GetSearchCriteria();
+
+            var gridData = db.Projects.Where(searchCriteria)
                         .Include(x => x.ProjectCategory)
                         .Include(x => x.ProjectStatus)
                         .Include(x => x.ProjectType)
@@ -104,7 +99,55 @@
 
         protected void SearchBtn_Click(object sender, EventArgs e)
         {
+            Expression<Func<Project, bool>> searchCriteria = this.GetSearchCriteria();
+            this.ProjectsGridView.DataBind();
+        }
 
+        private Expression<Func<Project, bool>> GetSearchCriteria()
+        {
+
+            Expression<Func<Project, bool>> searchCriteria = (Project project) => true;
+
+            var enteredCriteria = this.SearchKeyWord.Text;
+
+            var selectedValue = this.SearchByDdl.SelectedValue;
+            switch (selectedValue)
+            {
+                case "1": 
+                    searchCriteria = x => x.Name.Contains(enteredCriteria);
+                    break;
+
+                case "2": //not working
+                    searchCriteria = x => x.StartDate.Value.ToString().Contains(enteredCriteria);
+                    break;
+
+                case "3": //not working
+                    searchCriteria = x => x.DeadLine.ToString().Contains(enteredCriteria);
+                    break;
+                case "4": //works with x.xx, not with x,00
+                    searchCriteria = x => x.Budget.ToString().Contains(enteredCriteria);
+                    break;
+                case "5": 
+                    searchCriteria = x => x.ProjectStatus.Name.Contains(enteredCriteria);
+                    break;
+                case "6": 
+                    searchCriteria = x => x.Team.Name.Contains(enteredCriteria);
+                    break;
+                case "7":
+                    searchCriteria = x => x.Team.TeamStatus.Name.Contains(enteredCriteria);
+                    break;
+                case "8": 
+                    searchCriteria = x => x.ProjectCategory.Name.Contains(enteredCriteria);
+                    break;
+                case "9": 
+                    searchCriteria = x => x.ProjectType.Name.Contains(enteredCriteria);
+                    break;
+
+                default:
+                    break;
+            }
+
+            return searchCriteria;
         }
     }
 }
