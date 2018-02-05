@@ -35,9 +35,9 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-6">
-                        <asp:Button ID="CancelBtn" CssClass="btn btn-default pull-left" runat="server" Text="Cancel" />
-                        <asp:Button ID="ContinueBtn" CssClass="btn btn-primary pull-right" runat="server" Text="Continue" OnClick="ContinueBtn_Click" />
+                    <div class="col-lg-4 col-lg-offset-8">
+                        <asp:Button ID="CancelBtn" CssClass="btn btn-default" runat="server" Text="Cancel" OnClick="CancelBtn_Click" />
+                        <asp:Button ID="ContinueBtn" CssClass="btn btn-primary" runat="server" Text="Continue" OnClick="ContinueBtn_Click" />
                     </div>
                 </div>
 

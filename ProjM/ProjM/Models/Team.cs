@@ -14,7 +14,6 @@
         {
             this.projects = new HashSet<Project>();
             this.users = new HashSet<ApplicationUser>();
-
         }
 
         [Key]

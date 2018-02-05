@@ -49,13 +49,13 @@ namespace ProjM.WebForms.ProjectForms {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea DescTextArea;
         
         /// <summary>
-        /// StatusDdl control.
+        /// StatusTb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList StatusDdl;
+        protected global::System.Web.UI.WebControls.TextBox StatusTb;
         
         /// <summary>
         /// BudgetTb control.
@@ -94,6 +94,24 @@ namespace ProjM.WebForms.ProjectForms {
         protected global::System.Web.UI.WebControls.TextBox StartDateTb;
         
         /// <summary>
+        /// endDatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl endDatePanel;
+        
+        /// <summary>
+        /// EndDateTb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox EndDateTb;
+        
+        /// <summary>
         /// date control.
         /// </summary>
         /// <remarks>
@@ -119,6 +137,15 @@ namespace ProjM.WebForms.ProjectForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button EditBtn;
+        
+        /// <summary>
+        /// SaveBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SaveBtn;
         
         /// <summary>
         /// TeamBtn control.

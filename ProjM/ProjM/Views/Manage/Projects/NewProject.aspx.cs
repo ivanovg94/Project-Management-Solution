@@ -68,5 +68,17 @@
             Response.Redirect("~/Views/Manage/Projects/All.aspx");
 
         }
+
+        protected void CancelBtn_Click(object sender, EventArgs e)
+        {
+            ProjectNameTb.Text = string.Empty;
+            DescTextArea.Value = string.Empty;
+            date.Text = string.Empty;
+            BudgetTb.Text = string.Empty;
+            PrjTypeDdl.SelectedIndex = -1;
+            PrjCategoryDdl.SelectedIndex = -1;
+            Response.Redirect("~/Views/Manage/Projects/NewProject.aspx");
+
+        }
     }
 }

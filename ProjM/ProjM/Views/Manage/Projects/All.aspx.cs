@@ -11,14 +11,52 @@
 
     public partial class All : System.Web.UI.Page
     {
-        private ProjMDbContext db = new ProjMDbContext();
+        private ProjMDbContext context = new ProjMDbContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            foreach (var project in context.Projects.ToList())
+            {
+                if (project.DeadLine < DateTime.Now)
+                {
+                    project.ProjectStatusId = 3;
+                    var currentTeam = project.Team;
+
+                    if (currentTeam != null)
+                    {
+                        var userNames = new List<string>();
+
+                        foreach (var user in currentTeam.Users)
+                        {
+                            user.PastProjectCount++;
+                            user.RankPoints -= 10;
+                            if (user.RankPoints < 0)
+                            {
+                                user.RankPoints = 0;
+                            }
+
+                            userNames.Add(user.Name);
+                            user.UserStatusId = 1;
+                            user.TeamId = null;
+                        }
+                        project.ParticipantsList = String.Join(",", userNames);
+                        userNames.Clear();
+                        project.TeamId = null;
+                        context.Teams.Remove(currentTeam);
+                    }
+                    project.ProjectStatusId = 4;
+                    context.SaveChanges();
+
+                }
+
+            }
         }
 
         private IQueryable<ProjectVM> GetSortedGridData(List<ProjectVM> gridData)
         {
+            var data = gridData.AsQueryable();
+
             var filter1 = this.OrderByDdl.SelectedValue.ToString();
             var filter2 = this.DirectionDdl.SelectedValue.ToString();
 
@@ -26,8 +64,12 @@
             switch (filter1)
             {
                 case "1": sort = x => x.Name; break;
-                case "2": sort = x => x.StartDateNtime; break;
-                case "3": sort = x => x.DeadLine; break;
+                case "2":
+                    sort = x => x.StartDateNtime;
+                    break;
+                case "3":
+                    sort = x => DateTime.Parse(x.DeadLine);
+                    break;
                 case "4": sort = x => x.Budget; break;
                 case "5": sort = x => x.StatusId; break;
                 case "6": sort = x => x.Team; break;
@@ -39,10 +81,10 @@
 
             if (filter2 == "2")
             {
-                return gridData.AsQueryable().OrderByDescending(sort);
+                return data.OrderByDescending(sort);
             }
 
-            return gridData.AsQueryable().OrderBy(sort);
+            return data.OrderBy(sort);
         }
 
 
@@ -66,7 +108,7 @@
         {
             Expression<Func<Project, bool>> searchCriteria = this.GetSearchCriteria();
 
-            var gridData = db.Projects.Where(searchCriteria)
+            var gridData = context.Projects.Where(searchCriteria)
                         .Include(x => x.ProjectCategory)
                         .Include(x => x.ProjectStatus)
                         .Include(x => x.ProjectType)
@@ -117,14 +159,24 @@
                     searchCriteria = x => x.Name.Contains(enteredCriteria);
                     break;
 
-                case "2": //not working
-                    searchCriteria = x => x.StartDate.Value.ToString().Contains(enteredCriteria);
+                case "2":
+
+                    DateTime dateTime2;
+                    if (DateTime.TryParse(enteredCriteria, out dateTime2))
+                    {
+                        var date = DateTime.Parse(enteredCriteria);
+                        searchCriteria = x => x.StartDate.Value == dateTime2;
+                    }
+                    else
+                    {
+                        searchCriteria = x => !x.StartDate.HasValue;
+                    }
                     break;
 
-                case "3": //not working
-                    searchCriteria = x => x.DeadLine.ToString().Contains(enteredCriteria);
+                case "3":
+                    searchCriteria = x => x.DeadLine == DateTime.Parse(enteredCriteria);
                     break;
-                case "4": //works with x.xx, not with x,00
+                case "4":
                     searchCriteria = x => x.Budget.ToString().Contains(enteredCriteria);
                     break;
                 case "5":

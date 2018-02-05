@@ -18,7 +18,9 @@
                         <asp:Label CssClass="control-label" runat="server" Text="Budget:" Font-Bold="True"></asp:Label>
                         <br />
                         <asp:Label CssClass="control-label" runat="server" Text="Status:" Font-Bold="True"></asp:Label>
-                    </div>
+                        <br />
+                        <asp:Button ID="PrjDetailsBtn" onclick="PrjDetailsBtn_Click" cssclass="btn btn-default btn-xs" runat="server" Text="More details" />
+                         </div>
 
                     <div class="pull-right">
                         <asp:Label ID="ProjectNameLValue" CssClass="control-label" runat="server" Text="" Font-Bold="True"></asp:Label>
@@ -42,6 +44,8 @@
                 <div class="panel-heading">Team details</div>
                 <div class="panel-body">
                     <div class="pull-left">
+                        <asp:Label CssClass="control-label" runat="server" Text="Team Name:" Font-Bold="True"></asp:Label>
+                        <br />
                         <asp:Label CssClass="control-label" runat="server" Text="Total number of Developers needed:" Font-Bold="True"></asp:Label>
                         <br />
                         <asp:Label CssClass="control-label" runat="server" Text="Front-end:" Font-Bold="True"></asp:Label>
@@ -53,7 +57,10 @@
                         <asp:Label CssClass="control-label" runat="server" Text="Status:" Font-Bold="True"></asp:Label>
 
                     </div>
+
                     <div class="pull-right">
+                        <asp:Label CssClass="control-label" ID="TeamNameL" runat="server" Text="" Font-Bold="True"></asp:Label>
+                        <br />
                         <asp:Label ID="CurrentTotalLValue" CssClass="control-label" runat="server" Text="x" Font-Bold="True"></asp:Label>
                         /
                     <asp:Label ID="TotalLValue" CssClass="control-label" runat="server" Text="x" Font-Bold="True"></asp:Label>
@@ -195,12 +202,12 @@
 
     <div class="pull-right">
         <div id="resultBtns" class="btn-group btn-group-justified" runat="server" visible="false">
-            <div class="col-lg-11">
-                <div class="col-lg-5">
+            <div class="col-lg-12">
+                <div class="col-lg-3 col-lg-offset-6">
                     <asp:Button ID="SuccessfulBtn" CssClass="btn btn-success" runat="server" Text="Mark Project as Successful" OnClick="SuccessfulBtn_Click" />
                 </div>
-                <div class="col-lg-4">
-                    <asp:Button ID="FailedBtn" runat="server" CssClass="btn btn-danger" Text="Mark Project as Failed" OnClick="FailedBtn_Click" />
+                <div class="col-lg-3">
+                    <asp:Button ID="FailedBtn" runat="server" CssClass="pull-right btn btn-danger" Text="Mark Project as Failed" OnClick="FailedBtn_Click" />
                 </div>
             </div>
         </div>

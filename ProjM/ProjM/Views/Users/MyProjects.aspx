@@ -6,7 +6,7 @@
         <asp:Panel ID="CurrentProjectPanel" Visible="false" runat="server">
             <div class="col-lg-6">
                 <h4>Current Project</h4>
-                <h3 Id="noProject" runat="server" visible="false">No projects.</h3>
+                <h3 id="noProject" runat="server" visible="false">No projects.</h3>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <asp:Label ID="CurrentProjNameL" runat="server" Text=""></asp:Label>
@@ -74,6 +74,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <asp:Button ID="PrjDetailsBtn" OnClick="PrjDetailsBtn_Click" CssClass="pull-right btn btn-default btn-xs" runat="server" Text="More details" />
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -117,7 +123,7 @@
                                 </div>
                             </div>
                         </div>
-                         <div class="row">
+                        <div class="row">
                             <label class="col-lg-6 control-label">Team Status</label>
                             <div class="col-lg-6">
                                 <div class="pull-right">
@@ -151,6 +157,13 @@
                                         </div>
                                         <div class="panel-body">
 
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="pull-right">
+                                                        <asp:Label ID="Id" Visible="false" runat="server" Text='<%# Eval("Id") %>'></asp:Label>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div class="row">
                                                 <label class="col-lg-6 control-label">Email</label>
@@ -179,14 +192,22 @@
                                                 </div>
                                             </div>
 
-                                               <div class="row">
-                                                   <label class="col-lg-6 control-label">Rank</label>
-                                                   <div class="col-lg-6">
-                                                       <div class="pull-right">
-                                                           <asp:Label ID="Label3" runat="server" Text='<%# Eval("Rank") %>'></asp:Label>
-                                                       </div>
-                                                   </div>
-                                               </div>
+                                            <div class="row">
+                                                <label class="col-lg-6 control-label">Rank</label>
+                                                <div class="col-lg-6">
+                                                    <div class="pull-right">
+                                                        <asp:Label ID="Label3" runat="server" Text='<%# Eval("Rank") %>'></asp:Label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="pull-right">
+                                                        <asp:HyperLink ID="HyperLink1" runat="server"
+                                                            NavigateUrl='<%# Eval("Id","~/Views/Users/UserDetails?id={0}") %>'>More details ...</asp:HyperLink>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +229,7 @@
             <div class="col-lg-6 col-lg-offset-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Project Invites</h3>
+                        <h3 class="panel-title">Project invitation</h3>
                     </div>
                     <div class="panel-body">
                         <div class="col-lg-10">

@@ -93,13 +93,11 @@
                                     </ul>
                                 </ContentTemplate>
                             </asp:RoleGroup>
-
-
                             <asp:RoleGroup Roles="dev">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav nav-pills">
                                         <li >
-                                            <a href="/Views/MyProjects.aspx">Projects
+                                            <a href="/Views/Users/MyProjects.aspx">Projects
                                                      <span id="span" runat="server" class="badge">1</span>
                                             </a>
                                         </li
@@ -119,7 +117,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>&copy; <%: DateTime.Now.Year %> - PMs project management system</p>
             </footer>
         </div>
     </form>

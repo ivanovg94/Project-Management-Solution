@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Manage Account" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Manage.aspx.cs" Inherits="ProjM.Account.Manage" %>
+
 <%@ Register Src="~/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
@@ -88,13 +89,10 @@
                 <div class="form-group">
                     <asp:Label ID="Lab" runat="server" CssClass="col-lg-2 control-label" Enabled="true" Text=""></asp:Label>
 
-                    <div class="col-lg-10">
-                        <asp:HyperLink CssClass="btn btn-default" NavigateUrl="/Account/ManagePassword" Text="Change Password" Visible="false" ID="ChangePassword" runat="server" />
+                    <div class="col-lg-8 col-lg-offset-6">
+                        <asp:HyperLink CssClass="btn btn-default " NavigateUrl="/Account/ManagePassword" Text="Change Password" Visible="false" ID="ChangePassword" runat="server" />
                         <asp:HyperLink CssClass="btn btn-default" NavigateUrl="/Account/ManagePassword" Text="[Create]" Visible="false" ID="CreatePassword" runat="server" />
-                    </div>
-                    <div class="pull-right">
-                        <asp:Button ID="SaveDataButton" CssClass="btn btn-default" runat="server" Text="Edit profile" OnClick="SaveDataButton_Click" />
-
+                        <asp:Button ID="SaveDataButton" CssClass="btn btn-default " runat="server" Text="Edit profile" OnClick="SaveDataButton_Click" />
                     </div>
                 </div>
 
@@ -134,9 +132,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <asp:Label ID="LanguagesLabel" CssClass="col-lg-2 control-label" runat="server" Text="Languages"></asp:Label>
+                    <asp:Label ID="LastProjectInfo" CssClass="col-lg-2 control-label" runat="server" Text="Previous project  "></asp:Label>
+                    <div class="col-lg-10">
+
+                        <asp:Label ID="LastProjectInfoValue" runat="server" CssClass="col-lg-10 control-label" Text=""></asp:Label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="LanguagesLabel" CssClass="col-lg-12 control-label" runat="server" Text="Languages"></asp:Label>
                     <div class="col-lg-10 col-lg-offset-2">
-                        <asp:CheckBoxList ID="LanguagesCbl" CssClass="control-checkbox" RepeatDirection="Vertical" Enabled="false" RepeatColumns="2" RepeatLayout="Table" runat="server"></asp:CheckBoxList>
+                        <asp:CheckBoxList ID="LanguagesCbl" CssClass="control-checkbox " RepeatDirection="Vertical" Enabled="false" RepeatColumns="3" RepeatLayout="Table" runat="server"></asp:CheckBoxList>
                     </div>
                 </div>
             </fieldset>

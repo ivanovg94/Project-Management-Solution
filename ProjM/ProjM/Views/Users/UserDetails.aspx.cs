@@ -11,12 +11,15 @@ namespace ProjM.Views.Manage.Users
     public partial class UserDetails : Page
     {
         ProjMDbContext context = new ProjMDbContext();
+        string queryStringID = "-1";
+        static string prevPage = String.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
 
-                string queryStringID = Request.QueryString["id"];
+                queryStringID = Request.QueryString["id"];
                 var currentUser = context.Users.Find(queryStringID);
                 UserNameL.Text = currentUser.Name;
                 EmailL.Text = currentUser.Email;
@@ -26,7 +29,12 @@ namespace ProjM.Views.Manage.Users
                 RankL.Text = currentUser.UserRank.RankName;
                 RankPointsL.Text = currentUser.RankPoints.ToString();
                 ProjectCountL.Text = currentUser.PastProjectCount.ToString();
-                TeamL.Text = currentUser.TeamId== null ? "-" : currentUser.Team.Name;
+                TeamL.Text = currentUser.TeamId == null ? "-" : currentUser.Team.Name;
+                LastProjectInfoValue.Text = currentUser.UserRankId == 1 ? "-" : currentUser.LastProjectInfo;
+
+                prevPage = Request.UrlReferrer.ToString();
+
+
 
                 var langs = currentUser.ProgrammingLanguages.ToList();
                 var langNames = new List<string>();
@@ -40,7 +48,14 @@ namespace ProjM.Views.Manage.Users
 
         protected void BackBtn_Click(object sender, EventArgs e)
         {
-
+            if (User.IsInRole("hr"))
+            {
+                Response.Redirect(prevPage);
+            }
+            else
+            {
+                Response.Redirect("~/Views/Users/MyProjects");
+            }
         }
     }
 }

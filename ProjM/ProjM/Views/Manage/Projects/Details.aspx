@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Status</label>
                         <div class="col-lg-10">
-                            <asp:DropDownList ID="StatusDdl" Enabled="false" runat="server" CssClass="form-control details-page-ddl"></asp:DropDownList>
+                            <asp:TextBox ID="StatusTb" Enabled="false" runat="server" CssClass="form-control details-page-ddl"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -72,21 +72,30 @@
                         </div>
                     </div>
                 </div>
+                  <div class="col-lg-12" id="endDatePanel" runat="server" visible="false">
+                    <div class="form-group">
+                        <label for="EndDateTb" class="col-lg-2 control-label">End Date</label>
+                        <div class="col-lg-10">
+                            <asp:TextBox ID="EndDateTb" CssClass="form-control" Enabled="false" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label for="date" class="col-lg-2 control-label">Deadline</label>
                         <div class="col-lg-10">
-                            <asp:TextBox ID="date" CssClass="form-control" Enabled="false" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="date" CssClass="datePicker form-control" Enabled="false" runat="server"></asp:TextBox>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <asp:Button ID="CancelBtn" CssClass="btn btn-default pull-right" runat="server" Text="Cancel" />
-                        <asp:Button ID="EditBtn" CssClass="btn btn-default pull-right" runat="server" Text="Edit" />
+                        <asp:Button ID="CancelBtn" CssClass="btn btn-default pull-right" OnClick="CancelBtn_Click" Visible="false" runat="server" Text="Cancel" />
+                        <asp:Button ID="EditBtn" CssClass="btn btn-default pull-right" OnClick="EditBtn_Click" runat="server" Text="Edit" />
+                        <asp:Button ID="SaveBtn" CssClass="btn btn-default pull-right" Visible="false" OnClick="SaveBtn_Click" runat="server" Text="Save" />
                         <asp:Button ID="TeamBtn" CssClass="btn btn-primary pull-left" runat="server" Text="Team" OnClick="TeamBtn_Click" />
-                        <asp:Button ID="BackBtn" Visible="false" CssClass="btn btn-primary pull-left" runat="server" Text="Back" OnClick="BackBtn_Click" Style="height: 47px" />
+                        <asp:Button ID="BackBtn" CssClass="btn btn-default pull-right" runat="server" Text="Back" OnClick="BackBtn_Click" Style="height: 47px" />
 
                     </div>
                 </div>

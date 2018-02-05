@@ -80,6 +80,15 @@
 
                 <div class="col-lg-12">
                     <div class="form-group">
+                        <label for="LastProjectInfoValue" class="col-lg-3 control-label">Previous project:</label>
+                        <div class="col-lg-9">
+                            <asp:Label ID="LastProjectInfoValue" CssClass="control-label pull-right" runat="server" Text=""></asp:Label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="form-group">
                         <label for="TeamL" class="col-lg-3 control-label">Team</label>
                         <div class="col-lg-9">
                             <asp:Label ID="TeamL" CssClass="control-label pull-right" runat="server" Text=""></asp:Label>
@@ -97,11 +106,7 @@
                 </div>
 
                 <div class="col-lg-12">
-                    <div class="form-group">
-                        <div class="col-lg-10 col-lg-offset-2">
-                            <asp:Button ID="BackBtn" CssClass="btn btn-primary pull-left" runat="server" Text="Back" OnClick="BackBtn_Click" />
-                        </div>
-                    </div>
+                    <asp:Button ID="BackBtn" CssClass="btn btn-primary pull-right" runat="server" Text="Back" OnClick="BackBtn_Click" />
                 </div>
 
             </fieldset>

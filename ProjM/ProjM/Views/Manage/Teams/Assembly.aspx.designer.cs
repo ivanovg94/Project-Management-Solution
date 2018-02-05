@@ -13,6 +13,15 @@ namespace ProjM.WebForms.Team {
     public partial class Assembly {
         
         /// <summary>
+        /// PrjDetailsBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button PrjDetailsBtn;
+        
+        /// <summary>
         /// ProjectNameLValue control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace ProjM.WebForms.Team {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label ProjectStatusValue;
+        
+        /// <summary>
+        /// TeamNameL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TeamNameL;
         
         /// <summary>
         /// CurrentTotalLValue control.

@@ -11,32 +11,30 @@
     public partial class Details : Page
     {
         ProjMDbContext context = new ProjMDbContext();
+        Project currentProject;
         protected void Page_Load(object sender, EventArgs e)
         {
+            int queryStringID = int.Parse(Request.QueryString["id"]);
+            currentProject = context.Projects.Find(queryStringID);
+
+            MySession.Current.Data1 = Request.QueryString["id"];
             if (!IsPostBack)
             {
-
-                int queryStringID = int.Parse(Request.QueryString["id"]);
-                var currentProject = context.Projects.Find(queryStringID);
-
-                MySession.Current.Data1 = Request.QueryString["id"];
-
-                //     ApplicationUser currentUser = context.Users.FirstOrDefault(x => x.Id == User.Identity.GetUserId());
-
-                //   var currentUserRoleName = context.Roles.FirstOrDefault(r => r.Id == currentUser.Roles.FirstOrDefault().RoleId).Name;
                 if (!this.User.IsInRole("hr"))
                 {
                     EditBtn.Visible = false;
                     CancelBtn.Visible = false;
                     TeamBtn.Visible = false;
-                    BackBtn.Visible = true;
                 }
 
-                if (currentProject.ProjectStatusId == 4)
+                if (currentProject.ProjectStatusId == 4 || currentProject.ProjectStatusId == 5)
                 {
                     ParticipantsDiv.Visible = true;
                     TeamBtn.Visible = false;
+                    EditBtn.Visible = false;
                     ParticipantsTb.Text = currentProject.ParticipantsList;
+                    endDatePanel.Visible = true;
+                    EndDateTb.Text = currentProject.EndDate;
                 }
 
                 //fill Project Type DDL
@@ -65,18 +63,7 @@
                 projectCategory.Clear();
                 PrjCategoryDdl.SelectedValue = currentProject.ProjectCategoryId.ToString();
 
-                //fill ProjectStatus DDL
-                var projectStatus = context.ProjectStatus.ToList();
-                foreach (var status in projectStatus)
-                {
-                    StatusDdl.Items.Add(new ListItem()
-                    {
-                        Value = status.Id.ToString(),
-                        Text = status.Name
-                    });
-                }
-                projectStatus.Clear();
-                StatusDdl.SelectedValue = currentProject.ProjectStatusId.ToString();
+                StatusTb.Text = currentProject.ProjectStatus.Name;
 
                 ProjectNameTb.Text = currentProject.Name;
                 StartDateTb.Text = currentProject.StartDate == null ? "-" : currentProject.StartDate.Value.ToShortDateString();
@@ -106,15 +93,74 @@
 
 
             if (User.IsInRole("hr"))
-            {
-                int queryStringID = int.Parse(Request.QueryString["id"]);
-                var currentProject = context.Projects.Find(queryStringID);
-                Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentProject.TeamId);
+            {int queryStringID = int.Parse(Request.QueryString["id"]);
+                var currentProject = context.Projects.Find(queryStringID);                
+                Response.Redirect("~/Views/Manage/Projects/All.aspx");
             }
             else
             {
-                Response.Redirect("~/Views/MyProjects");
+                Response.Redirect("~/Views/Users/MyProjects");
             }
+        }
+
+        protected void EditBtn_Click(object sender, EventArgs e)
+        {
+            ProjectNameTb.Enabled = true;
+            PrjTypeDdl.Enabled = true;
+            PrjCategoryDdl.Enabled = true;
+            DescTextArea.Disabled = false;
+            BudgetTb.Enabled = true;
+            date.Enabled = true;
+
+            CancelBtn.Visible = true;
+            EditBtn.Visible = false;
+            SaveBtn.Visible = true;
+
+        }
+
+        protected void CancelBtn_Click(object sender, EventArgs e)
+        {
+            ProjectNameTb.Text = currentProject.Name;
+            StartDateTb.Text = currentProject.StartDate == null ? "-" : currentProject.StartDate.Value.ToShortDateString();
+            date.Text = currentProject.DeadLine.ToShortDateString();
+            DescTextArea.Value = currentProject.Description;
+            BudgetTb.Text = currentProject.Budget.ToString();
+            PrjTypeDdl.SelectedValue = currentProject.ProjectTypeId.ToString();
+            PrjCategoryDdl.SelectedValue = currentProject.ProjectCategoryId.ToString();
+
+            CancelBtn.Visible = false;
+            EditBtn.Visible = true;
+            SaveBtn.Visible = false;
+
+            ProjectNameTb.Enabled = false;
+            PrjTypeDdl.Enabled = false;
+            PrjCategoryDdl.Enabled = false;
+            DescTextArea.Disabled = true;
+            BudgetTb.Enabled = false;
+            date.Enabled = false;
+        }
+        //todo fix!!
+        protected void SaveBtn_Click(object sender, EventArgs e)
+        {
+            currentProject.Name = ProjectNameTb.Text;
+            currentProject.ProjectTypeId = int.Parse(PrjTypeDdl.SelectedValue);
+            currentProject.ProjectCategoryId = int.Parse(PrjCategoryDdl.SelectedValue);
+            currentProject.Description = DescTextArea.Value;
+            currentProject.Budget = decimal.Parse(BudgetTb.Text);
+            currentProject.DeadLine = DateTime.Parse(this.date.Text);
+
+            context.SaveChanges();
+
+            CancelBtn.Visible = false;
+            EditBtn.Visible = true;
+            SaveBtn.Visible = false;
+
+            ProjectNameTb.Enabled = false;
+            PrjTypeDdl.Enabled = false;
+            PrjCategoryDdl.Enabled = false;
+            DescTextArea.Disabled = true;
+            BudgetTb.Enabled = false;
+            date.Enabled = false;
         }
     }
 }

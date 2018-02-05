@@ -7,7 +7,7 @@ namespace ProjM.Migrations
     using System.Linq;
     using System;
 
-    public sealed class Configuration : DbMigrationsConfiguration<ProjM.Models.ProjMDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<ProjMDbContext>
     {
         public Configuration()
         {
@@ -27,7 +27,7 @@ namespace ProjM.Migrations
             this.UsersSeeder(context);
             this.ProgrammingLanguageSeeder(context);
             this.ProjectTypeSeeder(context);
-            this.TestCategorySeeder(context);
+            this.ProjectCategorySeeder(context);
         }
 
         private void TeamStatusSeeder(ProjMDbContext context)
@@ -101,7 +101,12 @@ namespace ProjM.Migrations
             context.ProjectStatus.AddOrUpdate(new ProjectStatus()
             {
                 Id = 4,
-                Name = "Past"
+                Name = "Past Unsuccessful"
+            });
+            context.ProjectStatus.AddOrUpdate(new ProjectStatus()
+            {
+                Id = 5,
+                Name = "Past Successful"
             });
 
         }
@@ -190,19 +195,43 @@ namespace ProjM.Migrations
             });
         }
 
-        private void TestCategorySeeder(ProjMDbContext context)
+        private void ProjectCategorySeeder(ProjMDbContext context)
         {
             context.ProjectCategories.AddOrUpdate(new ProjectCategory()
             {
                 Id = 1,
-                Name = "First Test Category"
+                Name = "Business"
             });
 
             context.ProjectCategories.AddOrUpdate(new ProjectCategory()
             {
                 Id = 2,
-                Name = "Second Test Category"
+                Name = "Sport"
             });
+
+            context.ProjectCategories.AddOrUpdate(new ProjectCategory()
+            {
+                Id = 3,
+                Name = "Gaming"
+            });
+
+            context.ProjectCategories.AddOrUpdate(new ProjectCategory()
+            {
+                Id = 4,
+                Name = "Entertainment"
+            });
+
+            context.ProjectCategories.AddOrUpdate(new ProjectCategory()
+            {
+                Id = 5,
+                Name = "Science"
+            });
+            context.ProjectCategories.AddOrUpdate(new ProjectCategory()
+            {
+                Id = 6,
+                Name = "Other"
+            });
+
         }
 
         private void ProjectTypeSeeder(ProjMDbContext context)

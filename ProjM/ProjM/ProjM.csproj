@@ -176,7 +176,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\SomeStyles.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -224,7 +223,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Images\get selected.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\manageAcc.png" />
+    <Content Include="Images\Rank Up.png" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
@@ -267,8 +269,8 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\Manage\Teams\NewTeam.aspx" />
-    <Content Include="Views\Manage\Users\UserDetails.aspx" />
-    <Content Include="Views\MyProjects.aspx" />
+    <Content Include="Views\Users\UserDetails.aspx" />
+    <Content Include="Views\Users\MyProjects.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
@@ -430,7 +432,6 @@
     <Compile Include="Models\UserRank.cs" />
     <Compile Include="Models\UserStat.cs" />
     <Compile Include="Models\UserStatus.cs" />
-    <Compile Include="Msg\MessageBox.cs" />
     <Compile Include="Sessions\MySession.cs" />
     <Compile Include="ViewModels\DevVM.cs" />
     <Compile Include="ViewModels\ProjectVM.cs" />
@@ -493,18 +494,18 @@
     <Compile Include="Views\Manage\Teams\NewTeam.aspx.designer.cs">
       <DependentUpon>NewTeam.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Manage\Users\UserDetails.aspx.cs">
+    <Compile Include="Views\Users\UserDetails.aspx.cs">
       <DependentUpon>UserDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Manage\Users\UserDetails.aspx.designer.cs">
+    <Compile Include="Views\Users\UserDetails.aspx.designer.cs">
       <DependentUpon>UserDetails.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\MyProjects.aspx.cs">
+    <Compile Include="Views\Users\MyProjects.aspx.cs">
       <DependentUpon>MyProjects.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\MyProjects.aspx.designer.cs">
+    <Compile Include="Views\Users\MyProjects.aspx.designer.cs">
       <DependentUpon>MyProjects.aspx</DependentUpon>
     </Compile>
   </ItemGroup>

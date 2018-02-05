@@ -13,14 +13,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="PrjTypeDdl" class="col-lg-2 control-label">Selects</label>
+                    <label for="PrjTypeDdl" class="col-lg-2 control-label">Type</label>
                     <div class="col-lg-10">
                         <asp:DropDownList ID="PrjTypeDdl" CssClass="form-control" runat="server"></asp:DropDownList>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="PrjCategoryDdl" class="col-lg-2 control-label">Selects</label>
+                    <label for="PrjCategoryDdl" class="col-lg-2 control-label">Category</label>
                     <div class="col-lg-10">
                         <asp:DropDownList ID="PrjCategoryDdl" CssClass="form-control" runat="server"></asp:DropDownList>
                     </div>
@@ -45,8 +45,8 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <asp:Button ID="CancelBtn" CssClass="btn btn-default" runat="server" Text="Cancel" />
+                    <div class="col-lg-5 col-lg-offset-7">
+                        <asp:Button ID="CancelBtn" CssClass="btn btn-default" runat="server" Text="Cancel" OnClick="CancelBtn_Click" />
                         <asp:Button ID="CreateBtn" CssClass="btn btn-primary" runat="server" Text="Create" OnClick="CreateBtn_Click" />
                     </div>
                 </div>

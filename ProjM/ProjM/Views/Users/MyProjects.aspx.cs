@@ -44,7 +44,7 @@
                         DescriptionL.Text = currentProject.Description;
                         StatusL.Text = currentProject.ProjectStatus.Name;
                         DeadLineL.Text = currentProject.DeadLine.ToShortDateString();
-                        TeamL.Text = currentProject.Team.Name;
+                        TeamL.Text = currentUser.Team.Name;
                         BudgetL.Text = currentProject.Budget.ToString();
 
                         TeamNameL.Text = currentUser.Team.Name;
@@ -99,7 +99,7 @@
             currentUser.UserStatusId = 3;
             context.SaveChanges();
             InvitePanel.Visible = false;
-            Response.Redirect("~/Views/MyProjects");
+            Response.Redirect("~/Views/Users/MyProjects");
         }
 
         protected void DetailsBtn_Click(object sender, EventArgs e)
@@ -125,7 +125,14 @@
             currentUser.TeamId = null;
             context.SaveChanges();
             InvitePanel.Visible = false;
-            Response.Redirect("~/Views/MyProjects");
+            Response.Redirect("~/Views/Users/MyProjects");
+        }
+
+        protected void PrjDetailsBtn_Click(object sender, EventArgs e)
+        {
+            var currentUser = context.Users.Find(currentUserId);
+            var currentUserTeam = context.Teams.Find(currentUser.TeamId);
+            Response.Redirect("/Views/Manage/Projects/Details.aspx?id=" + context.Projects.Find(currentUserTeam.Id).Id);
         }
     }
 }

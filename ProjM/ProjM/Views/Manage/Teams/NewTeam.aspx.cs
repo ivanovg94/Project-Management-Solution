@@ -42,5 +42,13 @@
             //send teamId to next form
             Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamId.ToString());
         }
+
+        protected void CancelBtn_Click(object sender, EventArgs e)
+        {
+            TeamNameTb.Text = string.Empty;
+            FrontEndTb.Text = string.Empty;
+            BackEndTb.Text = string.Empty;
+            QATb.Text = string.Empty;
+        }
     }
 }

@@ -50,4 +50,10 @@ textarea {
     .headerClass > th {
         text-align: center !important;
     }
+
+    .clear {
+        clear: both;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
 }

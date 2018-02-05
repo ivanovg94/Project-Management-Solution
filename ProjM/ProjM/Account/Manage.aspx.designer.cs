@@ -193,6 +193,24 @@ namespace ProjM.Account {
         protected global::System.Web.UI.WebControls.Label StatusLabel;
         
         /// <summary>
+        /// LastProjectInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LastProjectInfo;
+        
+        /// <summary>
+        /// LastProjectInfoValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LastProjectInfoValue;
+        
+        /// <summary>
         /// LanguagesLabel control.
         /// </summary>
         /// <remarks>

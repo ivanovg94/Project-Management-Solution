@@ -7,23 +7,26 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser 
     {
-        // You can add User data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
         private ICollection<ProgrammingLanguage> programmingLanguages;
-
-        public string Name { get; set; }
 
         public ApplicationUser()
         {
             this.programmingLanguages = new HashSet<ProgrammingLanguage>();
         }
 
+        public string Name { get; set; }
+
         public string Phone { get; set; }
 
         public int PastProjectCount { get; set; }
 
         public string Experience { get; set; }
+
+        public string LastProjectInfo { get; set; }
+
+        public int? RankPoints { get; set; }
 
         [ForeignKey("DeveloperSpeciality")]
         public int DeveloperSpecialityId { get; set; }
@@ -38,12 +41,9 @@
         public int UserRankId { get; set; }
         public virtual UserRank UserRank { get; set; }
 
-        public int? RankPoints { get; set; }
-
         [ForeignKey("UserStatus")]
         public int UserStatusId { get; set; }
         public virtual UserStatus UserStatus { get; set; }
-
 
         public virtual ICollection<ProgrammingLanguage> ProgrammingLanguages
         {

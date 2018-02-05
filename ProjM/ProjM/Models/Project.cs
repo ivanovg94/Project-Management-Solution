@@ -6,7 +6,6 @@
 
     public class Project
     {
-
         [Key]
         public int Id { get; set; }
 
@@ -18,6 +17,8 @@
         public DateTime? StartDate { get; set; }
 
         public DateTime DeadLine { get; set; }
+
+        public string EndDate { get; set; }
 
         public decimal Budget { get; set; }
 
@@ -40,7 +41,7 @@
         public virtual ProjectType ProjectType { get; set; }
 
 
-        
+
 
 
     }

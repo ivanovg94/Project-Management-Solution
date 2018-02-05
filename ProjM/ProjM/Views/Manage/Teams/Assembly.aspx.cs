@@ -1,7 +1,6 @@
 ﻿namespace ProjM.WebForms.Team
 {
     using Models;
-    using Msg;
     using Sessions;
     using ViewModels;
     using System;
@@ -16,6 +15,7 @@
     {
         ProjMDbContext context = new ProjMDbContext();
         int queryStringID = -1;
+        int currentProjectId = -1;
         protected void Page_Load(object sender, EventArgs e)
         {
             queryStringID = int.Parse(Request.QueryString["id"]);
@@ -24,7 +24,7 @@
             if (!IsPostBack)
             {
                 //fill Project Details
-                int currentProjectId = int.Parse(MySession.Current.Data1);
+                currentProjectId = int.Parse(MySession.Current.Data1);
                 var currentProject = context.Projects.Find(currentProjectId);
                 ProjectNameLValue.Text = currentProject.Name;
                 ProjectTypeLValue.Text = currentProject.ProjectType.Name;
@@ -32,7 +32,8 @@
                 BudgetLValue.Text = currentProject.Budget.ToString();
                 ProjectStatusValue.Text = currentProject.ProjectStatus.Name;
 
-                //fill Team Details
+                //fill Team Details  
+                TeamNameL.Text = currentTeam.Name;
                 FrontEndLValue.Text = currentTeam.ReqNumFrontEnd.ToString();
                 BackEndLValue.Text = currentTeam.ReqNumBackEnd.ToString();
                 QALValue.Text = currentTeam.ReqNumQA.ToString();
@@ -116,11 +117,11 @@
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumBackEnd++;
                 }
-                else if (user.DeveloperSpecialityId == 1
-                         && currentTeam.CurrentNumBackEnd >= currentTeam.ReqNumBackEnd)
-                {
-                    MessageBox.Show(this, "Back-end possitions are full!");
-                }
+                //else if (user.DeveloperSpecialityId == 1
+                //         && currentTeam.CurrentNumBackEnd >= currentTeam.ReqNumBackEnd)
+                //{
+                //    MessageBox.Show(this, "Back-end possitions are full!");
+                //}
 
                 if (user.DeveloperSpecialityId == 2
                     && currentTeam.CurrentNumFrontEnd < currentTeam.ReqNumFrontEnd)
@@ -128,11 +129,11 @@
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumFrontEnd++;
                 }
-                else if (user.DeveloperSpecialityId == 2
-                         && currentTeam.CurrentNumFrontEnd >= currentTeam.ReqNumFrontEnd)
-                {
-                    MessageBox.Show(this, "Front-end possitions are full!");
-                }
+                //else if (user.DeveloperSpecialityId == 2
+                //         && currentTeam.CurrentNumFrontEnd >= currentTeam.ReqNumFrontEnd)
+                //{
+                //    MessageBox.Show(this, "Front-end possitions are full!");
+                //}
 
                 if (user.DeveloperSpecialityId == 3
                     && currentTeam.CurrentNumQA < currentTeam.ReqNumQA)
@@ -140,11 +141,11 @@
                     user.TeamId = currentTeamID;
                     currentTeam.CurrentNumQA++;
                 }
-                else if (user.DeveloperSpecialityId == 3
-                         && currentTeam.CurrentNumQA >= currentTeam.ReqNumQA)
-                {
-                    MessageBox.Show(this, "QA possitions are full!");
-                }
+                //else if (user.DeveloperSpecialityId == 3
+                //         && currentTeam.CurrentNumQA >= currentTeam.ReqNumQA)
+                //{
+                //    MessageBox.Show(this, "QA possitions are full!");
+                //}
 
                 context.SaveChanges();
 
@@ -155,7 +156,7 @@
                 index = Convert.ToInt32(e.CommandArgument);
                 row = grid.Rows[index];
                 userId = row.Cells[0].Text;
-                Response.Redirect("~/Views/Manage/Users/UserDetails.aspx?id=" + userId);
+                Response.Redirect("~/Views/Users/UserDetails.aspx?id=" + userId);
             }
         }
 
@@ -193,7 +194,7 @@
                 index = Convert.ToInt32(e.CommandArgument);
                 row = grid.Rows[index];
                 userId = row.Cells[0].Text;
-                Response.Redirect("~/Views/Manage/Users/UserDetails.aspx?id=" + userId);
+                Response.Redirect("~/Views/Users/UserDetails.aspx?id=" + userId);
             }
         }
 
@@ -243,7 +244,7 @@
 
             currentTeam.TeamStatusId = 4;
             EndBtn.Visible = false;
-
+            currentProject.EndDate = DateTime.Now.ToShortDateString();
             context.SaveChanges();
             Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
 
@@ -260,8 +261,13 @@
             var userNames = new List<string>();
             foreach (var user in currentTeam.Users)
             {
+                user.LastProjectInfo = string.Format("Project name: {0}, End date: {1}, Result: Successful", currentProject.Name, currentProject.EndDate);
                 user.PastProjectCount++;
                 user.RankPoints += 10;
+                if (user.UserRankId==1)
+                {
+                    user.UserRankId++; ;
+                }
                 if (user.RankPoints == 100 && user.UserRankId != 8)
                 {
                     user.UserRankId++;
@@ -275,7 +281,7 @@
                 user.UserStatusId = 1;
             }
 
-            currentProject.ProjectStatusId = 4;
+            currentProject.ProjectStatusId = 5;
             currentProject.TeamId = null;
 
             context.Teams.Remove(currentTeam);
@@ -300,6 +306,7 @@
 
             foreach (var user in currentTeam.Users)
             {
+                user.LastProjectInfo = string.Format("Project name: {0}, End date: {1}, Result: Unsuccessful", currentProject.Name, currentProject.EndDate);
                 user.PastProjectCount++;
                 user.RankPoints -= 10;
                 if (user.RankPoints < 0)
@@ -312,7 +319,7 @@
                 user.TeamId = null;
             }
 
-            currentProject.ParticipantsList = String.Join(",", userNames);
+            currentProject.ParticipantsList = String.Join(", ", userNames);
             userNames.Clear();
             currentProject.ProjectStatusId = 4;
             currentProject.TeamId = null;
@@ -352,8 +359,8 @@
             {
                 case "1": sort = x => x.Name; break;
                 case "2": sort = x => x.Speciality; break;
-                case "3": sort = x => x.RankId; break;
-                case "4": sort = x => x.ProjectCount; break;
+                case "3": sort = x => x.RankId.ToString(); break;
+                case "4": sort = x => x.ProjectCount.ToString(); break;
             }
 
             if (filter2 == "2")
@@ -422,6 +429,12 @@
                     break;
             }
             return searchCriteria;
+        }
+
+        protected void PrjDetailsBtn_Click(object sender, EventArgs e)
+        {
+            queryStringID = int.Parse(Request.QueryString["id"]);
+            Response.Redirect("/Views/Manage/Projects/Details.aspx?id=" + queryStringID);
         }
     }
 }

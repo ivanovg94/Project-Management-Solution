@@ -95,6 +95,7 @@
                 StatusLabel.Text = currentUser.UserStatus.Name;
                 RankPointsTb.Text = currentUser.RankPoints.ToString();
                 RankTb.Text = currentUser.UserRank.RankName;
+                LastProjectInfoValue.Text = currentUser.UserRankId == 1 ? "-" : currentUser.LastProjectInfo;
                 switch (currentUser.UserStatusId)
                 {
                     case 1: StatusLabel.ForeColor = Color.Green; break;
@@ -113,7 +114,7 @@
                     });
                 }
                 devSpec.Clear();
-                DevSpecDdl.SelectedIndex = currentUser.DeveloperSpecialityId-1;
+                DevSpecDdl.SelectedIndex = currentUser.DeveloperSpecialityId - 1;
 
                 //fill language list with all possible selections
                 var languages = db.ProgrammingLanguages.ToList();
@@ -220,6 +221,8 @@
                 LanguagesCbl.Enabled = false;
                 DevSpecDdl.Visible = false;
 
+                ChangePassword.Visible = true;
+
                 SaveDataButton.Text = "Edit profile";
                 Response.Redirect("~/Account/Manage");
 
@@ -243,6 +246,7 @@
                 ExperienceTextArea.Disabled = false;
                 LanguagesCbl.Enabled = true;
                 SaveDataButton.Text = "Save changes";
+                ChangePassword.Visible = false;
             }
         }
     }
