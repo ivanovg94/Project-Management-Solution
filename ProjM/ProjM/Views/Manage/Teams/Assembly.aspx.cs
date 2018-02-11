@@ -247,8 +247,7 @@
             currentProject.EndDate = DateTime.Now.ToShortDateString();
             context.SaveChanges();
             Response.Redirect("~/Views/Manage/Teams/Assembly.aspx?id=" + currentTeamID);
-
-        }
+        }   
 
         protected void SuccessfulBtn_Click(object sender, EventArgs e)
         {

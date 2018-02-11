@@ -430,7 +430,6 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamStatus.cs" />
     <Compile Include="Models\UserRank.cs" />
-    <Compile Include="Models\UserStat.cs" />
     <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Sessions\MySession.cs" />
     <Compile Include="ViewModels\DevVM.cs" />

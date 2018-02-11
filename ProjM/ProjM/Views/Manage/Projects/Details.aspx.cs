@@ -12,8 +12,12 @@
     {
         ProjMDbContext context = new ProjMDbContext();
         Project currentProject;
+        //static string prevPage = String.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            //prevPage = Request.UrlReferrer.ToString();
+
             int queryStringID = int.Parse(Request.QueryString["id"]);
             currentProject = context.Projects.Find(queryStringID);
 
@@ -90,11 +94,13 @@
 
         protected void BackBtn_Click(object sender, EventArgs e)
         {
+            //Response.Redirect(prevPage);
 
 
             if (User.IsInRole("hr"))
-            {int queryStringID = int.Parse(Request.QueryString["id"]);
-                var currentProject = context.Projects.Find(queryStringID);                
+            {
+                int queryStringID = int.Parse(Request.QueryString["id"]);
+                var currentProject = context.Projects.Find(queryStringID);
                 Response.Redirect("~/Views/Manage/Projects/All.aspx");
             }
             else

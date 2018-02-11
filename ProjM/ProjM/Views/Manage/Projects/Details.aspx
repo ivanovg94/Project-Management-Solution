@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                  <div class="col-lg-12" id="endDatePanel" runat="server" visible="false">
+                <div class="col-lg-12" id="endDatePanel" runat="server" visible="false">
                     <div class="form-group">
                         <label for="EndDateTb" class="col-lg-2 control-label">End Date</label>
                         <div class="col-lg-10">
@@ -95,7 +95,7 @@
                         <asp:Button ID="EditBtn" CssClass="btn btn-default pull-right" OnClick="EditBtn_Click" runat="server" Text="Edit" />
                         <asp:Button ID="SaveBtn" CssClass="btn btn-default pull-right" Visible="false" OnClick="SaveBtn_Click" runat="server" Text="Save" />
                         <asp:Button ID="TeamBtn" CssClass="btn btn-primary pull-left" runat="server" Text="Team" OnClick="TeamBtn_Click" />
-                        <asp:Button ID="BackBtn" CssClass="btn btn-default pull-right" runat="server" Text="Back" OnClick="BackBtn_Click" Style="height: 47px" />
+                        <asp:Button ID="BackBtn" CssClass="btn btn-default pull-right" runat="server" Text="Back" OnClick="BackBtn_Click" />
 
                     </div>
                 </div>
